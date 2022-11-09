@@ -20,9 +20,9 @@ export default function Home() {
   dfjksdnbkjfcbsdjkfbjkb
 </Box>
 
-<Button onClick={handleClick}>
+{/* <Button onClick={handleClick}>
   Click Here
-</Button>
+</Button> */}
     </div>
   )
 }
