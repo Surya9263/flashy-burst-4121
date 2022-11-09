@@ -1,0 +1,9 @@
+.searchInput::placeholder{
+    /* color: black; */
+
+}
+
+.searchInput{
+    /* border: none; */
+    border-bottom: none;
+}
