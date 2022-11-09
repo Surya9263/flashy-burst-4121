@@ -1,4 +1,4 @@
-import { categoryC } from "../../../controller";
+import { subcategoryC } from "../../../controller";
 import { NextApiRequest, NextApiResponse } from "next";
 import { connectDB } from "../../../lib";
 
@@ -6,7 +6,9 @@ import { connectDB } from "../../../lib";
 export default async function categoryOpr(req:NextApiRequest, res:NextApiResponse){
          const id = req.query.id as string
          const data = req.body.data
+
          await connectDB()
+        
          if(!id){
             return res.status(404).send("Provide a Valid ID")
          }
@@ -15,7 +17,7 @@ export default async function categoryOpr(req:NextApiRequest, res:NextApiRespons
             
             if(req.method==="GET")
             {
-                let data =  await  categoryC().getSingle(id)
+                let data =  await  subcategoryC().getSingle(id)
                 if(data.error){
                     return res.status(data.code).send(data.errorMsg)
                 }
@@ -24,7 +26,7 @@ export default async function categoryOpr(req:NextApiRequest, res:NextApiRespons
 
             if(req.method==="DELETE")
             {
-                let data =  await categoryC().remove(id)
+                let data =  await subcategoryC().remove(id)
                 if(data.error){
                     return res.status(data.code).send(data.errorMsg)
                 }
@@ -34,11 +36,13 @@ export default async function categoryOpr(req:NextApiRequest, res:NextApiRespons
            
             if(req.method==="PATCH")
             {
+                console.log(req.body.data);
+                
                 if(!data){
                     return res.status(400).send("Provide valid data to update")
                 }
                 
-                let updatedData =  await categoryC().update(id, data)
+                let updatedData =  await subcategoryC().update(id, data)
 
                 if(updatedData.error){
                     return res.status(updatedData.code).send(updatedData.errorMsg)

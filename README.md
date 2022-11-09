@@ -10,4 +10,16 @@
 
 
 ### Tech Stacks used - 
-[NextJs](), [Chakra UI](), [Redux Toolkit](), [mongoose](), [axios]()
+[NextJs](), [Chakra UI](), [Redux Toolkit](), [mongoose](), [axios](), [React Icons](), [jsonwebtoken](), [argon2]()
+
+
+### Directory Structure - 
+- #### Controller Directory-
+> Contains all the controller to perform add, delete, update and get operation to mongodb Database.
+
+- ### Interface Directory
+> Contains all the typescript interface declaration required , for both ui and api, directory root contains interface file which is for api, and client directory contains all the inteface declarations required in UI side.
+
+
+
+<!-- MONGO_URI = "mongodb+srv://takeitnowdb:takeitnowdb@takeitnow.cbygn8f.mongodb.net/?retryWrites=true&w=majority" --
