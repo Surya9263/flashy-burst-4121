@@ -28,6 +28,8 @@ export interface IsubCategory {
     products?:Array<string>
 }
 
+
+
 export interface initialState {
     isLoading:boolean;
     isErro:boolean;
@@ -38,4 +40,13 @@ export interface initialState {
 export interface ICatRem {
     id:string;
     msg:string
+}
+
+
+
+export interface IsubCatInitState {
+    isLoading:boolean;
+    isErro:boolean;
+    errorMsg:string;
+    subcategories:Array<IsubCategory>
 }
