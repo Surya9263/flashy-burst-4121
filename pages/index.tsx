@@ -8,19 +8,19 @@ export default function Home() {
   
   return (
     <div className={styles.container}>
-      {/* <Head>
+      <Head>
         <title> ZARA</title>
         <meta name="description" content=" Purchase " />
         <link rel="icon" href="/favicon.ico" />
-      </Head> */}
+      </Head>
 
    
 
 <Box>
-  dfjksdnbkjfcbsdjkfbjkb
+
 </Box>
 
-<Button onClick={handleClick}>
+<Button >
   Click Here
 </Button>
     </div>

@@ -1,8 +1,7 @@
-import {Iuser} from '../interface/interface'
+import { ProductType } from "../models";
 
-
-const userController = ()=>{
-    async function add({name, email, password}:{name:string, email:string, password:string}){
+const ProdTypeControlelr = ()=>{
+    async function add(){
         
     }
     async function remove(){
@@ -23,4 +22,4 @@ const userController = ()=>{
     }
 }
 
-export default userController
+export default ProdTypeControlelr
