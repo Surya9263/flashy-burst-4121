@@ -12,12 +12,31 @@ import {
 
 } from "@chakra-ui/react"
 import { Category } from '../../../models'
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
+import { stringify } from 'querystring'
+import { addsubcategory } from '../../../store/subcategory/subCategorySlice'
 
 
 
 const subcategory = ()=>{
     const category   =  useAppSelector(store=>store.category)
-    
+    const dispatch = useAppDispatch()
+    const [subcatInfo, setSubcatInfo] = useState({name:"", cat:""}) 
+
+    const handleChnage = (e:ChangeEvent<HTMLInputElement|HTMLSelectElement>)=>{
+            const {name, value} = e.target
+            setSubcatInfo({...subcatInfo, [name]:value})
+        
+    }   
+
+    const addnewSubcategory = (e:FormEvent<HTMLFormElement>)=>{
+        e.preventDefault()
+        dispatch(addsubcategory(subcatInfo))
+    }
+
+    useEffect(()=>{
+        console.log(subcatInfo);
+    },[subcatInfo])
     return (
         <Box>
             <Head>
@@ -29,11 +48,12 @@ const subcategory = ()=>{
                   <AdminNav/>
             </Box>
                 
-                <Box> Add new Sub Category</Box>
+                <Box > Add new Sub Category</Box>
 
-                <form>
+                <form onSubmit={addnewSubcategory}>
                     <Flex direction="column" gap="20px">
-                    <Select>
+
+                    <Select onChange={handleChnage}  name="cat" placeholder='select category'>
                         
                         {category.categories.map((category)=>{
                             return (
@@ -42,11 +62,12 @@ const subcategory = ()=>{
                         })}
                     </Select>
 
-                <Input type="text" name="category"/>
-                <Button> Add New Sub Category </Button>
+                    <Input onChange={handleChnage} type="text" name="name" value={subcatInfo.name} placeholder='Type subcategory name'/>
+                    
+                    <Button type='submit'> Add New Sub Category </Button>
                     </Flex>
+                 </form>
 
-                </form>
             </Flex>
 
         </Box>

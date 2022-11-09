@@ -19,9 +19,10 @@ export const addsubcategory = createAsyncThunk(
 
 export const getAllsubcategory = createAsyncThunk(
     'subcategory/getall',
-        async({}, thunkapi)=>{
+        async(name:string, thunkapi)=>{
             try{
-                const res:AxiosResponse<Array<IsubCategory>> = await axios.get('/api/subcategory')                    
+                const res:AxiosResponse<Array<IsubCategory>> = await axios.get('/api/subcategory') 
+                console.log(res.data);                   
                 return res.data
             }catch(e:any){  
                 return thunkapi.rejectWithValue(e.message)
@@ -78,7 +79,7 @@ export const getAllsubcategory = createAsyncThunk(
 
 
    
-const categorySlice = createSlice({
+const suncategorySclice = createSlice({
     name:'slidereducer',
     initialState,
     reducers:{},
@@ -164,4 +165,4 @@ const categorySlice = createSlice({
 
 // 
 
-export default categorySlice.reducer
+export default suncategorySclice.reducer
