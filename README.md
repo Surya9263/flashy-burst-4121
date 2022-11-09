@@ -22,3 +22,5 @@
 
 
 
+
+<!-- MONGO_URI = "mongodb+srv://takeitnowdb:takeitnowdb@takeitnow.cbygn8f.mongodb.net/?retryWrites=true&w=majority" -->
