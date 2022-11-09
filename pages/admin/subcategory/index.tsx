@@ -24,8 +24,10 @@ const subcategory = ()=>{
                 <title> Subcategory Dashboard </title>
             </Head>
 
-        <AdminNav/>
             <Flex>
+            <Box w={["250px","250px","20%","20%"]}>     
+                  <AdminNav/>
+            </Box>
                 
                 <Box> Add new Sub Category</Box>
 

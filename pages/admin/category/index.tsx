@@ -47,9 +47,12 @@ export default function Admin() {
             <title> Take it Now Admin Dashboard </title>
         </Head>
 
-        <AdminNav/>
+       
 
         <Flex px={["15px"]}>
+            <Box w={["250px","250px","20%","20%"]}>     
+                 <AdminNav/>
+            </Box>
             <Box w="45%">
                 <Box py="10px" fontWeight="700">Add New Category </Box>
                 
@@ -90,10 +93,6 @@ export default function Admin() {
                             )
                          })}               
                 </Flex>
-            </Box>
-
-            <Box w="45%">
-                
             </Box>
 
         </Flex>
