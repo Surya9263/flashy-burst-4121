@@ -9,22 +9,22 @@ export const adminmenus = [
     link:"/admin/"
   },
   {
-    id:1,
+    id:2,
     name:"Category",
     link:"/admin/category"
   },
   {
-    id:1,
+    id:3,
     name:"Sub Category",
     link:"/admin/subcategory"
   },
   {
-    id:1,
+    id:4,
     name:"Product",
     link:"/admin/product"
   },
   {
-    id:1,
+    id:5,
     name:"Home Slide",
     link:"/admin/slide"
   }

@@ -1,4 +1,4 @@
-import { SubCategory } from "../models";
+import { SubCategory, Category } from "../models";
 // imported Subcategory Model
 
 const subcategoryController=()=>{
@@ -13,6 +13,7 @@ const subcategoryController=()=>{
             }
             
             let newSub = await SubCategory.create({name:data.name, catInfo:data.cat})
+            await Category.updateOne({_id:newSub.catInfo}, {$push:{subCategory:newSub._id}})
 
             return {error:false, errorMsg:"", data:newSub, code:200} 
 
