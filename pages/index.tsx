@@ -17,10 +17,10 @@ export default function Home() {
    
 
 <Box>
-  dfjksdnbkjfcbsdjkfbjkb
+  
 </Box>
 
-<Button onClick={handleClick}>
+<Button>
   Click Here
 </Button>
     </div>
