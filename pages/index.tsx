@@ -7,21 +7,6 @@ export default function Home() {
   
   return (
     <div >
-      <Head>
-        <title> ZARA</title>
-        <meta name="description" content=" Purchase " />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-   
-
-<Box>
-
-</Box>
-
-<Button >
-  Click Here
-</Button>
     </div>
   )
 }
