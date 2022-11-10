@@ -1,55 +1,99 @@
 import {Box, Input, Button, Flex, Text, LinkBox} from '@chakra-ui/react'
 import Link from 'next/link';
+import { ChangeEvent, useState } from 'react';
+
+export interface User {
+	email: string;
+	password: string;
+}
 
 
 
 export default function Login() {
 
+    const [userCredentials, setUserCredentials] = useState<User>({
+		email: '',
+		password: '',
+	});
+
+	
+
+    // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+	// 	const { value, name } = event.target;
+
+	// 	setUserCredentials({ ...userCredentials, [name]: value });
+	// };
+
+    function handleChange(e:ChangeEvent<HTMLInputElement>) 
+  {
+
+    const {name,value} = e.target
+    setUserCredentials({...userCredentials,[name]:value});
+    console.log(userCredentials);
+}
+
   
     return (
-        <Box>
+        <>
             
             <Flex gap={200} mt={200} ml={200}>
                 <Box  h={"auto"} w={250} >
                     <Text fontSize={22}><b>LOG IN</b></Text>
-                    <Input 
-                        placeholder='E-MAIL' 
-                        mt={10} 
-                        focusBorderColor="none"
-                        borderLeft={"none"} 
-                        borderTop={"none"} 
-                        borderRight={"none"} 
-                        borderRadius={"none"}
-                    />
-                    <Input 
-                        placeholder='PASSWORD' 
-                        mt={5}
-                        focusBorderColor="none"
-                        borderLeft={"none"} 
-                        borderTop={"none"} 
-                        borderRight={"none"} 
-                        borderRadius={"none"}
-                    />
-                    <Text 
-                        fontSize={9} 
-                        mt={10}
-                        >
-                        HAVE YOU FORGOTTEN YOUR PASSWORD?
-                    </Text>
-                    <Button
-                        fontSize={18} 
-                        mt={50}
-                        size='md'
-                        height='45px'
-                        width='250px'
-                        border='0'
-                        bg={"black"}
-                        color={"white"}
-                        borderRadius={"none"}
-                        variant='none'
-                        >
-                        LOG IN
-                    </Button>
+                    <form>
+                        <Input 
+                            id='email'
+                            type='email'
+                            name="email"
+                            onChange={handleChange}
+                            // label='password'
+                            value={userCredentials.email}
+                            required
+                            placeholder='E-MAIL' 
+                            mt={10} 
+                            focusBorderColor="none"
+                            borderLeft={"none"} 
+                            borderTop={"none"} 
+                            borderRight={"none"} 
+                            borderRadius={"none"}
+                        />
+                        <Input
+                            id='password'
+                            type='password'
+                            name="password"
+                            value={userCredentials.password}
+                            onChange={handleChange}
+					        // label='password'
+                            required 
+                            placeholder='PASSWORD' 
+                            mt={5}
+                            focusBorderColor="none"
+                            borderLeft={"none"} 
+                            borderTop={"none"} 
+                            borderRight={"none"} 
+                            borderRadius={"none"}
+                        />
+                        <Text 
+                            fontSize={9} 
+                            mt={10}
+                            >
+                            HAVE YOU FORGOTTEN YOUR PASSWORD?
+                        </Text>
+                        <Input 
+                            placeholder='LOG IN'
+                            type="submit"
+                            fontSize={18} 
+                            mt={50}
+                            size='md'
+                            height='45px'
+                            width='250px'
+                            border='0'
+                            bg={"black"}
+                            color={"white"}
+                            borderRadius={"none"}
+                            variant='none'
+                            />
+                            
+                    </form>
                 </Box>
 
                 <Box h={400} w={400}>
@@ -75,7 +119,7 @@ export default function Login() {
                         borderRadius={"none"}
                         variant='none'
                         >
-                        <Link href="/pages/signup/index.tsx">CREATE ACCOUNT</Link>
+                        <Link href="/pages/signUp">CREATE ACCOUNT</Link>
                     </Button>
                     
                 </Box>
@@ -122,7 +166,7 @@ export default function Login() {
                     
                 </Box>
             </Flex>
-        </Box>
+        </>
     )
   }
   

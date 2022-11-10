@@ -20,6 +20,7 @@ export default function SignUp() {
                         <Radio value='2'>COMPANEY</Radio>
                     </Stack>
                     </RadioGroup>
+                    <form>
                     <Input 
                         placeholder='E-MAIL' 
                         mt={5} 
@@ -92,6 +93,7 @@ export default function SignUp() {
                         <InputLeftAddon children='+91' />
                         <Input type='tel' placeholder='TELEPHONE' />
                     </InputGroup>
+                    </form>
 
                     <Stack spacing={5} direction='column' mt={5}>
                         <Checkbox size='md' colorScheme='blue'>
