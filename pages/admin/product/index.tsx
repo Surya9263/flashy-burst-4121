@@ -2,11 +2,17 @@ import { Flex, Box, Input, FormLabel, Button,Select, Text } from "@chakra-ui/rea
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { AdminNav } from '../../../components'
 import { useAppDispatch, useAppSelector } from "../../../store/hook";
+import {
+  addProduct,
+  deleteProduct,
+  getAllProduct,
+} from "../../../store/product/productSlice";
 import Head from "next/head";
 export default function ProductP() {
   const dispatch = useAppDispatch();
   const category = useAppSelector((store) => store.category);
   const subcategory= useAppSelector((store) => store.subcategory)
+  const gproduct = useAppSelector((store) => store.product)
   const [product, setProduct] = useState({
     name: "",
     price: "",
@@ -29,13 +35,13 @@ export default function ProductP() {
 
   const handleAddProduct = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //  await dispatch(addProduct(product));
+      await dispatch(addProduct(product));
       console.log(product);
     
   };
 
   const handleDel = (id: string) => {
-    // dispatch(deleteProduct(id));
+     dispatch(deleteProduct(id));
   };
   
   
@@ -186,7 +192,7 @@ export default function ProductP() {
               <Box>View</Box>
             </Flex>
 
-            {/* {categorydata.categories?.map((product) => {
+            {gproduct.products?.map((product) => {
               return (
                 <Flex key={product._id} gap="20px" border="1px solid #ccc">
                   <Box w="30%">{product.name}</Box>
@@ -203,7 +209,7 @@ export default function ProductP() {
                   </Box>
                 </Flex>
               );
-            })} */}
+            })}
           </Flex>
         </Box>
       </Flex>
