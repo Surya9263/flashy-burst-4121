@@ -46,10 +46,60 @@ const forward = ()=>{
 
   
   return (
-    <div>
-      
+  
+    <Box position={"relative"}>
+       
 
+      <ClientNavbar />
+        {category.categories[catIndex]?.slides?.map((slide)=>{
+          return (
+           <Box  mx="auto">
+             <UiImage slide={slide} key={slide._id}/>
+            </Box>
+          )
+        })}
+ 
+    
+     {!footView &&
+     
+     <Box>
 
-    </div>
+ 
+        {catIndex>0 && <Button variant={"outline"} colorScheme="orange" borderRadius={"none"} position="fixed" top={"45vh"} onClick={previous}>
+            <MdArrowBackIosNew /> {category.categories[catIndex-1].name}
+          </Button>
+        }
+
+        {catIndex<category.categories?.length-1 &&  
+          <Button variant={"outline"} colorScheme="orange" borderRadius={"none"} position="fixed" top={"45vh"} right="0px" onClick={forward}>
+            {category.categories[catIndex+1].name} <MdArrowForwardIos /> 
+          </Button>
+          }
+      </Box>
+    }
+
+     {!footView &&
+      <Flex gap={"20px"} position={"fixed"} bottom={"2vh"} justify={"center"} w="100%" >
+
+        {slides?.map((slide)=>{
+            return (
+              
+                    category.categories[catIndex]?._id===slide.category._id 
+                    &&
+                    <Box fontWeight={"700"} textAlign="center" _hover={{cursor:"pointer"}} onClick={()=>{
+                      jumpToReleventDiv(slide._id)
+                    }}>
+                      {slide.subcategory.name}
+                    </Box>
+            )
+        })}
+
+        </Flex> 
+      }
+
+        <Box ref={footerRef}>
+            <Footer/>
+        </Box>
+    </Box>
   )
 }
