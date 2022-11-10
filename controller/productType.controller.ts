@@ -1,6 +1,6 @@
 import { ProductType } from "../models";
 
-const ProdTypeControlelr = ()=>{
+const ProdTypeController = ()=>{
     async function add(){
         
     }
@@ -22,4 +22,4 @@ const ProdTypeControlelr = ()=>{
     }
 }
 
-export default ProdTypeControlelr
+export default ProdTypeController
