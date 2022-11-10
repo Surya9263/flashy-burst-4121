@@ -5,7 +5,7 @@ import { connectDB } from "../../../lib";
 
 export default async function categoryOpr(req:NextApiRequest, res:NextApiResponse){
          const id = req.query.id as string
-         const data = req.query.data
+         const data = req.body.data
          await connectDB()
          if(!id){
             return res.status(404).send("Provide a Valid ID")
@@ -50,6 +50,5 @@ export default async function categoryOpr(req:NextApiRequest, res:NextApiRespons
         }catch(e:any){
             return res.status(500).send(e.message)
         }
-
 
 }

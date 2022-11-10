@@ -1,5 +1,3 @@
-
-import { connectDB } from '../lib'
 import {Iuser} from '../interface/interface'
 
 

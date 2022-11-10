@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios,{AxiosResponse} from 'axios'
-import { CIcategory, initialState } from "../../interface/client/category.interface";
+import { CIcategory, ICatRem, initialState } from "../../interface/client/category.interface";
 
 
 export const addCategory = createAsyncThunk(
@@ -19,14 +19,51 @@ export const addCategory = createAsyncThunk(
 )
 
 
+export const getallCategory = createAsyncThunk(
+    'category/getall',
+        async(name:string, thunkapi)=>{
+            try{
+                const res:AxiosResponse<Array<CIcategory>> = await axios.get('/api/category')    
+                return res.data
+            }catch(e:any){  
+                return thunkapi.rejectWithValue(e.message)
+            }
+        }
+)
+
+export const deleteCategory = createAsyncThunk(
+    'category/delete',
+        async(id:string, thunkapi)=>{
+            try{
+                const res:AxiosResponse<ICatRem> = await axios.delete(`/api/category/${id}`)    
+                return res.data
+            }catch(e:any){  
+                return thunkapi.rejectWithValue(e.message)
+            }
+        }
+)
+
+export const updateCategory = createAsyncThunk(
+    'category/update',
+        async({id, data}:{id:string, data:any}, thunkapi)=>{
+            try{
+                const res:AxiosResponse<CIcategory> = await axios.patch(`/api/category/${id}`, {
+                    data:data
+                })    
+                return res.data
+            }catch(e:any){  
+                return thunkapi.rejectWithValue(e.message)
+            }
+        }
+)
+
+
 const initialState:initialState  = {
     isErro:false,
     isLoading:false,
     errorMsg:"",
     categories:[]
 }
-
-
 
 const categorySlice = createSlice({
     name:'caregoryslice',
@@ -48,6 +85,64 @@ const categorySlice = createSlice({
             state.isLoading = false;
             state.errorMsg = "";
             state.categories = [...state.categories, action.payload]
+        })
+        .addCase(getallCategory.pending, (state, action)=>{
+            state.isErro = false;
+            state.isLoading = true;
+            state.errorMsg = "";
+        })
+        .addCase(getallCategory.rejected, (state, action:PayloadAction<any>)=>{
+            state.isErro = true;
+            state.isLoading = false;
+            state.errorMsg = action.payload;
+        })
+        .addCase(getallCategory.fulfilled, (state, action:PayloadAction<Array<CIcategory>>)=>{
+            state.isErro = false;
+            state.isLoading = false;
+            state.errorMsg = "";
+            state.categories = action.payload;
+        })
+        .addCase(deleteCategory.pending, (state, action)=>{
+            state.isErro = false;
+            state.isLoading = true;
+            state.errorMsg = "";
+        })
+        .addCase(deleteCategory.rejected, (state, action:PayloadAction<any>)=>{
+            state.isErro = true;
+            state.isLoading = false;
+            state.errorMsg = action.payload;
+        })
+        .addCase(deleteCategory.fulfilled, (state, action:PayloadAction<ICatRem>)=>{
+            state.isErro = false;
+            state.isLoading = false;
+            state.errorMsg = "";
+            state.categories = state.categories.filter((category)=>{
+                    return category._id!==action.payload.id
+            })
+
+        })
+        .addCase(updateCategory.pending, (state, action)=>{
+            state.isErro =false;
+            state.isLoading = true;
+            state.errorMsg = "";
+        })
+        .addCase(updateCategory.rejected, (state, action:PayloadAction<any>)=>{
+            state.isErro = true;
+            state.isLoading = false;
+            state.errorMsg = action.payload.errorMsg;
+        })
+        .addCase(updateCategory.fulfilled, (state, action:PayloadAction<CIcategory>)=>{
+            state.isErro = false;
+            state.isLoading = false;
+            state.errorMsg = "";
+            state.categories = state.categories.map((category)=>{
+                    
+                if(category._id===action.payload._id){
+                    return action.payload;
+                }else{
+                    return category;
+                }
+        })
         })
     },
 })

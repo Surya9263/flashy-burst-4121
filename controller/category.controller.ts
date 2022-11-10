@@ -1,5 +1,4 @@
-import { connectDB } from '../lib'
-import {Category} from '../models/'
+import {Category, SubCategory} from '../models/'
 
 const categoryController = ()=>{
     
@@ -14,7 +13,6 @@ const categoryController = ()=>{
             if(existCat){
                     return {error:true, errorMsg:"Category Name is Already Exist", data:'', code:409}
             }
-
             let newCat = await Category.create({name:catName})
             return {error:false, errorMsg:"", data:newCat, code:200}
 
@@ -35,9 +33,9 @@ const categoryController = ()=>{
         if(!existCat){
             return {error:true, errorMsg:" No Category exist with the id provide an Valid ID", data:'', code:404}
         }
-
+        await SubCategory.deleteMany({catInfo:existCat._id})
         await Category.deleteOne({_id:id})
-        return {error:false, errorMsg:"", data:{id:id, msg:id+"Deleted Successfully"}, code:200}
+        return {error:false, errorMsg:"", data:{id:id, msg:"Deleted Successfully"}, code:200}
 
     }
 
@@ -61,7 +59,7 @@ const categoryController = ()=>{
 
 
     async function getAll(){
-        let allcat = await Category.find({})
+        let allcat = await Category.find({}).populate('slides').populate('subCategory')
         if(allcat.length===0){
             return { error:true, errorMsg:"Category List is Empty", data:allcat, code:200 }
         }
@@ -73,7 +71,7 @@ const categoryController = ()=>{
             return {error:true, errorMsg:"id is required", data:'', code:404}
         }
 
-        let existCat = await Category.findOne({_id:id})
+        let existCat = await Category.findOne({_id:id}).populate('slides').populate('subCategory')
 
         if(!existCat){
             return {error:true, errorMsg:" No Category exist with the id provide an Valid ID", data:'', code:404}
