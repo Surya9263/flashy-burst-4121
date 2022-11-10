@@ -131,18 +131,18 @@ const SlideHome = ()=>{
 
                         <Flex direction="column"  maxH={"90vh"} overflow="scroll" minW="320px">
                             
-                            <Flex key={'titleflex'} gap="20px" border="1px solid #ccc" h="50px" align="center" justify={"center"}>
+                            <Flex key={'titleflex'} gap="20px"  h="50px" align="center" justify={"center"} minW={["200%","200%","150%","150%"]}>
                             <Text textAlign={"center"} fontWeight={"700"} fontSize={"24px"}> Slids List </Text>
                             </Flex>
 
                             {slide.slides?.map((slide)=>{
                                 return (
-                                    <Flex key={slide._id} gap="20px" border="1px solid #ccc" px="20px" py="10px">
+                                    <Flex key={slide._id} gap="20px" border="1px solid #ccc" px="20px" py="10px" minW={["200%","200%","150%","150%"]} >
                                         <Box w="20%"> {slide.category?.name}</Box>
                                         <Box w="20%"> {slide.subcategory?.name}</Box>
                                         <Box> {slide.urlType}</Box>
                                         <Box> {slide.navigateUrl}</Box>
-                                        <Box> {slide.imgurl}</Box>
+                                        <Box w="250px"> {slide.imgurl}</Box>
                                                                               
                                         <Button colorScheme={"orange"} onClick={()=>handledelte(slide._id)} p={"0"}>
                                             <BsFillTrashFill fontSize={"20px"}/>
