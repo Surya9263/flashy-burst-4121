@@ -1,4 +1,4 @@
-import {Category} from '../models/'
+import {Category, SubCategory} from '../models/'
 
 const categoryController = ()=>{
     
@@ -33,7 +33,7 @@ const categoryController = ()=>{
         if(!existCat){
             return {error:true, errorMsg:" No Category exist with the id provide an Valid ID", data:'', code:404}
         }
-
+        await SubCategory.deleteMany({catInfo:existCat._id})
         await Category.deleteOne({_id:id})
         return {error:false, errorMsg:"", data:{id:id, msg:"Deleted Successfully"}, code:200}
 

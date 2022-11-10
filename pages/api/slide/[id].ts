@@ -36,8 +36,7 @@ const slideid =async(req:NextApiRequest, res:NextApiResponse)=>{
       
        if(req.method==="PATCH")
        {
-           console.log(req.body.data);
-           
+                     
            if(!data){
                return res.status(400).send("Provide valid data to update")
            }
