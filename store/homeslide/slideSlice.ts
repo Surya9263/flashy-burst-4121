@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios,{AxiosResponse} from 'axios'
-import { ICatRem, Islide } from "../../interface/client/category.interface";
+import { ICatRem } from "../../interface/client/category.interface";
+import {Islide} from '../../interface/client/slides'
 import { ISlideInitState } from "../../interface/client/slides";
 
 export const addSlide = createAsyncThunk(
@@ -57,7 +58,9 @@ export const getAllSlides = createAsyncThunk(
         'slide/update',
             async({id, data}:{id:string, data:any}, thunkapi)=>{
                 try{
-                    const res:AxiosResponse<Islide> = await axios.patch(`/api/slide/${id}`, data)    
+                    const res:AxiosResponse<Islide> = await axios.patch(`/api/slide/${id}`, {
+                        data:data
+                    })    
                     return res.data
                 }catch(e:any){  
                     return thunkapi.rejectWithValue(e.message)

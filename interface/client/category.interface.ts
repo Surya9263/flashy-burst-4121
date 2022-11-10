@@ -22,7 +22,7 @@ export interface Islide {
 
 export interface IsubCategory {
     _id:string
-    catInfo:string;
+    catInfo:CIcategory;
     name:string;
     slides?:Array<string>;
     products?:Array<string>

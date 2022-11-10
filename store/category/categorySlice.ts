@@ -22,12 +22,8 @@ export const addCategory = createAsyncThunk(
 export const getallCategory = createAsyncThunk(
     'category/getall',
         async(name:string, thunkapi)=>{
-           
-            console.log("inside getFunc");
             try{
                 const res:AxiosResponse<Array<CIcategory>> = await axios.get('/api/category')    
-                console.log(res.data);
-                 
                 return res.data
             }catch(e:any){  
                 return thunkapi.rejectWithValue(e.message)
@@ -40,6 +36,20 @@ export const deleteCategory = createAsyncThunk(
         async(id:string, thunkapi)=>{
             try{
                 const res:AxiosResponse<ICatRem> = await axios.delete(`/api/category/${id}`)    
+                return res.data
+            }catch(e:any){  
+                return thunkapi.rejectWithValue(e.message)
+            }
+        }
+)
+
+export const updateCategory = createAsyncThunk(
+    'category/update',
+        async({id, data}:{id:string, data:any}, thunkapi)=>{
+            try{
+                const res:AxiosResponse<CIcategory> = await axios.patch(`/api/category/${id}`, {
+                    data:data
+                })    
                 return res.data
             }catch(e:any){  
                 return thunkapi.rejectWithValue(e.message)
@@ -110,6 +120,29 @@ const categorySlice = createSlice({
                     return category._id!==action.payload.id
             })
 
+        })
+        .addCase(updateCategory.pending, (state, action)=>{
+            state.isErro =false;
+            state.isLoading = true;
+            state.errorMsg = "";
+        })
+        .addCase(updateCategory.rejected, (state, action:PayloadAction<any>)=>{
+            state.isErro = true;
+            state.isLoading = false;
+            state.errorMsg = action.payload.errorMsg;
+        })
+        .addCase(updateCategory.fulfilled, (state, action:PayloadAction<CIcategory>)=>{
+            state.isErro = false;
+            state.isLoading = false;
+            state.errorMsg = "";
+            state.categories = state.categories.map((category)=>{
+                    
+                if(category._id===action.payload._id){
+                    return action.payload;
+                }else{
+                    return category;
+                }
+        })
         })
     },
 })

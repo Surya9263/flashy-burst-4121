@@ -11,7 +11,7 @@ async function SubCategory(req:NextApiRequest, res:NextApiResponse){
     if(req.method==="GET")
     {
         const categories = await subcategoryC().getAll();
-        console.log(categories);
+    
         
         if(categories.error){
             return res.status(categories.code).send(categories.errorMsg)

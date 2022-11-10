@@ -1,4 +1,4 @@
-import { SubCategory, Category } from "../models";
+import { SubCategory, Category, Slide } from "../models";
 // imported Subcategory Model
 
 const subcategoryController=()=>{
@@ -9,14 +9,13 @@ const subcategoryController=()=>{
     async function add(data:{name:string, cat:string}){
            
             if(!data.name||!data.cat){
-                return {error:true, errorMsg:"id and catId both are required is required ", data:'', code:404} 
+                return {error:true, errorMsg:"name and cat both are required is required ", data:'', code:404} 
             }
             
             let newSub = await SubCategory.create({name:data.name, catInfo:data.cat})
             await Category.updateOne({_id:newSub.catInfo}, {$push:{subCategory:newSub._id}})
-
-            return {error:false, errorMsg:"", data:newSub, code:200} 
-
+            let newSubCat =  await SubCategory.findOne({_id:newSub._id}).populate("slides").populate("catInfo")
+            return {error:false, errorMsg:"", data:newSubCat, code:200} 
     }   
 
     // Function to delete one subcategory using id
@@ -27,15 +26,18 @@ const subcategoryController=()=>{
         }
         // if id is not provided return back with error msg 
 
-        let existCat = await SubCategory.findOne({_id:id}) 
+        let existCat = await SubCategory.findOne({_id:id})
         // finding the category with the given id 
 
         if(!existCat){
             return {error:true, errorMsg:" No SubCategory exist with the id provide an Valid ID", data:'', code:404}
         }
         // if subcategory not matches with given id return back with error
-
+        
+        await Category.updateOne({name:existCat.catInfo.name}, {$pull:{subCategory:id}})
+        await Slide.deleteMany({subCategory:existCat._id})
         await SubCategory.deleteOne({_id:id})
+        
         return {error:false, errorMsg:"", data:{id:id, msg:id+" Deleted Successfully"}, code:200}
           // delete the subcategory and return id and success message
 
@@ -60,7 +62,7 @@ const subcategoryController=()=>{
         await SubCategory.updateOne({_id:id}, {$set:{...data}})
         // update the subcategory set the updated data
 
-        let updatedCat = await SubCategory.findOne({_id:id})
+        let updatedCat = await SubCategory.findOne({_id:id}).populate("slides").populate("catInfo")
         //  get the updated data from database using the given id
 
         return {error:false, errorMsg:"", data:updatedCat, code:200}
@@ -69,7 +71,7 @@ const subcategoryController=()=>{
 
     // Function to get all the subcategories from database
     async function getAll(){
-        let allcat = await SubCategory.find({}).populate("slides")
+        let allcat = await SubCategory.find({}).populate("slides").populate("catInfo")
         if(allcat.length===0){
             return { error:true, errorMsg:"SubCategory List is Empty", data:allcat, code:200 }
         }
@@ -82,7 +84,7 @@ const subcategoryController=()=>{
                     return {error:true, errorMsg:"id is required", data:'', code:404}
                 }
 
-                let existsubCat = await SubCategory.findOne({_id:id}).populate("slides")
+                let existsubCat = await SubCategory.findOne({_id:id}).populate("slides").populate("catInfo")
 
                 if(!existsubCat){
                     return {error:true, errorMsg:" No SubCategory exist with the id provide an Valid ID", data:'', code:404}
