@@ -22,7 +22,7 @@ export const getAllsubcategory = createAsyncThunk(
         async(name:string, thunkapi)=>{
             try{
                 const res:AxiosResponse<Array<IsubCategory>> = await axios.get('/api/subcategory') 
-                console.log(res.data);                   
+                                  
                 return res.data
             }catch(e:any){  
                 return thunkapi.rejectWithValue(e.message)
@@ -60,7 +60,9 @@ export const getAllsubcategory = createAsyncThunk(
         'subcategory/update',
             async({id, data}:{id:string, data:any}, thunkapi)=>{
                 try{
-                    const res:AxiosResponse<IsubCategory> = await axios.patch(`/api/subcategory/${id}`, data)    
+                    const res:AxiosResponse<IsubCategory> = await axios.patch(`/api/subcategory/${id}`, {
+                        data:data
+                    })    
                     return res.data
                 }catch(e:any){  
                     return thunkapi.rejectWithValue(e.message)
