@@ -50,7 +50,6 @@ export default function ClientNavbar() {
                     <Box fontSize="20px"  textTransform={"uppercase"}>
                         <Link href="/help">
                             HELP
-                            
                         </Link>
                     </Box>
                 </Show>
