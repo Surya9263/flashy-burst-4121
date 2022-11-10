@@ -1,35 +1,36 @@
-import { ProdTypeController } from "../../../controller";
+import { productC } from "../../../controller";
 import { NextApiRequest, NextApiResponse } from "next";
 import { connectDB } from "../../../lib";
 
 async function Product(req: NextApiRequest, res: NextApiResponse) {
-  const { name } = req.body;
+
 
   await connectDB();
   if (req.method === "GET") {
-    const categories = await ProdTypeController ().getAll();
-    if (categories.error) {
-      return res.status(categories.code).send(categories.errorMsg);
+    const products = await productC().getAll();
+    if (products.error) {
+      return res.status(products.code).send(products.errorMsg);
     }
-    return res.status(categories.code).send(categories.data);
+    return res.status(products.code).send(products.data);
   }
 
   if (req.method === "POST") {
-    console.log(req.body, req.method);
-    if (!name) {
+      const data = req.body
+
+    if (!data) {
       return res.status(400).send("Provide a name for Product");
     }
 
-    let data = await ProdTypeController ().add(name);
+    let added = await productC().add(data);
 
-    if (data?.error) {
-      return res.status(data.code).send(data.errorMsg);
+    if (added?.error) {
+      return res.status(added.code).send(added.errorMsg);
     } else {
-      return res.status(data?.code || 200).send(data?.data);
+      return res.status(added?.code || 200).send(added?.data);
     }
   }
 
-  return res.status(404).send("Only Get Method is Allowed to this route");
+  return res.status(404).send("Only Get and POST Method is Allowed to this route");
 }
 
 export default Product;
