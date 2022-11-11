@@ -3,16 +3,21 @@ import { Types } from "mongoose";
 
 // main product interface
 export interface Iproduct {
+
+ 
+
     category:Types.ObjectId;
     subCategory:Types.ObjectId;
+    pType:Types.ObjectId;
     name:string;
     price:string;
     mainImg:string;
     supImg?:Array<Types.ObjectId>
     description:string;
-    color:string;
-    pType:Types.ObjectId;
-    pSize:Types.ObjectId;
+    colors?:Array<string>;
+    psize?:Array<string>;
+    features?:Array<string>;
+
 }
 
 
@@ -25,7 +30,8 @@ export interface IsuppImg {
 
 // seperate interface for Types
 export interface IpType {
-    name:string
+    category:Types.ObjectId;
+    name:string;
 }
 
 // Separate Size 

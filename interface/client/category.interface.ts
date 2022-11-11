@@ -4,12 +4,9 @@ export interface CIcategory {
     name:string
     slides?:Array<Islide>
     subCategory?:Array<IsubCategory>
-    products?:Array<Iproduct>
+    products?:Array<string>
 }
 
-export interface Iproduct{
-    _id:string;
-}
 
 export interface Islide {
     _id:string;
@@ -22,11 +19,13 @@ export interface Islide {
 
 export interface IsubCategory {
     _id:string
-    catInfo:string;
+    catInfo:CIcategory;
     name:string;
     slides?:Array<string>;
     products?:Array<string>
 }
+
+
 
 export interface initialState {
     isLoading:boolean;
@@ -39,3 +38,15 @@ export interface ICatRem {
     id:string;
     msg:string
 }
+
+
+
+export interface IsubCatInitState {
+    isLoading:boolean;
+    isErro:boolean;
+    errorMsg:string;
+    subcategories:Array<IsubCategory>
+}
+
+
+

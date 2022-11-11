@@ -21,6 +21,7 @@ export interface IsubCategory {
     products?:Array<Types.ObjectId>
 }
 
+
 export interface Islide {
     category:Types.ObjectId;
     subcategory:Types.ObjectId;
