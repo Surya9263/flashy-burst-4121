@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import {Box, Flex, HStack, Image, Link, Radio, RadioGroup, Stack, Text, VStack} from "@chakra-ui/react"
 const SingleProduct = () => {
   const [isShowSupImg,setIsShowSupImg]=useState(false)
+  const [prodColor,setProdColor]=useState("")
   const [mainImg,setMainImg]=useState("https://static.zara.net/photos///2022/I/0/1/p/8263/646/611/2/w/750/8263646611_1_1_1.jpg?ts=1663157747603")
   return (
     <HStack justifyContent={"center"} spacing={"25px"} fontFamily={"Neue-Helvetica"}>
@@ -33,16 +34,17 @@ const SingleProduct = () => {
           <Box w={"55%"}>
             <Text fontSize={"13px"}>Long sleeve blazer with a lapel collar. Featuring pronounced shoulders, front flap pockets and double-breasted metal button fastening at the front.</Text>
           </Box>
-          <RadioGroup defaultValue='2'>
+          <RadioGroup defaultValue='2' py={"4"}>
               <Stack spacing={5} direction='row'>
-                <Radio colorScheme='red' value='red'>
-                  <Text color={"red"} >RED</Text>
+                <Radio onChange={(e)=>setProdColor(e.target.value)} colorScheme={"red"} backgroundColor='red' value='RED'>
                 </Radio>
-                <Radio colorScheme='green' value='2'>
-                <Text color={"green"} >GREEN</Text>
+                <Radio onChange={(e)=>setProdColor(e.target.value)} colorScheme={"green"} backgroundColor='green' value='GREEN'>
                 </Radio>
               </Stack>
           </RadioGroup>
+          <Text fontSize={"11px"}>{prodColor}</Text>
+          <Text fontSize={"11px"}>₹ 5,590.00</Text>
+          <Text color={"grey"} fontSize={"10px"}>MRP incl. of all taxes</Text>
         </Box>
     </HStack>
   )

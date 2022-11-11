@@ -6,7 +6,7 @@ export {default as ProdTypeC} from './productType.controller'
 export {default as SupImageC} from './supportingimg.controller'
 export {default as productC} from './product.controller'
 export {default as sessionC} from './session.controller'
-
+export {default as cartC} from "./cart.controller"
 
 
 // Products 
