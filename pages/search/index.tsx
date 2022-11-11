@@ -5,11 +5,25 @@ import {Box, Button, Container, Drawer, DrawerBody, DrawerCloseButton, DrawerCon
   AccordionPanel,
   AccordionIcon,} from "@chakra-ui/react"
 import style from "../search/index.module.css"
+import { useAppDispatch, useAppSelector } from '../../store/hook'
+import { getAllProduct } from '../../store/product/productSlice'
 
 const SearchPage = () => {
   const [isShowTrends,setIsShowTrends]=useState(false)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef:any = React.useRef()
+
+  const dispatch = useAppDispatch();
+    const gproduct = useAppSelector((store) => store.product);
+    const [displaySize, setDisplaySize] =  useState<string>("0")
+
+useEffect(()=>{
+    if(gproduct.products.length===0){
+        dispatch(getAllProduct("takeitnow"))   
+    }    
+},[])
+console.log(gproduct.products);
+
   return (
     <Box>
     <Flex style={{fontFamily:'Neue-Helvetica'}} m={{lg:"auto"}} ml={{sm:"4"}} w={{lg:"12%",sm:"5%"}} gap={{sm:"10px"}} justifyContent={{sm:"flex-start"}} >
@@ -68,7 +82,7 @@ const SearchPage = () => {
       </AccordionButton>
     </h2>
     <AccordionPanel py={'10'} pb={4}>
-      SIZE
+    {gproduct.products?.map((e)=>e.psize?.map((el)=><Text>{el}</Text>))}
     </AccordionPanel>
   </AccordionItem>
 </Accordion>
@@ -83,62 +97,14 @@ const SearchPage = () => {
         </DrawerContent>
       </Drawer>
     <SimpleGrid fontSize={{lg:"11px",sm:"13px"}} px={"6"} gap={"10"} border={"1px solid"} columns={{sm:2,md:5,lg:5}}>
-        <Box>
-          <Link><Image src='https://bit.ly/dan-abramov'/></Link>
+      {gproduct.products && gproduct.products.map((e)=><Box key={e._id}>
+          <Link href={`http://localhost:3000/search/${e._id}`}><Image src={e.mainImg}/></Link>
           <Flex>
-            <Link><Text>SATIN BLAZER WITH TIE DETAIL</Text></Link>
+            <Link><Text>{e.name}</Text></Link>
             <Spacer/>
-            <Text>₹ 6,990.00</Text>
+            <Text>₹ {e.price}</Text>
           </Flex>
-        </Box>
-        <Box>
-          <Image src='https://bit.ly/dan-abramov'/>
-          <Flex>
-            <Link><Text>SATIN BLAZER WITH TIE DETAIL</Text></Link>
-            <Spacer/>
-            <Text>₹ 6,990.00</Text>
-          </Flex>
-        </Box>
-        <Box>
-          <Image src='https://bit.ly/dan-abramov'/>
-          <Flex>
-            <Link><Text>SATIN BLAZER WITH TIE DETAIL</Text></Link>
-            <Spacer/>
-            <Text>₹ 6,990.00</Text>
-          </Flex>
-        </Box>
-        <Box>
-          <Image src='https://bit.ly/dan-abramov'/>
-          <Flex>
-            <Link><Text>SATIN BLAZER WITH TIE DETAIL</Text></Link>
-            <Spacer/>
-            <Text>₹ 6,990.00</Text>
-          </Flex>
-        </Box>
-        <Box>
-          <Image src='https://bit.ly/dan-abramov'/>
-          <Flex>
-            <Link><Text>SATIN BLAZER WITH TIE DETAIL</Text></Link>
-            <Spacer/>
-            <Text>₹ 6,990.00</Text>
-          </Flex>
-        </Box>
-        <Box>
-          <Image src='https://bit.ly/dan-abramov'/>
-        </Box>
-        <Box>
-          <Image src='https://bit.ly/dan-abramov'/>
-        </Box>
-        <Box>
-          <Image src='https://bit.ly/dan-abramov'/>
-        </Box>
-        <Box>
-          <Image src='https://bit.ly/dan-abramov'/>
-        </Box>
-        <Box>
-          <Image src='https://bit.ly/dan-abramov'/>
-        </Box>
-        
+        </Box>)}        
     </SimpleGrid>
     </Box>
   )
