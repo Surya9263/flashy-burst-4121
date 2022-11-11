@@ -58,7 +58,7 @@ export const getAllProdType = createAsyncThunk(
         'productType/update',
             async({id, data}:{id:string, data:any}, thunkapi)=>{
                 try{
-                    const res:AxiosResponse<IpType> = await axios.patch(`/api/slide/${id}`, data)    
+                    const res:AxiosResponse<IpType> = await axios.patch(`/api/producttype/${id}`, data)    
                     return res.data
                 }catch(e:any){  
                     return thunkapi.rejectWithValue(e.message)

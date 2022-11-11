@@ -14,7 +14,7 @@ const productController = ()=>{
           };
         }      
     
-        let newproduct = await Product.create({category:data.category, SubCategory:data.subCategory, pType:data.pType, name:data.name, price:data.price, mainImg:data.mainImg, discription:data.discription}) 
+        let newproduct = await Product.create({category:data.category, subCategory:data.subCategory, pType:data.pType, name:data.name, price:data.price, mainImg:data.mainImg, discription:data.discription}) 
         await Category.updateOne({_id:newproduct.category}, {$push:{products:newproduct._id}})
         let productwithPopdata = await  Product.findOne({_id:newproduct._id}).populate('category').populate('subCategory').populate('pType').populate("supImg")
         return { error: false, errorMsg: "", data: productwithPopdata, code: 200 };

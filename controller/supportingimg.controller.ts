@@ -5,18 +5,20 @@ import {Product, SupImage } from "../models";
 const SupImageController = ()=>{
     
     async function add(data:{prodid:string, imglink:string}){
+         
            try {
-             if (!data.prodid||data.imglink) {
+             if (!data.prodid||!data.imglink) {
                return {
                  error: true,
-                 errorMsg: "catid and type both are Required",
+                 errorMsg: "prodid and imglink both are Required",
                  data: "",
                  code: 400,
                };
              }
   
              let existCat = await SupImage.findOne({product:data.prodid, imglink:data.imglink}); //check once
-  
+             
+              
              if (existCat) {
                return {
                  error: true,
@@ -27,13 +29,13 @@ const SupImageController = ()=>{
              }
              let newType = await SupImage.create({product:data.prodid, imglink:data.imglink});
              
-             await Product.updateOne({_id:newType.product},{$push:{supImg:newType._id}})
-
-             let typewithPopulated = SupImage.findOne({_id:newType._id}).populate('product')
+           let responce =   await Product.updateOne({_id:newType.product},{$push:{supImg:newType._id}})
+           
+             let typewithPopulated = await SupImage.findOne({_id:newType._id}).populate('product')
+                           
+             return { error:false, errorMsg:"", data:typewithPopulated, code:200 };
   
-             return { error: false, errorMsg: "", data: typewithPopulated, code: 200 };
-  
-           } catch (e: any) {
+           } catch (e:any) {
              return { error: true, errorMsg: e.message, data:"", code: 500 }
            }
       }
