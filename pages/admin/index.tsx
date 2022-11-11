@@ -5,6 +5,8 @@ import {  getallCategory } from '../../store/category/categorySlice'
 import { Box, Flex } from '@chakra-ui/react'
 import { getAllSlides } from '../../store/homeslide/slideSlice'
 import { getAllsubcategory } from '../../store/subcategory/subCategorySlice'
+import { getAllProdType } from '../../store/productType/productTypeSclie'
+import { getAllProduct } from '../../store/product/productSlice'
 
 export default function Home() {
   const dispatch =  useAppDispatch()
@@ -13,6 +15,8 @@ export default function Home() {
     dispatch(getallCategory("gtakeitnow"))
     dispatch(getAllSlides("gtakeitnow"))
     dispatch(getAllsubcategory("gtakeitnow"))
+    dispatch(getAllProdType("takeitnow"))
+    dispatch(getAllProduct("takeitnow"))
   },[])
   
   return (

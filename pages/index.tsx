@@ -19,10 +19,13 @@ export default function Home() {
   const footerRef = useRef(null)
   const footView = useInView(footerRef)
 
+  async function getAllData(){
+   await  dispatch(getallCategory("takeitnow"))
+   await  dispatch(getAllSlides("takeitnow"))
+  }
 
   useEffect(()=>{
-    dispatch(getallCategory("takeitnow"))
-    dispatch(getAllSlides("takeitnow"))
+    getAllData().then(res=>console.log(res))
   },[])
 
 const forward = ()=>{
@@ -40,15 +43,9 @@ const forward = ()=>{
     releventDiv?.scrollIntoView({behavior: "smooth"});
   }
 
-
-    console.log("hihihi");
-
-
   
-  return (
-  
-    <Box position={"relative"}>
-       
+  return (  
+   <Box position={"relative"}>
 
       <ClientNavbar />
         {category.categories[catIndex]?.slides?.map((slide)=>{

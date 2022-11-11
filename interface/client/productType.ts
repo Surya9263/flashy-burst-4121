@@ -12,3 +12,12 @@ export interface IproTypeInitState {
     errorMsg:string;
     productTypes:Array<IpType>
 }
+
+
+// interface to maintain initial state to product type new category
+export interface IprodTypeInitState {
+    catid:string, 
+    typename:string
+}
+
+

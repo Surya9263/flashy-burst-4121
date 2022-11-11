@@ -3,22 +3,25 @@ import { Box, Button } from "@chakra-ui/react";
 export default function Count() {
   return (
     <>
-      <Box display="flex" h="42px">
+
+      
+
+      <Box display="flex">
         <Box
-          bgColor="white"
           fontSize="14px"
-          //disabled={qty === 1}
-          //onClick={() => HandleCount(id, -1, qty, price, aprice)}
+          p="1px 7px 1px 7px"
+          //   onClick={() => }
         >
           -
         </Box>
-        <Box bgColor="white" fontSize="15px">
-          2
+        <Box p="1px 7px 1px 7px" fontSize="14px">
+          1
         </Box>
         <Box
-          bgColor="white"
+          p="1px 7px 1px 7px"
           fontSize="14px"
-         // onClick={() => HandleCount(id, +1, qty, price, aprice)}
+          //   onClick={() => }
+
         >
           +
         </Box>

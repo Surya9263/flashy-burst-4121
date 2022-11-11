@@ -6,16 +6,15 @@ import {
   initialState,
 } from "../../interface/client/product.interface";
 
+
+
 export const addProduct = createAsyncThunk(
   "product/add",
-  async (productdata: object, thunkapi) => {
+  async (productdata:{category:string,subCategory:string, pType:string, name:string,price:string, mainImg:string, discription:string}, thunkapi) => {
     try {
-      const res: AxiosResponse<CIproduct> = await axios.post("/api/product", 
-        productdata
-      );
-
+      const res: AxiosResponse<CIproduct> = await axios.post("/api/product", productdata);
       return res.data;
-    } catch (e: any) {
+    } catch (e:any) {
       return thunkapi.rejectWithValue(e.message);
     }
   }
@@ -23,14 +22,9 @@ export const addProduct = createAsyncThunk(
 
 export const getAllProduct = createAsyncThunk(
   "product/getall",
-  async (productdata: object, thunkapi) => {
-    console.log("inside getFunc");
+  async (name:string, thunkapi) => {
     try {
-      const res: AxiosResponse<Array<CIproduct>> = await axios.get(
-        "/api/product"
-      );
-      console.log(res.data);
-
+      const res: AxiosResponse<Array<CIproduct>> = await axios.get("/api/product");
       return res.data;
     } catch (e: any) {
       return thunkapi.rejectWithValue(e.message);
@@ -40,17 +34,31 @@ export const getAllProduct = createAsyncThunk(
 
 export const deleteProduct = createAsyncThunk(
   "product/delete",
-  async (id: string, thunkapi) => {
+  async (id:string, thunkapi) => {
     try {
-      const res: AxiosResponse<IproRem> = await axios.delete(
-        `/api/product/${id}`
-      );
+      const res: AxiosResponse<IproRem> = await axios.delete(`/api/product/${id}`);
       return res.data;
     } catch (e: any) {
       return thunkapi.rejectWithValue(e.message);
     }
   }
 );
+
+export const updateProduct = createAsyncThunk(
+  "product/update",
+  async (data:{type:string, id:string, data:any}, thunkapi) => {
+    try {
+      const res: AxiosResponse<CIproduct> = await axios.delete(`/api/product/${data.id}`);
+      return res.data;
+    } catch (e: any) {
+      return thunkapi.rejectWithValue(e.message);
+    }
+  }
+);
+
+
+
+
 
 const initialState: initialState = {
   isErro: false,
@@ -73,7 +81,7 @@ const productSlice = createSlice({
       .addCase(addProduct.rejected, (state, action: PayloadAction<any>) => {
         state.isErro = true;
         state.isLoading = false;
-        state.errorMsg = action.payload.errorMsg;
+        state.errorMsg = action.payload;
       })
       .addCase(
         addProduct.fulfilled,
@@ -123,7 +131,30 @@ const productSlice = createSlice({
             return product._id !== action.payload.id;
           });
         }
-      );
+      ).addCase(updateProduct.pending, (state, action) => {
+        state.isErro = false;
+        state.isLoading = true;
+        state.errorMsg = "";
+      })
+      .addCase(updateProduct.rejected, (state, action: PayloadAction<any>) => {
+        state.isErro = true;
+        state.isLoading = false;
+        state.errorMsg = action.payload;
+      })
+      .addCase(
+        updateProduct.fulfilled, (state, action:PayloadAction<CIproduct>) => {
+          state.isErro = false;
+          state.isLoading = false;
+          state.errorMsg = "";
+          state.products = state.products.map((product) => {
+                if(product._id===action.payload._id){
+                  return action.payload
+                }else{
+                  return product
+                }
+          });
+        }
+      )
   },
 });
 

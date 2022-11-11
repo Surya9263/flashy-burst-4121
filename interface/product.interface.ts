@@ -4,6 +4,7 @@ import { Types } from "mongoose";
 // main product interface
 export interface Iproduct {
 <<<<<<< HEAD
+<<<<<<< HEAD
   _id?: Types.ObjectId;
   category: Types.ObjectId;
   subCategory: Types.ObjectId;
@@ -16,6 +17,11 @@ export interface Iproduct {
   pType: Types.ObjectId;
   pSize: Types.ObjectId;
 =======
+=======
+
+ 
+
+>>>>>>> 53636d04e5b5d7cdd1845a14c37f528a3a3207c8
     category:Types.ObjectId;
     subCategory:Types.ObjectId;
     pType:Types.ObjectId;
@@ -27,7 +33,11 @@ export interface Iproduct {
     colors?:Array<string>;
     psize?:Array<string>;
     features?:Array<string>;
+<<<<<<< HEAD
 >>>>>>> 92f5832fa8f9dad40205262dd0a46b7aac87b24d
+=======
+
+>>>>>>> 53636d04e5b5d7cdd1845a14c37f528a3a3207c8
 }
 
 
