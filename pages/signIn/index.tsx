@@ -1,6 +1,10 @@
 import {Box, Input, Button, Flex, Text, LinkBox} from '@chakra-ui/react'
 import Link from 'next/link';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { ClientNavbar } from '../../components';
+import { login } from '../../store/auth/authslice';
+import { useAppDispatch, useAppSelector } from '../../store/hook';
+
 
 export interface User {
 	email: string;
@@ -8,44 +12,46 @@ export interface User {
 }
 
 
-
 export default function Login() {
+    const dispatch = useAppDispatch()
+    const auth = useAppSelector(store=>store.auth)
 
     const [userCredentials, setUserCredentials] = useState<User>({
 		email: '',
 		password: '',
 	});
 
-	
 
-    // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-	// 	const { value, name } = event.target;
-
-	// 	setUserCredentials({ ...userCredentials, [name]: value });
-	// };
-
-    function handleChange(e:ChangeEvent<HTMLInputElement>) 
-  {
-
+    function handleChange(e:ChangeEvent<HTMLInputElement>) {
     const {name,value} = e.target
     setUserCredentials({...userCredentials,[name]:value});
-    console.log(userCredentials);
-}
+    // console.log(userCredentials);
+    }
+
+    function handleLogin(e:FormEvent<HTMLFormElement>){
+        e.preventDefault()
+        dispatch(login(userCredentials))
+    }
+
+    useEffect(()=>{
+        console.log(auth);
+    },[auth])
 
   
     return (
         <>
+
+            <ClientNavbar />
             
             <Flex gap={200} mt={200} ml={200}>
                 <Box  h={"auto"} w={250} >
                     <Text fontSize={22}><b>LOG IN</b></Text>
-                    <form>
+                    <form onSubmit={handleLogin}>
                         <Input 
                             id='email'
                             type='email'
                             name="email"
                             onChange={handleChange}
-                            // label='password'
                             value={userCredentials.email}
                             required
                             placeholder='E-MAIL' 
@@ -62,7 +68,6 @@ export default function Login() {
                             name="password"
                             value={userCredentials.password}
                             onChange={handleChange}
-					        // label='password'
                             required 
                             placeholder='PASSWORD' 
                             mt={5}
@@ -79,8 +84,9 @@ export default function Login() {
                             HAVE YOU FORGOTTEN YOUR PASSWORD?
                         </Text>
                         <Input 
-                            placeholder='LOG IN'
+                            
                             type="submit"
+                            value="LOG IN"
                             fontSize={18} 
                             mt={50}
                             size='md'
@@ -119,7 +125,9 @@ export default function Login() {
                         borderRadius={"none"}
                         variant='none'
                         >
-                        <Link href="/pages/signUp">CREATE ACCOUNT</Link>
+                        <Link href="/signup">
+                            CREATE ACCOUNT
+                        </Link>
                     </Button>
                     
                 </Box>

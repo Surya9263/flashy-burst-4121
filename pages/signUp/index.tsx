@@ -1,27 +1,90 @@
 import {Box, Input, Button, Flex, Text, Select, RadioGroup, Stack, Radio, InputGroup, InputLeftAddon, Checkbox} from '@chakra-ui/react'
-import React from 'react'
+import React, { ChangeEvent, useState } from 'react'
+import { ClientNavbar } from '../../components'
 
+export interface User {
+	email: string;
+	password: string;
+    name: string;
+    address: string;
+    locality: string;
+    phone: string;
+    repeat_password: string;
+    pincode: string;
+    more: string;
+    city: string;
+    select: string;
+    radio: string;
+}
 
 
 export default function SignUp() {
 
     const [value, setValue] = React.useState('1')
 
+    const [userCredentials, setUserCredentials] = useState<User>({
+		email: '',
+		password: '',
+        name:"",
+        address:"",
+        locality: "",
+        phone: "",
+        repeat_password: "",
+        pincode: "",
+        more: "",
+        city: "",
+        select: "",
+        radio: "",
+	});
+
+
+    function handleChange(e:ChangeEvent<HTMLInputElement>) {
+    const {name,value} = e.target
+    setUserCredentials({...userCredentials,[name]:value});
+    // console.log(userCredentials);
+    }
+    function handleSelect(e:ChangeEvent<HTMLSelectElement>) {
+        const {name,value} = e.target
+        setUserCredentials({...userCredentials,[name]:value});
+        
+    }
+    // function handleRadio(e:any) {
+    //     const {name,value} = e.target
+    //     setUserCredentials({...userCredentials,[name]:value});
+        
+    // }
+    console.log(userCredentials);
   
     return (
         <Box>
-            
+
+            <ClientNavbar />
+            <form>
             <Flex  mt={200} ml={200} gap={50}>
                 <Box  h={"auto"} w={500} >
+                
                     <Text fontSize={22}><b>PERSONAL DETAILS</b></Text>
-                    <RadioGroup onChange={setValue} value={value} mt={10}>
+                    <RadioGroup 
+                        // id='radio'
+                        // name="radio"
+                        // onChange={handleRadio}
+                        // value={userCredentials.radio}
+                        
+                        mt={10}
+                     >
                     <Stack direction='row'>
-                        <Radio value='1'>PERSONAL</Radio>
-                        <Radio value='2'>COMPANEY</Radio>
+                        <Radio value='PERSONAL'>PERSONAL</Radio>
+                        <Radio value='COMPANY'>COMPANY</Radio>
                     </Stack>
                     </RadioGroup>
-                    <form>
+                    
                     <Input 
+                        id='email'
+                        type='email'
+                        name="email"
+                        onChange={handleChange}
+                        value={userCredentials.email}
+                        required
                         placeholder='E-MAIL' 
                         mt={5} 
                         focusBorderColor="none"
@@ -32,6 +95,12 @@ export default function SignUp() {
                     />
                     
                     <Input 
+                        id='password'
+                        type='password'
+                        name="password"
+                        onChange={handleChange}
+                        value={userCredentials.password}
+                        required
                         placeholder='PASSWORD' 
                         mt={5}
                         focusBorderColor="none"
@@ -42,7 +111,13 @@ export default function SignUp() {
                     />
                     
                     
-                    <Input 
+                    <Input
+                        id='name'
+                        type='name'
+                        name="name"
+                        onChange={handleChange}
+                        value={userCredentials.name}
+                        required 
                         placeholder='NAME' 
                         mt={5}
                         focusBorderColor="none"
@@ -53,6 +128,12 @@ export default function SignUp() {
                     />
                     
                     <Input 
+                        id='address'
+                        type='address'
+                        name="address"
+                        onChange={handleChange}
+                        value={userCredentials.address}
+                        required 
                         placeholder='ADDRESS' 
                         mt={5}
                         focusBorderColor="none"
@@ -63,6 +144,12 @@ export default function SignUp() {
                     />
                     
                     <Input 
+                        id='locality'
+                        type='locality'
+                        name="locality"
+                        onChange={handleChange}
+                        value={userCredentials.locality}
+                        required 
                         placeholder='LOCALITY' 
                         mt={5}
                         focusBorderColor="none"
@@ -72,7 +159,14 @@ export default function SignUp() {
                         borderRadius={"none"}
                     />
                     
-                    <Select placeholder='Select option'
+                    <Select 
+                            id='select'
+                            // type='select'
+                            name="select"
+                            onChange={handleSelect}
+                            value={userCredentials.select}
+                            required 
+                            placeholder='Select option'
                             mt={5}
                             focusBorderColor="none"
                             borderLeft={"none"} 
@@ -91,9 +185,18 @@ export default function SignUp() {
                             borderColor="none"
                             >
                         <InputLeftAddon children='+91' />
-                        <Input type='tel' placeholder='TELEPHONE' />
+                        <Input 
+                        id='phone'
+                        type='phone'
+                        name="phone"
+                        onChange={handleChange}
+                        value={userCredentials.phone}
+                        required 
+                         
+                        placeholder='TELEPHONE' 
+                        />
                     </InputGroup>
-                    </form>
+                    
 
                     <Stack spacing={5} direction='column' mt={5}>
                         <Checkbox size='md' colorScheme='blue'>
@@ -104,7 +207,9 @@ export default function SignUp() {
                         </Checkbox>
                     </Stack>
                     
-                    <Button
+                    <Input
+                        type={"submit"}
+                        value="CREATE ACCOUNT"
                         fontSize={18} 
                         mt={50}
                         size='md'
@@ -115,13 +220,20 @@ export default function SignUp() {
                         color={"white"}
                         borderRadius={"none"}
                         variant='none'
-                        >
-                        CREATE ACCOUNT
-                    </Button>
+                        />
+                        
+                    
+                
                 </Box>
 
                 <Box w={500} mt={155} >
                     <Input 
+                        id='repeat_password'
+                        type='repeat_password'
+                        name="repeat_password"
+                        onChange={handleChange}
+                        value={userCredentials.repeat_password}
+                        required 
                         placeholder='REPEAT PASSWORD' 
                         mt={5}
                         focusBorderColor="none"
@@ -131,6 +243,12 @@ export default function SignUp() {
                         borderRadius={"none"}
                     />
                     <Input 
+                        id='pincode'
+                        type='pincode'
+                        name="pincode"
+                        onChange={handleChange}
+                        value={userCredentials.pincode}
+                        required 
                         placeholder='PINCODE' 
                         mt={5}
                         focusBorderColor="none"
@@ -140,6 +258,12 @@ export default function SignUp() {
                         borderRadius={"none"}
                     />
                     <Input 
+                        id='more'
+                        type='more'
+                        name="more"
+                        onChange={handleChange}
+                        value={userCredentials.more}
+                         
                         placeholder='MORE INFO (Optional)' 
                         mt={5}
                         focusBorderColor="none"
@@ -149,6 +273,12 @@ export default function SignUp() {
                         borderRadius={"none"}
                     />
                     <Input 
+                        id='city'
+                        type='city'
+                        name="city"
+                        onChange={handleChange}
+                        value={userCredentials.city}
+                        required
                         placeholder='CITY' 
                         mt={5}
                         focusBorderColor="none"
@@ -158,7 +288,10 @@ export default function SignUp() {
                         borderRadius={"none"}
                     />
                 </Box>
+                
             </Flex>
+            </form>
+            
 
             <Flex gap={50} mt={200} ml={200}>
                 <Box>
