@@ -3,6 +3,9 @@ import { Box, Button } from "@chakra-ui/react";
 export default function Count() {
   return (
     <>
+
+      
+
       <Box display="flex">
         <Box
           fontSize="14px"
@@ -18,6 +21,7 @@ export default function Count() {
           p="1px 7px 1px 7px"
           fontSize="14px"
           //   onClick={() => }
+
         >
           +
         </Box>
