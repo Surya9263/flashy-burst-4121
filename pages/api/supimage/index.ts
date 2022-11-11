@@ -3,13 +3,15 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { connectDB } from "../../../lib";
 
 
-async function ProductType(req:NextApiRequest, res:NextApiResponse){
+export default async function SupImagepath(req:NextApiRequest, res:NextApiResponse){
 
     await connectDB()
 
     if(req.method==="GET")
     {
         const images = await SupImageC().getAll();
+       
+        
         if(images.error){
             return res.status(images.code).send(images.errorMsg)
         }
@@ -18,7 +20,8 @@ async function ProductType(req:NextApiRequest, res:NextApiResponse){
 
     if(req.method==="POST"){
         let data = req.body 
-
+        
+        
         if(!data){
             return res.status(400).send("Provide a name for Project")
         }
@@ -36,4 +39,3 @@ async function ProductType(req:NextApiRequest, res:NextApiResponse){
     
 }
 
-export default ProductType

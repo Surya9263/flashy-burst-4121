@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { connectDB } from "../../../lib";
 
 
-export default async function categoryOpr(req:NextApiRequest, res:NextApiResponse){
+export default async function imageoprtions(req:NextApiRequest, res:NextApiResponse){
          const id = req.query.id as string
         
          await connectDB()

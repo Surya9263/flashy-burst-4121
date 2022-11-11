@@ -22,4 +22,9 @@
 
 
 
+<<<<<<< HEAD
+
+<!-- MONGO_URI = "mongodb+srv://takeitnowdb:takeitnowdb@takeitnow.cbygn8f.mongodb.net/?retryWrites=true&w=majority" -->
+=======
 <!-- MONGO_URI = "mongodb+srv://takeitnowdb:takeitnowdb@takeitnow.cbygn8f.mongodb.net/?retryWrites=true&w=majority" --
+>>>>>>> 750c574b68059045a03edf46acdb80eca556d32f

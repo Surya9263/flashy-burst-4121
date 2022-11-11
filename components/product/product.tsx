@@ -7,9 +7,9 @@ export default function Product({name,price,mainImg,_id}:Iproduct){
 
     return (
       <>
-        <Box border="1px solid black">
+        <Box >
           <Link href={`/product/${_id}`}>
-            <Box border="1px solid black">
+            <Box >
               <Image
                 w={"305px"}
                 h={"420px"}
@@ -29,17 +29,17 @@ export default function Product({name,price,mainImg,_id}:Iproduct){
             </Select>
           </Box> */}
           <Box
-            border="1px solid black"
+            
             display="flex"
             justifyContent="space-between"
             mt="0px"
           >
             <Link href={`/product/${_id}`}>
-              <Box border="1px solid black" fontSize={"12px"}>
+              <Box  fontSize={"12px"}>
                 FAUX LEATHER BIKER JACKET
               </Box>
             </Link>
-            <Box border="1px solid black" fontSize={"12px"}>
+            <Box  fontSize={"12px"}>
               ₹ 6590.00
             </Box>
           </Box>

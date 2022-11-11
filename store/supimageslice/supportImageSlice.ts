@@ -1,14 +1,14 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios,{AxiosResponse} from 'axios'
 import { ICatRem } from "../../interface/client/category.interface";
-import { IpType, IproTypeInitState} from "../../interface/client/productType";
+import { IsupImage, IsupImgInitState} from "../../interface/client/supportingImage.interface";
 
 
-export const addProdType = createAsyncThunk(
-    'productType/add',
-        async(data:{catid:string, typename:string}, thunkapi)=>{
+export const addSupImg = createAsyncThunk(
+    'suportImg/add',
+        async(data:{prodid:string, imglink:string}, thunkapi)=>{
             try{
-                const res:AxiosResponse<IpType> = await axios.post('/api/producttype', data)
+                const res:AxiosResponse<IsupImage> = await axios.post('/api/supimage', data)
                 return res.data
             }catch(e:any){  
                 return thunkapi.rejectWithValue(e.message)
@@ -16,11 +16,11 @@ export const addProdType = createAsyncThunk(
         }
 )
 
-export const getAllProdType = createAsyncThunk(
-    'productType/getall',
+export const getAllSupImage = createAsyncThunk(
+    'suportImg/getall',
         async(name:string, thunkapi)=>{
             try{
-                const res:AxiosResponse<Array<IpType>> = await axios.get('/api/producttype')                    
+                const res:AxiosResponse<Array<IsupImage>> = await axios.get('/api/supimage')                    
                 return res.data
             }catch(e:any){  
                 return thunkapi.rejectWithValue(e.message)
@@ -29,11 +29,11 @@ export const getAllProdType = createAsyncThunk(
 )
 
 
-    export const deleteProductType = createAsyncThunk(
-        'productType/delete',
+    export const deleteSupImage = createAsyncThunk(
+        'suportImg/delete',
             async(id:string, thunkapi)=>{
                 try{
-                    const res:AxiosResponse<ICatRem> = await axios.delete(`/api/producttype/${id}`)    
+                    const res:AxiosResponse<ICatRem> = await axios.delete(`/api/supimage/${id}`)    
                     return res.data
                 }catch(e:any){  
                     return thunkapi.rejectWithValue(e.message)
@@ -41,11 +41,11 @@ export const getAllProdType = createAsyncThunk(
             }
     )
 
-    export const getSingleSlide = createAsyncThunk(
-        'productType/getone',
+    export const getSingleSupImg = createAsyncThunk(
+        'suportImg/getone',
             async(id:string, thunkapi)=>{
                 try{
-                    const res:AxiosResponse<IpType> = await axios.get(`/api/producttype/${id}`)    
+                    const res:AxiosResponse<IsupImage> = await axios.get(`/api/supimage/${id}`)    
                     return res.data
                 }catch(e:any){  
                     return thunkapi.rejectWithValue(e.message)
@@ -54,11 +54,11 @@ export const getAllProdType = createAsyncThunk(
     )
 
 
-    export const updateProdType = createAsyncThunk(
-        'productType/update',
+    export const updateSupImg = createAsyncThunk(
+        'suportImg/update',
             async({id, data}:{id:string, data:any}, thunkapi)=>{
                 try{
-                    const res:AxiosResponse<IpType> = await axios.patch(`/api/slide/${id}`, data)    
+                    const res:AxiosResponse<IsupImage> = await axios.patch(`/api/supimage/${id}`, data)    
                     return res.data
                 }catch(e:any){  
                     return thunkapi.rejectWithValue(e.message)
@@ -67,95 +67,94 @@ export const getAllProdType = createAsyncThunk(
     )
 
 
-    const initialState:IproTypeInitState ={
+    const initialState:IsupImgInitState ={
         isLoading:false,
         isErro:false,
         errorMsg:"",
-        productTypes:[]
+        images:[]
     }
 
 
 
    
 const supImageSlice = createSlice({
-    name:'slidereducer',
+    name:'supimageReducer',
     initialState,
     reducers:{},
     extraReducers(builder) {
-        builder.addCase(addProdType.pending, (state, action)=>{
+        builder.addCase(addSupImg.pending, (state, action)=>{
             state.isErro =false;
             state.isLoading = true;
             state.errorMsg = "";
         })
-        .addCase(addProdType.rejected, (state, action:PayloadAction<any>)=>{
+        .addCase(addSupImg.rejected, (state, action:PayloadAction<any>)=>{
             state.isErro = true;
             state.isLoading = false;
             state.errorMsg = action.payload
         })
-        .addCase(addProdType.fulfilled, (state, action:PayloadAction<IpType>)=>{
+        .addCase(addSupImg.fulfilled, (state, action:PayloadAction<IsupImage>)=>{
             state.isErro = false;
             state.isLoading = false;
             state.errorMsg = "";
-            state.productTypes = [...state.productTypes, action.payload]
+            state.images = [...state.images, action.payload]
         })
-        .addCase(getAllProdType.pending, (state, action)=>{
+        .addCase(getAllSupImage.pending, (state, action)=>{
             state.isErro =false;
             state.isLoading = true;
             state.errorMsg = "";
         })
 
-        .addCase(getAllProdType.rejected, (state, action:PayloadAction<any>)=>{
+        .addCase(getAllSupImage.rejected, (state, action:PayloadAction<any>)=>{
             state.isErro = true;
             state.isLoading = false;
             state.errorMsg = action.payload;
         })
-        .addCase(getAllProdType.fulfilled, (state, action:PayloadAction<Array<IpType>>)=>{
+        .addCase(getAllSupImage.fulfilled, (state, action:PayloadAction<Array<IsupImage>>)=>{
             state.isErro = false;
             state.isLoading = false;
             state.errorMsg = "";
-            state.productTypes = action.payload
+            state.images = action.payload
         })
-        .addCase(deleteProductType.pending, (state, action)=>{
+        .addCase(deleteSupImage.pending, (state, action)=>{
             state.isErro =false;
             state.isLoading = true;
             state.errorMsg = "";
         })
 
-        .addCase(deleteProductType.rejected, (state, action:PayloadAction<any>)=>{
+        .addCase(deleteSupImage.rejected, (state, action:PayloadAction<any>)=>{
             state.isErro = true;
             state.isLoading = false;
             state.errorMsg = action.payload;
         })
-        .addCase(deleteProductType.fulfilled, (state, action:PayloadAction<ICatRem>)=>{
+        .addCase(deleteSupImage.fulfilled, (state, action:PayloadAction<ICatRem>)=>{
             state.isErro = false;
             state.isLoading = false;
             state.errorMsg = "";
-            state.productTypes = state.productTypes.filter((slide)=>{
+            state.images = state.images.filter((slide)=>{
                 return slide._id!==action.payload.id
             })       
         })
-        .addCase(updateProdType.pending, (state, action)=>{
+        .addCase(updateSupImg.pending, (state, action)=>{
             state.isErro =false;
             state.isLoading = true;
             state.errorMsg = "";
         })
 
-        .addCase(updateProdType.rejected, (state, action:PayloadAction<any>)=>{
+        .addCase(updateSupImg.rejected, (state, action:PayloadAction<any>)=>{
             state.isErro = true;
             state.isLoading = false;
             state.errorMsg = action.payload;
         })
-        .addCase(updateProdType.fulfilled, (state, action:PayloadAction<IpType>)=>{
+        .addCase(updateSupImg.fulfilled, (state, action:PayloadAction<IsupImage>)=>{
             state.isErro = false;
             state.isLoading = false;
             state.errorMsg = "";
-            state.productTypes = state.productTypes.map((slide)=>{
+            state.images = state.images.map((slide)=>{
                 if(slide._id===action.payload._id){
                         return action.payload
                 }else{
                     return slide
                 }
-               
             })       
         })
     },
