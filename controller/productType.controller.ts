@@ -3,8 +3,9 @@ import { ProductType } from "../models";
 const ProdTypeController = ()=>{
     
   async function add(data:{catid:string, typename:string}){
+       
          try {
-           if (!data.catid||data.typename) {
+           if (!data.catid||!data.typename) {
              return {
                error: true,
                errorMsg: "catid and type both are Required",
@@ -23,10 +24,12 @@ const ProdTypeController = ()=>{
                code: 409,
              };
            }
-           let newType = await ProductType.create({category:data.catid, name:data.typename});
-           let typewithPopulated = ProductType.findOne({_id:newType._id}).populate('category')
 
-           return { error: false, errorMsg: "", data: typewithPopulated, code: 200 };
+           let newType = await ProductType.create({category:data.catid, name:data.typename});
+
+           let typewithPopulated = await ProductType.findOne({_id:newType._id}).populate('category')
+
+           return { error: false, errorMsg: "", data:typewithPopulated, code: 200 };
 
          } catch (e: any) {
            return { error: true, errorMsg: e.message, data:"", code: 500 }
@@ -94,7 +97,6 @@ const ProdTypeController = ()=>{
 
     async function getAll(){
               let allProduct = await ProductType.find({}).populate("category")
-                
               if (allProduct.length === 0) {
                 return {
                   error: false,
