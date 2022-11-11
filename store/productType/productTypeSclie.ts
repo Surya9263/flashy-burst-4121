@@ -78,7 +78,7 @@ export const getAllProdType = createAsyncThunk(
 
    
 const prodctTypeReducer = createSlice({
-    name:'slidereducer',
+    name:'producttypereducer',
     initialState,
     reducers:{},
     extraReducers(builder) {

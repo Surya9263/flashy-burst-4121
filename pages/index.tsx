@@ -19,13 +19,11 @@ export default function Home() {
   const footerRef = useRef(null)
   const footView = useInView(footerRef)
 
-  async function getAllData(){
-   await  dispatch(getallCategory("takeitnow"))
-   await  dispatch(getAllSlides("takeitnow"))
-  }
+
 
   useEffect(()=>{
-    getAllData().then(res=>console.log(res))
+    dispatch(getallCategory("takeitnow"))
+    dispatch(getAllSlides("takeitnow"))
   },[])
 
 const forward = ()=>{

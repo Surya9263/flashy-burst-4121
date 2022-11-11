@@ -37,6 +37,7 @@ export const deleteProduct = createAsyncThunk(
   async (id:string, thunkapi) => {
     try {
       const res: AxiosResponse<IproRem> = await axios.delete(`/api/product/${id}`);
+      console.log(res.data)
       return res.data;
     } catch (e: any) {
       return thunkapi.rejectWithValue(e.message);
@@ -48,7 +49,7 @@ export const updateProduct = createAsyncThunk(
   "product/update",
   async (data:{type:string, id:string, data:any}, thunkapi) => {
     try {
-      const res: AxiosResponse<CIproduct> = await axios.delete(`/api/product/${data.id}`);
+      const res: AxiosResponse<CIproduct> = await axios.patch(`/api/product/${data.id}`, data);
       return res.data;
     } catch (e: any) {
       return thunkapi.rejectWithValue(e.message);

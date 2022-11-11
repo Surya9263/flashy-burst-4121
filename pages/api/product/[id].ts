@@ -39,26 +39,28 @@ export default async function categoryOpr(
     if (req.method === "PATCH") {
 
       const data = req.body
-
-      if (!data.data) {
+      console.log(data);
+      
+     
+      if (!data) {
         return res.status(400).send("Provide valid data to update");
       }
       
       let updatedData;
 
-      if(data.type="color"){
-          updatedData = await productC().addColor(data.id, data.colorname)
+      if(data.type==="color"){
+          updatedData = await productC().addColor(data.id, data.data)
       }
       
-      if(data.type="feature"){
-        updatedData = await productC().addFeatures(data.id, data.feature)
+      if(data.type==="feature"){
+        updatedData = await productC().addFeatures(data.id, data.data)
       }
 
-      if(data.type="size"){
-        updatedData = await productC().addSize(data.id, data.psize)
+       if(data.type==="size"){
+        updatedData = await productC().addSize(data.id, data.data)
       }
 
-      if(data.type="other"){
+      if(data.type==="other"){
         updatedData = await productC().update(id, data.data);
       }
 

@@ -10,7 +10,8 @@ export const addCategory = createAsyncThunk(
                 const res:AxiosResponse<CIcategory> = await axios.post('/api/category', {
                     name:name
                 })
-                         
+                console.log(res.data);
+                
                 return res.data
             }catch(e:any){  
                 return thunkapi.rejectWithValue(e.message)

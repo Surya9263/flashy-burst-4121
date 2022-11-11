@@ -35,7 +35,14 @@ const subcategoryController=()=>{
         // if subcategory not matches with given id return back with error
         
         await Category.updateOne({name:existCat.catInfo.name}, {$pull:{subCategory:id}})
-        await Slide.deleteMany({subCategory:existCat._id})
+       
+        if(existCat.slides.length>0){
+            for(let i=0; i<existCat.slides.length; i++){
+                await Slide.deleteOne({_id:existCat.slides[i]})
+            }
+        }
+       
+        
         await SubCategory.deleteOne({_id:id})
         
         return {error:false, errorMsg:"", data:{id:id, msg:id+" Deleted Successfully"}, code:200}

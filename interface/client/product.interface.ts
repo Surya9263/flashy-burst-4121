@@ -58,3 +58,13 @@ export interface IaddProduct {
   mainImg:string, 
   discription:string
 }
+
+
+// interface for intialState to maintain update data in product
+export interface IupdateProductIntData {
+  pid:string;
+  catid:string;
+  scatid:string;
+  type:"color"|"feature"|"size"|"other"|"";
+  data:any|string;
+}

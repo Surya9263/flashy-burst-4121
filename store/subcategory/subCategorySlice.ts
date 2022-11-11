@@ -82,7 +82,7 @@ export const getAllsubcategory = createAsyncThunk(
 
    
 const suncategorySclice = createSlice({
-    name:'slidereducer',
+    name:'subcategoryScice',
     initialState,
     reducers:{},
     extraReducers(builder) {

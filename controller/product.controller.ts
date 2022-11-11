@@ -43,7 +43,12 @@ const productController = ()=>{
 
          await Category.updateOne({_id:exitsProdut.category}, {$pull:{products:exitsProdut._id}})
          await Product.deleteOne({_id:id})
-
+         return { 
+            error: false,
+            errorMsg: "",
+            data:{id:id, msg:"Deleted Successfully"},
+            code:200,
+            };
     }
 
 
@@ -113,12 +118,25 @@ const productController = ()=>{
     }
 
     async function addColor(id:string, colorName:string){
-        if(!id||colorName){
+       
+      
+       
+        if(!id||!colorName){
                 return {
                     error: true,
-                    errorMsg: "Product not found",
+                    errorMsg: "provide colorName and id",
                     data: "",
                     code: 400,
+                }
+            }
+
+            const existing = await  Product.findOne({colors:{$in:colorName}})
+            if(existing){
+                return {
+                    error: true,
+                    errorMsg: "already Exist",
+                    data: "",
+                    code: 409,
                 }
             }
           await Product.updateOne({_id:id}, {$push:{colors:colorName}})
@@ -133,16 +151,26 @@ const productController = ()=>{
 
     async function addSize(id:string, pSize:string){
        
-        if(!id||pSize){
+        if(!id||!pSize){
             return {
                 error: true,
-                errorMsg: "Product not found",
+                errorMsg: "provide id and size",
                 data: "",
                 code: 400,
             }
         }
+        const existing = await  Product.findOne({psize:{$in:pSize}})
+        if(existing){
+            return {
+                error: true,
+                errorMsg: "already Exist",
+                data: "",
+                code: 409,
+            }
+        }
 
         await Product.updateOne({_id:id}, {$push:{psize:pSize}})
+
           let updatedProduct = await Product.findOne({_id:id}).populate('category').populate('subCategory').populate('pType').populate("supImg")
          return {
             error: false,
@@ -155,14 +183,25 @@ const productController = ()=>{
     }
     async function addFeatures(id:string, feature:string){
         
-        if(!id||feature){
+        if(!id||!feature){
             return {
                 error: true,
-                errorMsg: "Product not found",
+                errorMsg: "provide valid id and feature",
                 data: "",
                 code: 400,
             }
         }
+
+        const existing = await  Product.findOne({features:{$in:feature}})
+        if(existing){
+            return {
+                error: true,
+                errorMsg: "already Exist",
+                data: "",
+                code: 409,
+            }
+        }
+
         await Product.updateOne({_id:id}, {$push:{features:feature}})
           let updatedProduct = await Product.findOne({_id:id}).populate('category').populate('subCategory').populate('pType').populate("supImg")
          return {
