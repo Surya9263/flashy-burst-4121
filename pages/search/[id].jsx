@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {Box, Flex, HStack, Image, Link, Stack, Text, VStack} from "@chakra-ui/react"
+import {Box, Flex, HStack, Image, Link, Radio, RadioGroup, Stack, Text, VStack} from "@chakra-ui/react"
 const SingleProduct = () => {
   const [isShowSupImg,setIsShowSupImg]=useState(false)
   const [mainImg,setMainImg]=useState("https://static.zara.net/photos///2022/I/0/1/p/8263/646/611/2/w/750/8263646611_1_1_1.jpg?ts=1663157747603")
@@ -26,7 +26,24 @@ const SingleProduct = () => {
         </Stack>
         </Flex>
         </Box>
-        <Box w={"30%"} border={"1px solid red"}>Size and all</Box>
+        <Box w={"30%"} border={"1px solid red"}>
+          <Box w={"45%"}>
+            <Text as={'b'} fontSize={"18px"}>TAILORED DOUBLE-BREASTED BLAZER</Text>
+          </Box>
+          <Box w={"55%"}>
+            <Text fontSize={"13px"}>Long sleeve blazer with a lapel collar. Featuring pronounced shoulders, front flap pockets and double-breasted metal button fastening at the front.</Text>
+          </Box>
+          <RadioGroup defaultValue='2'>
+              <Stack spacing={5} direction='row'>
+                <Radio colorScheme='red' value='red'>
+                  <Text color={"red"} >RED</Text>
+                </Radio>
+                <Radio colorScheme='green' value='2'>
+                <Text color={"green"} >GREEN</Text>
+                </Radio>
+              </Stack>
+          </RadioGroup>
+        </Box>
     </HStack>
   )
 }
