@@ -25,8 +25,7 @@ export default function ProductP() {
   const subcategory= useAppSelector((store) => store.subcategory)
   const ptypes = useAppSelector((store) => store.productType)
   const prodcoll = useAppSelector((store) => store.product)
-
- const [catIndex, setCatIndex] =  useState<number>(-1)
+  const [catIndex, setCatIndex] =  useState<number>(-1)
   // state to maintaine producttype data
 
   const handleProductyDelete = (id:string)=>{

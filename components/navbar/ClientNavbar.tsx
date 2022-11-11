@@ -42,7 +42,7 @@ export default function ClientNavbar() {
                 
                 
                     <Box  fontSize="20px" textTransform={"uppercase"}>
-                        <Link href="/signin">
+                        <Link href="/signIn">
                             Log in
                         </Link>
                     </Box>

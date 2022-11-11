@@ -20,19 +20,18 @@ import React,{
     useEffect
 } from 'react'
 // interfaces 
-import {CIproduct} from '../../interface/client/product.interface'
+import {CIproduct} from '../../../interface/client/product.interface'
 
 //icons
 import {BsFillTrashFill, BsPencilSquare} from "react-icons/bs"
 import {FiSave} from 'react-icons/fi'
 import {MdOutlineCancel} from 'react-icons/md'
 import {GrDocumentUpdate} from 'react-icons/gr'
-
-import { useAppDispatch, useAppSelector } from '../../store/hook'
-import {AlertConfirmation} from '../'
-import { IupdateProductIntData } from '../../interface/client/product.interface'
-import { CIcategory } from '../../interface/client/category.interface'
-import { updateProduct } from '../../store/product/productSlice'
+import { useAppDispatch, useAppSelector } from '../../../store/hook'
+import {AlertConfirmation} from '../../';
+import { CIcategory } from '../../../interface/client/category.interface'
+import { updateProduct } from '../../../store/product/productSlice'
+import { IupdateProductIntData } from '../../../interface/client/product.interface'
 
 const initState:IupdateProductIntData = {
   catid:"",

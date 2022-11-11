@@ -9,6 +9,8 @@ import {MdArrowBackIosNew, MdArrowForwardIos} from 'react-icons/md'
 import { getAllSlides } from '../store/homeslide/slideSlice'
 import { ClientNavbar, Footer, UiImage } from '../components'
 import { motion, useInView } from 'framer-motion'
+import TempNav from '../components/client/nav/TempNav'
+import { getAllProduct } from '../store/product/productSlice'
 
 export default function Home() {
   const dispatch =  useAppDispatch()
@@ -24,6 +26,7 @@ export default function Home() {
   useEffect(()=>{
     dispatch(getallCategory("takeitnow"))
     dispatch(getAllSlides("takeitnow"))
+    dispatch(getAllProduct("takeitnow"))
   },[])
 
 const forward = ()=>{
@@ -46,6 +49,7 @@ const forward = ()=>{
    <Box position={"relative"}>
 
       <ClientNavbar />
+    
         {category.categories[catIndex]?.slides?.map((slide)=>{
           return (
            <Box  mx="auto">
@@ -93,6 +97,7 @@ const forward = ()=>{
       }
 
         <Box ref={footerRef}>
+        <TempNav/>
             <Footer/>
         </Box>
     </Box>
