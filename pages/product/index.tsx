@@ -11,7 +11,7 @@ const productPage = () => {
       <Box>
         <ClientNavbar />
         <Box
-          border="1px solid black"
+          
           w={"97%"}
           display="flex"
           margin={"auto"}
@@ -21,7 +21,7 @@ const productPage = () => {
           <Box><DrawerExample/></Box>
         </Box>
         <Box
-          border="1px solid black"
+          
           w={"85%"}
           display="flex"
           margin={"auto"}
