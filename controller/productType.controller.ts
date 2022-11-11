@@ -1,55 +1,61 @@
-import { Product } from "../models";
+import { ProductType } from "../models";
 
 const ProdTypeController = ()=>{
-    async function add(productData:object){
+    
+  async function add(data:{catid:string, typename:string}){
          try {
-           if (!productData) {
+           if (!data.catid||data.typename) {
              return {
                error: true,
-               errorMsg: "Product Name is Required",
+               errorMsg: "catid and type both are Required",
                data: "",
                code: 400,
              };
            }
 
-           let existCat = await Product.findOne(  productData ); //check once
+           let existCat = await ProductType.findOne({name:data.typename, category:data.catid}); //check once
 
            if (existCat) {
              return {
                error: true,
-               errorMsg: "Product Name is Already Exist",
+               errorMsg: "Already Exist",
                data: "",
                code: 409,
              };
            }
-           let newProduct = await Product.create(productData);
-           return { error: false, errorMsg: "", data: newProduct, code: 200 };
+           let newType = await ProductType.create({category:data.catid, name:data.typename});
+           let typewithPopulated = ProductType.findOne({_id:newType._id}).populate('category')
+
+           return { error: false, errorMsg: "", data: typewithPopulated, code: 200 };
+
          } catch (e: any) {
-           return;
+           return { error: true, errorMsg: e.message, data:"", code: 500 }
          }
     }
+
+
+
     async function remove(id:string){
          if (!id) {
            return {
              error: true,
-             errorMsg: "id is required to remove a product",
+             errorMsg: "id is required to remove a product type",
              data: "",
              code: 404,
            };
          }
 
-         let existProduct = await Product.findOne({ _id: id });
+         let existProduct = await ProductType.findOne({_id:id});
 
          if (!existProduct) {
            return {
              error: true,
-             errorMsg: " No Product exist with the id provide an Valid ID",
+             errorMsg: " No Product type exist with the id,  provide an Valid ID",
              data: "",
              code: 404,
            };
          }
-
-         await Product.deleteOne({ _id: id });
+         await ProductType.deleteOne({_id:id});
          return {
            error: false,
            errorMsg: "",
@@ -58,18 +64,18 @@ const ProdTypeController = ()=>{
          };
 
     }
-    async function update(id: string, data: any) {
+    async function update(id:string, data:any) {
       if (!id || !data) {
         return {
           error: true,
           errorMsg:
-            "id and data to be updated is required to update a product",
+            "id and data to be updated is required to update a product type",
           data: "",
           code: 400,
         };
       }
 
-      let existProduct = await Product.findOne({ _id: id });
+      let existProduct = await ProductType.findOne({ _id:id });
 
       if (!existProduct) {
         return {
@@ -80,17 +86,18 @@ const ProdTypeController = ()=>{
         };
       }
 
-      await Product.updateOne({ _id: id }, { $set: { ...data } });
-      let updatedCat = await Product.findOne({ _id: id });
-      return { error: false, errorMsg: "", data: updatedCat, code: 200 };
+      await ProductType.updateOne({ _id:id }, { $set: {...data} });
+      let updatedtype = await ProductType.findOne({ _id: id }).populate('category');
+      return { error: false, errorMsg: "", data:updatedtype, code: 200 };
     }
+
+
     async function getAll(){
-              let allProduct = await Product.find({})
-                .populate("supImage")
+              let allProduct = await ProductType.find({}).populate("category")
                 
               if (allProduct.length === 0) {
                 return {
-                  error: true,
+                  error: false,
                   errorMsg: "Product List is Empty",
                   data: allProduct,
                   code: 200,
@@ -98,6 +105,8 @@ const ProdTypeController = ()=>{
               }
               return { error: false, errorMsg: "", data: allProduct, code: 200 };
     }
+
+
     async function getSingle(id:String){
               if (!id) {
                 return {
@@ -108,15 +117,12 @@ const ProdTypeController = ()=>{
                 };
               }
 
-              let existProduct = await Product.findOne({ _id: id })
-                .populate("supImage")
-                
-
+              let existProduct = await ProductType.findOne({ _id:id }).populate('category')
               if (!existProduct) {
                 return {
                   error: true,
                   errorMsg:
-                    " No Product exist with the id provide an Valid ID",
+                    " No Product type exist with the id provide an Valid ID",
                   data: "",
                   code: 404,
                 };

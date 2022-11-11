@@ -1,3 +1,4 @@
+
 import Head from 'next/head'
 import {useState, useRef} from 'react'
 import {Box, Input, Button, Image, Flex} from '@chakra-ui/react'
@@ -40,6 +41,7 @@ const forward = ()=>{
   }
 
 
+    console.log("hihihi");
 
 
   

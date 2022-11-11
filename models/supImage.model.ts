@@ -3,7 +3,7 @@ import { IsuppImg } from "../interface/product.interface";
 
 const supImgSchema =  new mongoose.Schema({
     product:{type:mongoose.Schema.Types.ObjectId, ref:"product"},
-    imgLink:String,
+    imglink:String,
 })
 
 const SupImage = mongoose.models.supimage || mongoose.model('supimage', supImgSchema)
