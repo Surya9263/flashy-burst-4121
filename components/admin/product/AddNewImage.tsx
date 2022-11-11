@@ -23,18 +23,18 @@ import {
 } from '@chakra-ui/react'
 
 // interfaces 
-import {CIproduct} from '../../interface/client/product.interface'
+import {CIproduct} from '../../../interface/client/product.interface'
 
 //icons
 import {BsFillTrashFill, BsPencilSquare} from "react-icons/bs"
 import {FiSave} from 'react-icons/fi'
 import {MdOutlineCancel} from 'react-icons/md'
 import {GrDocumentUpdate} from 'react-icons/gr'
-import { useAppDispatch, useAppSelector } from '../../store/hook'
-import {AlertConfirmation} from '../'
-import { CIcategory } from '../../interface/client/category.interface'
-import { IsupImageAdd } from '../../interface/client/supportingImage.interface'
-import { addSupImg } from '../../store/supimageslice/supportImageSlice'
+import { useAppDispatch, useAppSelector } from '../../../store/hook'
+import {AlertConfirmation} from '../../'
+import { CIcategory } from '../../../interface/client/category.interface'
+import { IsupImageAdd } from '../../../interface/client/supportingImage.interface'
+import { addSupImg } from '../../../store/supimageslice/supportImageSlice'
 
 const initState:IsupImageAdd = {
   cid:"",

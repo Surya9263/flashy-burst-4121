@@ -30,14 +30,14 @@ import {BsFillTrashFill, BsPencilSquare} from "react-icons/bs"
 import {FiSave} from 'react-icons/fi'
 import {MdOutlineCancel} from 'react-icons/md'
 import {GrDocumentUpdate} from 'react-icons/gr'
-import { useAppDispatch, useAppSelector } from '../../store/hook'
+import { useAppDispatch, useAppSelector } from '../../../store/hook'
 
 // interfaces 
-import {IprodTypeInitState} from '../../interface/client/productType'
-import { addProdType } from '../../store/productType/productTypeSclie'
-import { CIcategory } from '../../interface/client/category.interface'
+import {IprodTypeInitState} from '../../../interface/client/productType'
+import { addProdType } from '../../../store/productType/productTypeSclie'
+import { CIcategory } from '../../../interface/client/category.interface'
 
-import {AlertConfirmation} from '../../components'
+import {AlertConfirmation} from '../../'
 const intiState:IprodTypeInitState = {catid:"", typename:""}
 
 

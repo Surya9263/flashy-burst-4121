@@ -35,12 +35,12 @@ import {MdOutlineCancel} from 'react-icons/md'
 import {GrDocumentUpdate} from 'react-icons/gr'
 
 // Intrerfaces 
-import {CIcategory} from '../../interface/client/category.interface'
-import { IaddProduct } from '../../interface/client/product.interface'
-import { useAppDispatch, useAppSelector } from '../../store/hook'
-import { addProduct } from '../../store/product/productSlice'
-import {IpType } from '../../interface/client/productType'
-import {AlertConfirmation} from '../'
+import {CIcategory} from '../../../interface/client/category.interface'
+import { IaddProduct } from '../../../interface/client/product.interface'
+import { useAppDispatch, useAppSelector } from '../../../store/hook'
+import { addProduct } from '../../../store/product/productSlice'
+import {IpType } from '../../../interface/client/productType'
+import {AlertConfirmation} from '../../'
 
 const initialState:IaddProduct = {
     category:"",subCategory:"", pType:"", name:"",price:"", mainImg:"", discription:""

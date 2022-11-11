@@ -30,11 +30,12 @@ import React  from "react";
   
   return (
     <>
-      <Box
+      <Box w={["120px", "120px", "120px", "120px"]} position={["absolute", "absolute", "fixed", "fixed"]} top={["5px", "5px", "90px","90px"]} right={["20px"]} 
         ref={btnRef}
         border="1px solid black"
         p="4px 10px 4px 10px"
         onClick={onOpen}
+        _hover={{cursor:"pointer"}}
       >
         FILTERS
       </Box>
