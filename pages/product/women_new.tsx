@@ -1,14 +1,17 @@
 import { Box } from '@chakra-ui/react'
+import axios from 'axios';
+import { GetServerSideProps } from 'next';
 import React, { useEffect, useState } from 'react'
 import { ClientNavbar, Footer, UiImage } from '../../components';
 import { FilterBar, ProductComponent, Slider } from '../../components/client';
 import TempNav from '../../components/client/nav/TempNav';
+import { IsubCategory } from '../../interface/client/category.interface';
 
 
 
 import { useAppDispatch, useAppSelector } from "../../store/hook";
 import { getAllProduct } from '../../store/product/productSlice';
-const WomenNew = () => {
+const WomenNew = (subcat:{subcat:IsubCategory}) => {
 
     const dispatch = useAppDispatch();
     const gproduct = useAppSelector((store) => store.product);
@@ -40,3 +43,19 @@ useEffect(()=>{
 }
 
 export default WomenNew
+
+
+
+
+export const getServerSideProps:GetServerSideProps = async (context) => {
+  const url = process.env.BASEURL
+ 
+  const res = await axios.get(`${url}/subcategory/636c7ec8411489f3872f35d9
+`)
+  const subcat = await res.data
+    return {
+      props: {
+        subcat
+      }
+    }
+  }

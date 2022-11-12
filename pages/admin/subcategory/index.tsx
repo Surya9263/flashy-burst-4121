@@ -133,6 +133,9 @@ const subcategory = ()=>{
                                 <Box w="20%">
                                 {subcategory.name}
                                 </Box>
+                                <Box w="20%">
+                                {subcategory._id}
+                                </Box>
                                 <Box>
                                     <Button colorScheme={"orange"} onClick={()=>handleDelete(subcategory._id)}>
                                         <BsFillTrashFill />

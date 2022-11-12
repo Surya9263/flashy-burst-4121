@@ -97,7 +97,7 @@ const forward = ()=>{
       }
 
         <Box ref={footerRef}>
-        <TempNav/>
+        
             <Footer/>
         </Box>
     </Box>

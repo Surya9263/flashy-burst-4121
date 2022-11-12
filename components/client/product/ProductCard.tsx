@@ -1,12 +1,15 @@
 import { Box,Flex, Image } from '@chakra-ui/react'
 import Link from 'next/link';
-import React from 'react'
+import React ,{useRef}from 'react'
 import { CIproduct } from "../../../interface/client/product.interface";
-
+import { motion, useInView } from 'framer-motion'
+import { insideview, outside } from '../../../styles/global';
 export default function ProductCard({product, text, path}:{product:CIproduct, text:boolean, path:string}) {
+  const scrollRef = useRef(null)
+  const inviewImage  = useInView(scrollRef)
   return (
-    <Link href={`${path}${product._id}`}>
-        <Flex direction={"column"} >
+    <Link href={`/product/${product._id}`} >
+        <Flex direction={"column"} ref={scrollRef} style={inviewImage?insideview:outside}>
             <Image src={product.mainImg}  w={["80vw","500px","100%","100%"]}/>
             {text
             && 

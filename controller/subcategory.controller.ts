@@ -1,4 +1,4 @@
-import { SubCategory, Category, Slide } from "../models";
+import { SubCategory, Category, Slide, Product } from "../models";
 // imported Subcategory Model
 
 const subcategoryController=()=>{
@@ -14,7 +14,7 @@ const subcategoryController=()=>{
             let newdata = new SubCategory({name:data.name, catInfo:data.cat, path:data.path})
             let newSub = await newdata.save()
             await Category.updateOne({_id:newSub.catInfo}, {$push:{subCategory:newSub._id}})
-            let newSubCat =  await SubCategory.findOne({_id:newSub._id}).populate("slides").populate("catInfo")
+            let newSubCat =  await SubCategory.findOne({_id:newSub._id}).populate("slides").populate("catInfo").populate('products')
             return {error:false, errorMsg:"", data:newSubCat, code:200} 
     }   
 
@@ -39,6 +39,12 @@ const subcategoryController=()=>{
         if(existCat.slides.length>0){
             for(let i=0; i<existCat.slides.length; i++){
                 await Slide.deleteOne({_id:existCat.slides[i]})
+            }
+        }
+
+        if(existCat.products.length>0){
+            for(let i=0; i<existCat.products.length; i++){
+                await Product.deleteOne({_id:existCat.products[i]})
             }
         }
        
@@ -75,7 +81,7 @@ const subcategoryController=()=>{
         
         // update the subcategory set the updated data
 
-        let updatedCat = await SubCategory.findOne({_id:id}).populate("slides").populate("catInfo")
+        let updatedCat = await SubCategory.findOne({_id:id}).populate("slides").populate("catInfo").populate('products')
         //  get the updated data from database using the given id
 
         return {error:false, errorMsg:"", data:updatedCat, code:200}
@@ -84,7 +90,7 @@ const subcategoryController=()=>{
 
     // Function to get all the subcategories from database
     async function getAll(){
-        let allcat = await SubCategory.find({}).populate("slides").populate("catInfo")
+        let allcat = await SubCategory.find({}).populate("slides").populate("catInfo").populate('products')
         if(allcat.length===0){
             return { error:true, errorMsg:"SubCategory List is Empty", data:allcat, code:200 }
         }
@@ -97,7 +103,7 @@ const subcategoryController=()=>{
                     return {error:true, errorMsg:"id is required", data:'', code:404}
                 }
 
-                let existsubCat = await SubCategory.findOne({_id:id}).populate("slides").populate("catInfo")
+                let existsubCat = await SubCategory.findOne({_id:id}).populate("slides").populate("catInfo").populate('products')
 
                 if(!existsubCat){
                     return {error:true, errorMsg:" No SubCategory exist with the id provide an Valid ID", data:'', code:404}

@@ -73,7 +73,9 @@ export default function ProductP() {
           {prodcoll?.products.map((product)=>{
             return (
               <Flex key={product._id} border="1px solid #ccc" px="20px">
-                   
+                   <Box w="20%">
+                      {product._id}
+                    </Box>
                     <Box w="20%">
                       {product.name}
                     </Box>
@@ -84,6 +86,10 @@ export default function ProductP() {
 
                     <Box w="20%">
                       {product.subCategory?.name}
+                    </Box>
+
+                    <Box w="20%">
+                      {product.subCategory?._id}
                     </Box>
 
                     <Button colorScheme={"orange"} onClick={()=>handleProductyDelete(product._id)}>
