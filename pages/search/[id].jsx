@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
+import axios from 'axios';
 import {Box, Flex, HStack, Image, Link, Radio, RadioGroup, Stack, Text, VStack} from "@chakra-ui/react"
-const SingleProduct = () => {
+const SingleProduct = ({product}) => {
+  console.log(product);
   const [isShowSupImg,setIsShowSupImg]=useState(false)
   const [prodColor,setProdColor]=useState("")
   const [mainImg,setMainImg]=useState("https://static.zara.net/photos///2022/I/0/1/p/8263/646/611/2/w/750/8263646611_1_1_1.jpg?ts=1663157747603")
@@ -49,5 +51,30 @@ const SingleProduct = () => {
     </HStack>
   )
 }
+
+export const getServerSideProps = async (context) => {
+  const url = process.env.BASEURL
+  console.log(context.params);
+  
+  const res = await axios.get(`${url}${context?.params?.id}`)
+  const product = res.data  
+  return {
+    props: {
+      product,
+    },
+  }
+}
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const url = process.env.BASEURL
+//   console.log(context.params);
+  
+//   const res:AxiosResponse<CIproduct> = await axios.get(`${url}${context?.params?.id}`)
+//   const product = res.data  
+//   return {
+//     props: {
+//       product,
+//     },
+//   }
+// }
 
 export default SingleProduct
