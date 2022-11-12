@@ -1,5 +1,5 @@
 import React, { ChangeEvent, MouseEvent, useEffect, useState } from 'react'
-import {Box, Button, Container, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Flex,Image,Input,Link,SimpleGrid,Spacer, Stack, Text, useDisclosure,Accordion,
+import {Box, Button, Container, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Flex,Image,Input,SimpleGrid,Spacer, Stack, Text, useDisclosure,Accordion,
   AccordionItem,
   AccordionButton,
   AccordionPanel,
@@ -11,6 +11,7 @@ import { ClientNavbar } from '../../components'
 import { CIproduct } from '../../interface/client/product.interface'
 import { GetServerSideProps } from 'next'
 import axios from 'axios'
+import Link from 'next/link'
 
 
 const trendData=[{
@@ -61,11 +62,11 @@ useEffect(()=>{
       <ClientNavbar/>
       <Box w={"100%"} position={"fixed"} top={"120px"}>
     <Flex style={{fontFamily:'Neue-Helvetica'}} m={{lg:"auto"}} ml={{sm:"4"}} w={{lg:"12%",sm:"5%"}} gap={{sm:"10px"}} justifyContent={{sm:"flex-start"}} >
-        <Box><Link><Text fontSize={"13px"}>WOMAN</Text></Link></Box>
+        <Box><Text fontSize={"13px"}>WOMAN</Text></Box>
         <Spacer/>
-        <Box><Link><Text fontSize={"13px"}>MAN</Text></Link></Box>
+        <Box><Text fontSize={"13px"}>MAN</Text></Box>
         <Spacer/>
-        <Box><Link><Text fontSize={"13px"}>KIDS</Text></Link></Box>
+        <Box><Text fontSize={"13px"}>KIDS</Text></Box>
     </Flex>
     <Flex my={{lg:"16",sm:"10"}} mt={{sm:"3"}} mb={{sm:"16"}} ml={{lg:"56",sm:"4"}} w={{lg:"82%"}}>
         <Input value={value} onChange={handleChange} onInput={()=>setIsShowTrends(false)} onFocus={()=>setIsShowTrends(true)} focusBorderColor='black' className={style.searchInput} placeholder='ENTER SEARCH TERMS' _placeholder={{color:"black"}} borderColor="black" variant="flushed"/>
@@ -84,9 +85,9 @@ useEffect(()=>{
       {
         value.length>0 && <SimpleGrid height={"340px"} overflowY={"scroll"} overflowX={"hidden"}  fontSize={{lg:"11px",sm:"13px"}} px={"6"} gap={"10"} columns={{sm:2,md:5,lg:5}}>
         {products && products.map((e)=><Box key={e._id}>
-            <Link href={`http://localhost:3000/search/${e._id}`}><Image src={e.mainImg}/></Link>
+            <Link href={`/search/${e._id}`}><Image src={e.mainImg}/></Link>
             <Flex>
-              <Link><Text>{e.name}</Text></Link>
+              <Link href={`/search/${e._id}`}><Text>{e.name}</Text></Link>
               <Spacer/>
               <Text>₹ {e.price}</Text>
             </Flex>

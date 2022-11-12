@@ -2,6 +2,7 @@ import { Box } from "@chakra-ui/react";
 import React from "react";
 import { ClientNavbar, Footer, UiImage } from "../../components";
 import Cart from "../../components/cart/cart";
+import Cartitems from "../../components/cart/Cartitems";
 import DrawerExample from "../../components/cart/drawer";
 
 import { useAppDispatch, useAppSelector } from "../../store/hook";
@@ -26,7 +27,6 @@ const cartPage = () => {
           FAVOURITES ⍌
         </Box>
         <Box>
-          <DrawerExample />
         </Box>
       </Box>
       <Box
@@ -38,7 +38,7 @@ const cartPage = () => {
         flexWrap={"wrap"}
         gap={"32px"}
       >
-        {/* <Cart {...gproduct.products} /> */}
+        <Cartitems/>
       </Box>
       <Box display="flex" margin="auto" w="99%" flexDirection={"row-reverse"} position= "fixed"
   bottom= "0">
