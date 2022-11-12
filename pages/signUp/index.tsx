@@ -20,7 +20,7 @@ export interface User {
 
 export default function SignUp() {
 
-    const [value, setValue] = React.useState('1')
+    // const [value, setValue] = React.useState('1')
 
     const [userCredentials, setUserCredentials] = useState<User>({
 		email: '',
@@ -36,6 +36,15 @@ export default function SignUp() {
         select: "",
         radio: "",
 	});
+
+    const handleSubmit = async (event: React.SyntheticEvent) => {
+        event.preventDefault();
+		// if (password !== repeat_password) {
+		// 	alert("passwords don't match");
+		// 	return;
+        // }
+            
+    }
 
 
     function handleChange(e:ChangeEvent<HTMLInputElement>) {
