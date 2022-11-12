@@ -13,7 +13,7 @@ export default function SupportingImages({images}:{images:Array<IsupImage>}) {
         
             <Flex gap="10px" direction={["column","column","row","row"]}>
                 <Box transition={"all .5s ease-in"} mx="auto">
-                    <Image  src={images[imgIndex].imglink} h={["auto","auto","470px","470px"]} w="100%" _hover={{cursor:"pointer"}} />  
+                    <Image  src={images[imgIndex]?.imglink} h={["auto","auto","470px","470px"]} w="100%" _hover={{cursor:"pointer"}} />  
                 </Box>
                 <Flex direction={["row","row","column","column"]} gap="5px" justify={"center"}>
                     {images.map((img,i)=>{
