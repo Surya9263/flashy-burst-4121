@@ -13,7 +13,10 @@ import ProductNav from '../client/nav/ProductNav'
 
 export default function ClientNavbar() {
    const {color} = useContext(colorContext)
+
    const auth = useAppSelector(store=>store.auth) 
+   const cart = useAppSelector(store=>store.cart)
+
    const { isOpen, onOpen, onClose } = useDisclosure()
    const btnRef = React.useRef<any|null>(null)
   return (
@@ -73,7 +76,7 @@ export default function ClientNavbar() {
                 <Box fontSize="30px" position={"relative"} >
                     <Link href="/cart">
                         <BsBag />
-                        <Text fontSize={["14px"]} position="absolute" top="8px" w="30px" textAlign="center">99</Text>
+                        <Text fontSize={["14px"]} position="absolute" top="8px" w="30px" textAlign="center">{cart?.cartItems?.length}</Text>
                     </Link>
                 </Box>
             </Flex>
