@@ -134,7 +134,7 @@ const productController = ()=>{
                 }
             }
 
-            const existing = await  Product.findOne({colors:{$in:colorName}})
+            const existing = await  Product.findOne({_id:id, colors:{$in:colorName}})
             if(existing){
                 return {
                     error: true,
