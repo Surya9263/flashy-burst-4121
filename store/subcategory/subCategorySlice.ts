@@ -7,7 +7,7 @@ import {ICatRem, IsubCategory, IsubCatInitState} from '../../interface/client/ca
 
 export const addsubcategory = createAsyncThunk(
     'subcategory/add',
-        async(data:{name:string, cat:string}, thunkapi)=>{
+        async(data:{name:string, cat:string, path:string}, thunkapi)=>{
             try{
                 const res:AxiosResponse<IsubCategory> = await axios.post('/api/subcategory', data)
                 return res.data

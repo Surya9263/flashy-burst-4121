@@ -2,7 +2,7 @@ import { Box, Text, Image, Select } from "@chakra-ui/react";
 import Link from "next/link";
 import { Iproduct } from "../../interface/product.interface";
 import Count from "./count";
-export default function Cart({ name, price, mainImg, _id }: Iproduct) {
+export default function Cart({ name, price, mainImg}: Iproduct) {
   return (
     <>
       <Box>

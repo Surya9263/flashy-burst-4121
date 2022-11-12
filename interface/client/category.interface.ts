@@ -21,6 +21,7 @@ export interface IsubCategory {
     _id:string
     catInfo:CIcategory;
     name:string;
+    path:string;
     slides?:Array<string>;
     products?:Array<string>
 }
