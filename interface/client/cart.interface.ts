@@ -1,7 +1,17 @@
-import { Types } from "mongoose";
-
+import { CIproduct } from "./product.interface";
 export interface CIcart {
-    cartItems:{type:Array<{prodId:Types.ObjectId,prodCount:Number}>}
-    userId:{type:Types.ObjectId}
+    _id:string;
+    prodId:CIproduct;
+    prodCount:number;
+    color:string;
+    size:string;
+    price:number;
+    userId:string;
 }
 
+export interface initialState{
+    loading:boolean;
+    error:boolean;
+    errorMsg:string;
+    cartItems:Array<CIcart>;
+}

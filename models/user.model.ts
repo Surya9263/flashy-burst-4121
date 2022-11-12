@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema<Iuser>({
     phone:{type:String,default:""},
     address:{type:String,default:""},
     rToken:{type:String,default:""},
-    cart:Array<mongoose.Schema.Types.ObjectId>
+    cart:{type:Array<mongoose.Schema.Types.ObjectId>,ref:"cart"}
 })
 
 const User =  mongoose.models.user||mongoose.model('user', userSchema)
