@@ -4,14 +4,15 @@ import { Iauthclient, Iuserclient } from "../../interface/client/user.interface"
 import { jwtDecoded } from "../../interface/jwt.interface";
 // import { userSliceState, userType,authStateSliceType, authResType } from "../types/types";
 
+export interface AxiosResData  {
+    data:jwtDecoded;
+}
 // login action 
 export const login = createAsyncThunk(
     "users/auth/login",
     async(data:{email:string, password:string}, thunkApi)=>{
         try{
-            const responce = await axios.post<jwtDecoded>("/api/session", data)
-            console.log(responce.data);
-            
+            const responce = await axios.post<AxiosResData>("/api/session", data)        
             return responce.data
         }catch(error:any){
             return thunkApi.rejectWithValue(error.message);
@@ -42,14 +43,16 @@ const authSlice = createSlice({
             state.isLoading=true;
             state.isError = false;
         })
-        .addCase(login.fulfilled,(state, action:PayloadAction<jwtDecoded>)=>{
+        .addCase(login.fulfilled,(state, action:PayloadAction<AxiosResData>)=>{
+            console.log(action.payload);
+            
              state.isLoading=false,
              state.isAuth = true,
              state.isError = false;
-             state.userId=action.payload.userId,
-             state.iat=action.payload.iat,
-             state.ext=action.payload.exp,
-             state.role=action.payload.role
+             state.userId=action.payload.data.userId,
+             state.iat=action.payload.data.iat,
+             state.ext=action.payload.data.exp,
+             state.role=action.payload.data.role
              
         })
         .addCase(login.rejected, (state, action:PayloadAction<any>)=>{

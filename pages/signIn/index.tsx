@@ -1,8 +1,9 @@
 import {Box, Input, Button, Flex, Text, LinkBox} from '@chakra-ui/react'
 import Link from 'next/link';
+import Router  from 'next/router';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { ClientNavbar } from '../../components';
-import { login } from '../../store/auth/authslice';
+import { login } from '../../store/auth/authSlice'; 
 import { useAppDispatch, useAppSelector } from '../../store/hook';
 
 
@@ -25,7 +26,6 @@ export default function Login() {
     function handleChange(e:ChangeEvent<HTMLInputElement>) {
     const {name,value} = e.target
     setUserCredentials({...userCredentials,[name]:value});
-    // console.log(userCredentials);
     }
 
     function handleLogin(e:FormEvent<HTMLFormElement>){
@@ -34,12 +34,21 @@ export default function Login() {
     }
 
     useEffect(()=>{
-        console.log(auth);
+        
+        if(auth.isAuth){
+            auth.role==="admin"?Router.push('/admin'):Router.push('/')
+        }
+
     },[auth])
 
   
+    
+      
+        
+    
     return (
         <>
+           
 
             <ClientNavbar />
             

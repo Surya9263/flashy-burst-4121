@@ -1,26 +1,39 @@
-import { Box, Flex,Image,Text,Button, Show } from '@chakra-ui/react'
+import { Box, Flex,Image,Text,Button, Show,useDisclosure,
+ } from '@chakra-ui/react'
 import Head from 'next/head'
 import Link from 'next/link'
 import React,{useContext} from 'react'
 import {FaBars} from 'react-icons/fa'
 import { colorContext } from '../../context/ColorContext'
 import {BsBag} from 'react-icons/bs'
+import { useAppSelector } from '../../store/hook'
+import ProductNav from '../client/nav/ProductNav'
+import { Iauthclient } from '../../interface/client/user.interface'
 
 
 export default function ClientNavbar() {
    const {color} = useContext(colorContext)
+   const auth = useAppSelector(store=>store.auth) as Iauthclient
+   const { isOpen, onOpen, onClose } = useDisclosure()
+   const btnRef = React.useRef<any|null>(null)
   return (
     <Box  w={"100%"}>
         <Head>
         <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Dancing+Script" />
     </Head>
-    <Box position={"fixed"} top="0px" zIndex={"10"}  w={"100%"}>
+    <Box position={"fixed"} top="0px" zIndex={"10"}  w={"100%"} _hover={{bg:"rgba(255,255,255,.8)"}} transition=".3s all ease-in">
 
         <Flex align={"center"}  px={["10px","10px","20px","20px"]} color={color} justify="space-between" >
            
            <Flex align={"center"} gap={["10px","10px","20px","20px"]} >
-            <Button variant={"outline"} _hover={{bg:"none"}} p="0" border={"none"} fontSize={"24px"}>
+                <Button  ref={btnRef} variant={"outline"} _hover={{bg:"none"}} p="0" border={"none"} fontSize={"24px"} onClick={()=>{
+                    if(!isOpen){
+                        onOpen()
+                    }else{
+                        onClose()
+                    }
+                }}>
                     <FaBars fontFamily='Dancing Script' />
                 </Button>
                 {/* <Image src={'/logo/brandLogo1.png'} alt="brand Logo"/> */}
@@ -42,9 +55,12 @@ export default function ClientNavbar() {
                 
                 
                     <Box  fontSize="20px" textTransform={"uppercase"}>
-                        <Link href="/signIn">
+                        
+                      
+                    {!auth.isAuth && <Link href="/signIn">
                             Log in
-                        </Link>
+                        </Link>}
+                       
                     </Box>
 
                     <Box fontSize="20px"  textTransform={"uppercase"}>
@@ -64,6 +80,8 @@ export default function ClientNavbar() {
 
         </Flex>
     </Box>
+
+    {isOpen&&<ProductNav isOpen={isOpen} onOpen={onOpen} onClose={onClose}/>}
     </Box>
   )
 }

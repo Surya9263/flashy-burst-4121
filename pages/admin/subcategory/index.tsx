@@ -30,7 +30,7 @@ const subcategory = ()=>{
     const subcategory = useAppSelector(store=>store.subcategory)
     const dispatch = useAppDispatch()
 
-    const [subcatInfo, setSubcatInfo] = useState({name:"", cat:""}) 
+    const [subcatInfo, setSubcatInfo] = useState({name:"", cat:"", path:""}) 
     const [subcatid, setSubcatid] = useState<string>("")
     const [status, setStatus] =  useState<"add"|"update">("add")
 
@@ -57,7 +57,7 @@ const subcategory = ()=>{
     const handleUpdate = async()=>{       
         await dispatch(updatesubcategory({id:subcatid, data:subcatInfo}))
         setStatus("add")
-        setSubcatInfo({...subcatInfo, name:"", cat:""})
+        setSubcatInfo({...subcatInfo, name:"", cat:"",path:""})
         setSubcatid("")
     }
 
@@ -92,7 +92,7 @@ const subcategory = ()=>{
                                     )
                                 })}
                             </Select>
-
+                            <Input onChange={handleChnage} type="text" name="path" value={subcatInfo.path} placeholder='Type path name'/>
                             <Input onChange={handleChnage} type="text" name="name" value={subcatInfo.name} placeholder='Type subcategory name'/>
                             
                             {status==="add"?
@@ -140,7 +140,7 @@ const subcategory = ()=>{
                                 </Box>
                                 <Box>
                                     <Button colorScheme={"green"} onClick={()=>{
-                                        setSubcatInfo({...subcatInfo, name:subcategory.name, cat:subcategory.catInfo._id})
+                                        setSubcatInfo({...subcatInfo, name:subcategory.name, cat:subcategory.catInfo._id, path:subcategory.path})
                                         setStatus("update");
                                         setSubcatid(subcategory._id)
                                     }}>

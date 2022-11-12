@@ -52,7 +52,7 @@ const forward = ()=>{
     
         {category.categories[catIndex]?.slides?.map((slide)=>{
           return (
-           <Box  mx="auto">
+           <Box  mx="auto" key={slide._id}>
              <UiImage slide={slide} key={slide._id}/>
             </Box>
           )
@@ -65,7 +65,7 @@ const forward = ()=>{
 
  
         {catIndex>0 && <Button variant={"outline"} colorScheme="orange" borderRadius={"none"} position="fixed" top={"45vh"} onClick={previous}>
-            <MdArrowBackIosNew /> {category.categories[catIndex-1].name}
+            <MdArrowBackIosNew /> {category.categories[catIndex-1]?.name}
           </Button>
         }
 
@@ -85,7 +85,7 @@ const forward = ()=>{
               
                     category.categories[catIndex]?._id===slide.category._id 
                     &&
-                    <Box fontWeight={"700"} textAlign="center" _hover={{cursor:"pointer"}} onClick={()=>{
+                    <Box key={slide._id} fontWeight={"700"} textAlign="center" _hover={{cursor:"pointer"}} onClick={()=>{
                       jumpToReleventDiv(slide._id)
                     }}>
                       {slide.subcategory.name}
