@@ -48,7 +48,7 @@ import React  from "react";
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>Create your account</DrawerHeader>
+          <DrawerHeader></DrawerHeader>
 
           <DrawerBody>
             <Accordion defaultIndex={[0]} allowMultiple>
@@ -249,7 +249,7 @@ import React  from "react";
             <Button variant="outline" mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button colorScheme="blue">Save</Button>
+            <Button colorScheme="blue"> Changes</Button>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
