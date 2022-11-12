@@ -1,12 +1,12 @@
-import React, { ChangeEvent, MouseEvent, useEffect, useState } from 'react'
-import {Box, Button, Container, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Flex,Image,Input,SimpleGrid,Spacer, Stack, Text, useDisclosure,Accordion,
+import React, { ChangeEvent, useEffect, useState } from 'react'
+import {Box, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Flex,Image,Input,SimpleGrid,Spacer, Stack, Text, useDisclosure,Accordion,
   AccordionItem,
   AccordionButton,
   AccordionPanel,
   AccordionIcon,} from "@chakra-ui/react"
 import style from "../search/index.module.css"
 import { useAppDispatch, useAppSelector } from '../../store/hook'
-import { getAllProduct } from '../../store/product/productSlice'
+// import { getAllProduct } from '../../store/product/productSlice'
 import { ClientNavbar } from '../../components'
 import { CIproduct } from '../../interface/client/product.interface'
 import { GetServerSideProps } from 'next'
@@ -14,13 +14,55 @@ import axios from 'axios'
 import Link from 'next/link'
 
 
-const trendData=[{
+const trendData=[
+{
   id:1,
-  tValue:"BLAZER"
-},{
+  tValue:"BLAZER",
+  type:"WOMAN"
+},
+{
   id:2,
-  tValue:"HEADBAND"
-}]
+  tValue:"HEADBAND",
+  type:"WOMAN"
+},
+{
+  id:3,
+  tValue:"DRESS",
+  type:"WOMAN"
+},
+{
+  id:4,
+  tValue:"DRESS",
+  type:"KIDS"
+},
+{
+  id:5,
+  tValue:"HEADBAND",
+  type:"MAN"
+},
+{
+  id:6,
+  tValue:"DRESS",
+  type:"WOMAN"
+},
+{
+  id:7,
+  tValue:"BLAZER",
+  type:"WOMAN"
+},
+{
+  id:8,
+  tValue:"HEADBAND",
+  type:"WOMAN"
+},
+{
+  id:9,
+  tValue:"DRESS",
+  type:"WOMAN"
+},
+]
+
+const types=["WOMAN","MAN","KIDS"]
 
 const SearchPage = ({allProducts}:{allProducts:Array<CIproduct>}) => {
   // console.log(allProducts);
@@ -34,6 +76,7 @@ const SearchPage = ({allProducts}:{allProducts:Array<CIproduct>}) => {
     // const [displaySize, setDisplaySize] =  useState<string>("0")
     const [products,setProducts]=useState<Array<CIproduct>>([])
     const [value,setValue]=useState<string>("")
+    const [currCat,setCurrCat]=useState("WOMAN")
 
 let filtered:Array<CIproduct>=[];
 const handleChange=(e:ChangeEvent<HTMLInputElement>)=>{
@@ -48,7 +91,7 @@ useEffect(()=>{
   filtered=allProducts.filter((e)=>{
     // console.log(e.pType.name.includes(value));
     
-    if(e.pType.name.includes(value.toUpperCase())){
+    if(e.pType.name.toUpperCase().includes(value.toUpperCase()) && e.category.name===currCat){
       return e
     }
   })
@@ -62,28 +105,33 @@ useEffect(()=>{
       <ClientNavbar/>
       <Box w={"100%"} position={"fixed"} top={"120px"}>
     <Flex style={{fontFamily:'Neue-Helvetica'}} m={{lg:"auto"}} ml={{sm:"4"}} w={{lg:"12%",sm:"5%"}} gap={{sm:"10px"}} justifyContent={{sm:"flex-start"}} >
-        <Box><Text fontSize={"13px"}>WOMAN</Text></Box>
+      {types?.map((el)=><Box><Text style={el===currCat?{fontWeight:"bold"}:{fontWeight:"normal"}} cursor={"pointer"}  onClick={(e)=>{
+        setCurrCat(e.currentTarget.innerText)
+        }} fontSize={"13px"}>{el}</Text></Box>)}
+        {/* <Spacer/>
+        <Box><Text cursor={"pointer"} onClick={(e)=>setCurrCat(e.currentTarget.innerText)} fontSize={"13px"}>MAN</Text></Box>
         <Spacer/>
-        <Box><Text fontSize={"13px"}>MAN</Text></Box>
-        <Spacer/>
-        <Box><Text fontSize={"13px"}>KIDS</Text></Box>
+        <Box><Text cursor={"pointer"} onClick={(e)=>setCurrCat(e.currentTarget.innerText)} fontSize={"13px"}>KIDS</Text></Box> */}
     </Flex>
     <Flex my={{lg:"16",sm:"10"}} mt={{sm:"3"}} mb={{sm:"16"}} ml={{lg:"56",sm:"4"}} w={{lg:"82%"}}>
         <Input value={value} onChange={handleChange} onInput={()=>setIsShowTrends(false)} onFocus={()=>setIsShowTrends(true)} focusBorderColor='black' className={style.searchInput} placeholder='ENTER SEARCH TERMS' _placeholder={{color:"black"}} borderColor="black" variant="flushed"/>
     </Flex>
     {isShowTrends && value=="" && <Stack w={{lg:"40%"}} ml={{lg:"56",sm:"4"}}>
         <Box><Text fontSize={"13px"} as={"b"}>TRENDS</Text></Box>
-        {trendData?.map((el)=><Box key={el.id}><Text onClick={(e)=>{
-          setValue(el.tValue)
-          }} cursor={"pointer"} fontSize={"13px"}>{el.tValue}</Text></Box>)}
-         {/* <Box><Text cursor={"pointer"} fontSize={"13px"}>DRESS</Text></Box> */}
-        {/* <Box><Text cursor={"pointer"} fontSize={"13px"}>TOP</Text></Box>
-        <Box><Text cursor={"pointer"} fontSize={"13px"}>SKIRT</Text></Box>
-        <Box><Text cursor={"pointer"} fontSize={"13px"}>BLAZER</Text></Box> */}
+        {trendData?.map((el)=>{
+          if(el.type===currCat){
+            return(
+              <Box key={el.id}><Text onClick={(e)=>{
+              setValue(el.tValue)
+              }} cursor={"pointer"} fontSize={"13px"}>{el.tValue}</Text></Box>
+              )
+          }
+          })
+        }
     </Stack>}
     <Box mt={"10"}>
       {
-        value.length>0 && <SimpleGrid height={"340px"} overflowY={"scroll"} overflowX={"hidden"}  fontSize={{lg:"11px",sm:"13px"}} px={"6"} gap={"10"} columns={{sm:2,md:5,lg:5}}>
+        value.length>0 && <SimpleGrid height={"450px"} overflowY={"scroll"} overflowX={"hidden"}  fontSize={{lg:"11px",sm:"13px"}} px={"6"} gap={"10"} columns={{sm:2,md:5,lg:5}}>
         {products && products.map((e)=><Box key={e._id}>
             <Link href={`/search/${e._id}`}><Image src={e.mainImg}/></Link>
             <Flex>
@@ -94,19 +142,8 @@ useEffect(()=>{
           </Box>)}        
       </SimpleGrid>
       }
-    {/* <SimpleGrid height={"500px"} overflowY={"scroll"} overflowX={"hidden"}  fontSize={{lg:"11px",sm:"13px"}} px={"6"} gap={"10"} columns={{sm:2,md:5,lg:5}}>
-      {gproduct.products && gproduct.products.map((e)=><Box key={e._id}>
-          <Link href={`http://localhost:3000/search/${e._id}`}><Image src={e.mainImg}/></Link>
-          <Flex>
-            <Link><Text>{e.name}</Text></Link>
-            <Spacer/>
-            <Text>₹ {e.price}</Text>
-          </Flex>
-        </Box>)}        
-    </SimpleGrid> */}
     </Box>
     </Box>
-    {/* <Flex pr={'6'} direction={'row-reverse'} mb={'10'}><Button variant={"outline"} colorScheme={"whiteAlpha"}  size={"sm"} color={"black"} borderRadius={'none'} ref={btnRef} onClick={onOpen}><Text>FILTERS</Text></Button></Flex> */}
     <Drawer
         isOpen={isOpen}
         placement='right'
