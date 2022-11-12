@@ -1,9 +1,13 @@
 import mongoose from "mongoose";
-import { CIcart } from "../interface/client/cart.interface";
+import { Icart } from "../interface/cart.interface";
 
-const cartSchema=new mongoose.Schema<CIcart>({
-   cartItems:{type:Array<{prodId:mongoose.Schema.Types.ObjectId,prodCount:Number}>,default:[],ref:"user"},
-   userId:String 
+const cartSchema=new mongoose.Schema<Icart>({
+   prodId:{type:mongoose.Schema.Types.ObjectId,ref:"product"},
+   prodCount:Number,
+   color:String,
+   size:String,
+   price:Number,
+   userId:{type:mongoose.Schema.Types.ObjectId,ref:"user"}
 })
 
 const Cart=mongoose.models.cart || mongoose.model("cart",cartSchema);
