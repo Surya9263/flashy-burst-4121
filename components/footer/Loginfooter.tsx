@@ -2,9 +2,9 @@ import { Box, Flex, Text } from "@chakra-ui/react"
 
 export default function Loginfooter(){
     return(
-        <Box>
-            <Flex gap={50} mt={200} ml={[50,200]} direction={['column', 'row']} >
-                <Box>
+        <Box w={"100%"}>
+            <Flex w={"100%"} flexWrap={"wrap"} justify={"center"} align={"center"} gap={50} mt={200} px="35px" direction={['column', 'column','row','row']} >
+                <Box w={["40%","40%","20%","20%"]}>
                     <Text><b>HELP</b></Text>
                     <Text>SHOP AT ZARA.COM</Text>
                     <Text>PRODUCT</Text>
@@ -16,7 +16,7 @@ export default function Loginfooter(){
                     <Text>CLOTHES COLLECTION </Text>
                     <Text>MY ACCOUNT</Text>
                 </Box>
-                <Box>
+                <Box w={["40%","40%","20%","20%"]}>
                 <Text><b>FOLLOW US</b></Text>
                     <Text>NEWSLETTER</Text>
                     <Text>INSTAGRAM</Text>
@@ -26,7 +26,7 @@ export default function Loginfooter(){
                     <Text>YOUTUBE</Text>
                     
                 </Box>
-                <Box>
+                <Box w={["40%","40%","20%","20%"]}>
                 <Text><b>COMPANY</b></Text>
                     <Text>ABOUT US</Text>
                     <Text>JOIN LIFE</Text>
@@ -35,7 +35,7 @@ export default function Loginfooter(){
                     <Text>WORK WITH US</Text>
                     
                 </Box>
-                <Box>
+                <Box w={["40%","40%","20%","20%"]}>
                 <Text><b>POLICIES</b></Text>
                     <Text>PRIVACY POLICY</Text>
                     <Text>PURCHASE CONDITIONS</Text>

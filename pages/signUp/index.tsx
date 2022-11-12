@@ -71,11 +71,11 @@ export default function SignUp() {
     console.log(userCredentials);
   
     return (
-        <Box>
+        <Box w={"90vw"}>
 
             <ClientNavbar />
             <form onSubmit={handleRegister}>
-            <Flex  mt={200}  gap={0} direction={['column']}>
+             <Flex  mt={200}  gap={0} direction={['column']}>
                 <Box  h={"auto"} w={["80%","80%",500,500]} mx={"auto"}>
                 
                     <Text fontSize={22}><b>PERSONAL DETAILS</b></Text>
@@ -139,7 +139,7 @@ export default function SignUp() {
                         mt={50}
                         size='md'
                         height='45px'
-                        width='500px'
+                        
                         border='0'
                         bg={"black"}
                         color={"white"}
@@ -153,7 +153,7 @@ export default function SignUp() {
 
                 
                 
-            </Flex>
+            </Flex> 
             </form>
             
 
