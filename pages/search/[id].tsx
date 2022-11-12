@@ -13,7 +13,7 @@ import {Box,Drawer,
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  DrawerCloseButton, Button, Divider, Flex, HStack, Image, Link, Radio, RadioGroup, Spacer, Stack, Text, VStack, useDisclosure, Input} from "@chakra-ui/react"
+  DrawerCloseButton, Button, Divider, Flex, HStack, Image, Link, Radio, RadioGroup, Spacer, Stack, Text, VStack, useDisclosure, Input, Show} from "@chakra-ui/react"
 import { GetServerSideProps } from 'next';
 import { CIproduct } from '../../interface/client/product.interface';
 import { ClientNavbar } from '../../components';
@@ -41,7 +41,7 @@ const initialState={
 }
 
 const SingleProduct = ({product}:{product:CIproduct}) => {
-  console.log(product);
+  // console.log(product);
   const [isShowSupImg,setIsShowSupImg]=useState(false)
   const [prodColor,setProdColor]=useState("")
   const [mainImg,setMainImg]=useState(product.mainImg)
@@ -62,8 +62,7 @@ const SingleProduct = ({product}:{product:CIproduct}) => {
       Router.push("/signIn")
     }else{
       dispatch(addToCart({userId:auth?.userId,prodCount:1,prodId:product._id,color:"red",price:Number(product.price),size:"sm"}))
-      setReqStatus(1)
-      
+      setReqStatus(1)      
     }
   }
 
@@ -93,10 +92,12 @@ const SingleProduct = ({product}:{product:CIproduct}) => {
         <Box w={["100%","100%","30%","30%"]} h={['auto','auto', '470px','470px']} overflow={"hidden"} boxSizing='border-box'>
           <Flex justify={["center","center","initial","initial"]} onMouseOver={()=>{setIsShowSupImg(true)}} onMouseLeave={()=>setIsShowSupImg(false)} gap={4}>
           <Link><Image transition={'ease-in-out'} height={{sm:"3xl",lg:"xl"}} src={mainImg}/></Link>
-          <Stack hidden={!isShowSupImg} spacing={'6'}>
+          <Show breakpoint='(min-width: 768px)'>
+          <Stack hidden={!isShowSupImg} spacing={'4'}>
           <Box w='40px' h='50px'><Image cursor={"pointer"} onClick={(e)=>setMainImg(e.currentTarget.src)} src={product.mainImg}/></Box>
             {product.supImg?.map((e)=><Box key={e._id} w='40px' h='auto'><Image cursor={"pointer"} onClick={()=>setMainImg(e.imglink)} src={e.imglink}/></Box>)}
         </Stack>
+        </Show>
         </Flex>
         </Box>
         <Flex direction={"column"} w={["100%","100%","18%","18%"]} >
