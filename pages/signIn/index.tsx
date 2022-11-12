@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Router  from 'next/router';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { ClientNavbar } from '../../components';
+import Loginfooter from '../../components/footer/Loginfooter';
 import { login } from '../../store/auth/authSlice'; 
 import { useAppDispatch, useAppSelector } from '../../store/hook';
 
@@ -52,7 +53,7 @@ export default function Login() {
 
             <ClientNavbar />
             
-            <Flex gap={200} mt={200} ml={200}>
+            <Flex gap={200} mt={200} ml={[50,200]} direction={['column', 'row']}>
                 <Box  h={"auto"} w={250} >
                     <Text fontSize={22}><b>LOG IN</b></Text>
                     <form onSubmit={handleLogin}>
@@ -104,6 +105,7 @@ export default function Login() {
                             border='0'
                             bg={"black"}
                             color={"white"}
+                            cursor={"pointer"}
                             borderRadius={"none"}
                             variant='none'
                             />
@@ -142,47 +144,7 @@ export default function Login() {
                 </Box>
             </Flex>
 
-            <Flex gap={50} mt={200} ml={200}>
-                <Box>
-                    <Text><b>HELP</b></Text>
-                    <Text>SHOP AT ZARA.COM</Text>
-                    <Text>PRODUCT</Text>
-                    <Text>GIFT CARD</Text>
-                    <Text>PAYMENT</Text>
-                    <Text>SHIPPING</Text>
-                    <Text>EXCHANGES AND RETURNS</Text>
-                    <Text>SHOPS AND COMPANY</Text>
-                    <Text>CLOTHES COLLECTION PROGRAMME</Text>
-                    <Text>MY ACCOUNT</Text>
-                </Box>
-                <Box>
-                <Text><b>FOLLOW US</b></Text>
-                    <Text>NEWSLETTER</Text>
-                    <Text>INSTAGRAM</Text>
-                    <Text>FACEBOOK</Text>
-                    <Text>TWITTER</Text>
-                    <Text>PINTEREST</Text>
-                    <Text>YOUTUBE</Text>
-                    
-                </Box>
-                <Box>
-                <Text><b>COMPANY</b></Text>
-                    <Text>ABOUT US</Text>
-                    <Text>JOIN LIFE</Text>
-                    <Text>OFFICES</Text>
-                    <Text>STORES</Text>
-                    <Text>WORK WITH US</Text>
-                    
-                </Box>
-                <Box>
-                <Text><b>POLICIES</b></Text>
-                    <Text>PRIVACY POLICY</Text>
-                    <Text>PURCHASE CONDITIONS</Text>
-                    <Text>GIFT CARD CONDITIONS</Text>
-                    <Text>COOKIES SETTINGS</Text>
-                    
-                </Box>
-            </Flex>
+            <Loginfooter />
         </>
     )
   }
