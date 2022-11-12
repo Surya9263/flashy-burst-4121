@@ -2,7 +2,7 @@ import { productC } from "../../../controller";
 import { NextApiRequest, NextApiResponse } from "next";
 import { connectDB } from "../../../lib";
 
-export default async function categoryOpr(
+export default async function productOptr(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
