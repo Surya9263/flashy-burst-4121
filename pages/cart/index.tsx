@@ -38,7 +38,7 @@ const cartPage = () => {
         flexWrap={"wrap"}
         gap={"32px"}
       >
-        <Cart {...gproduct.products} />
+        {/* <Cart {...gproduct.products} /> */}
       </Box>
       <Box display="flex" margin="auto" w="99%" flexDirection={"row-reverse"} position= "fixed"
   bottom= "0">

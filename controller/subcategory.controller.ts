@@ -6,13 +6,13 @@ const subcategoryController=()=>{
     
    
 //    Function to create new subcategory
-    async function add(data:{name:string, cat:string}){
+    async function add(data:{name:string, cat:string, path:string}){
            
             if(!data.name||!data.cat){
                 return {error:true, errorMsg:"name and cat both are required is required ", data:'', code:404} 
             }
-            
-            let newSub = await SubCategory.create({name:data.name, catInfo:data.cat})
+            let newdata = new SubCategory({name:data.name, catInfo:data.cat, path:data.path})
+            let newSub = await newdata.save()
             await Category.updateOne({_id:newSub.catInfo}, {$push:{subCategory:newSub._id}})
             let newSubCat =  await SubCategory.findOne({_id:newSub._id}).populate("slides").populate("catInfo")
             return {error:false, errorMsg:"", data:newSubCat, code:200} 
@@ -65,8 +65,14 @@ const subcategoryController=()=>{
             return {error:true, errorMsg:" No SubCategory exist with the id provide an Valid ID", data:'', code:404}
         }
         // if subcategory not matches with given id return back with error
-
-        await SubCategory.updateOne({_id:id}, {$set:{...data}})
+            if(data.name&&data.path){
+                await SubCategory.updateOne({_id:id}, {$set:{name:data.name, path:data.path}})
+            }else if(data.path){
+                await SubCategory.updateOne({_id:id}, {$set:{path:data.path}})
+            }else{
+                await SubCategory.updateOne({_id:id}, {$set:{...data}})
+            }
+        
         // update the subcategory set the updated data
 
         let updatedCat = await SubCategory.findOne({_id:id}).populate("slides").populate("catInfo")

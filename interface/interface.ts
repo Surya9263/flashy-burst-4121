@@ -17,6 +17,7 @@ export interface Icategory {
 export interface IsubCategory {
     catInfo:Types.ObjectId;
     name:string;
+    path:string;
     slides?:Array<Types.ObjectId>;
     products?:Array<Types.ObjectId>
 }
