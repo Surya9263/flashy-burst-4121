@@ -8,15 +8,12 @@ import axios, { AxiosResponse } from 'axios'
 import { ClientNavbar, Footer } from '../../components'
 import { Box } from '@chakra-ui/react'
 
-export default function ProductId() {
-    const id = Router.query.id as string
-    const products = useAppSelector(store=>store.product)
-    const product = products.products.find(product=>product?._id===id) as CIproduct
+export default function ProductId({product}:{product:CIproduct}) {
+  
   return (
     <div>
         <ClientNavbar />
         <Box mt="100px">
-         
         </Box>
         <SingleProduct product={product}/>
         <Footer/>
@@ -26,15 +23,14 @@ export default function ProductId() {
 
 
 
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//     const url = process.env.BASEURL
-//     console.log(context.params);
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const url = process.env.BASEURL
     
-//     const res:AxiosResponse<CIproduct> = await axios.get(`${url}${context?.params?.id}`)
-//     const product = res.data  
-//     return {
-//       props: {
-//         product,
-//       },
-//     }
-//   }
+    const res:AxiosResponse<CIproduct> = await axios.get(`${url}/product/${context?.params?.id}`)
+    const product = res.data  
+    return {
+      props: {
+        product,
+      },
+    }
+  }

@@ -1,3 +1,4 @@
+import { CIproduct } from "./product.interface";
 
 export interface CIcategory {
     _id:string,
@@ -23,7 +24,7 @@ export interface IsubCategory {
     name:string;
     path:string;
     slides?:Array<string>;
-    products?:Array<string>
+    products?:Array<CIproduct>
 }
 
 

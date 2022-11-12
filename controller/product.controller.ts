@@ -16,6 +16,7 @@ const productController = ()=>{
     
         let newproduct = await Product.create({category:data.category, subCategory:data.subCategory, pType:data.pType, name:data.name, price:data.price, mainImg:data.mainImg, description:data.discription}) 
         await Category.updateOne({_id:newproduct.category}, {$push:{products:newproduct._id}})
+        await SubCategory.updateOne({_id:newproduct.subCategory}, {$push:{products:newproduct._id}})
         let productwithPopdata = await  Product.findOne({_id:newproduct._id}).populate('category').populate('subCategory').populate('pType').populate("supImg")
         return { error: false, errorMsg: "", data: productwithPopdata, code: 200 };
     }
@@ -42,6 +43,7 @@ const productController = ()=>{
          }
 
          await Category.updateOne({_id:exitsProdut.category}, {$pull:{products:exitsProdut._id}})
+         await SubCategory.updateOne({_id:exitsProdut.subCategory}, {$pull:{products:exitsProdut._id}})
          await Product.deleteOne({_id:id})
          return { 
             error: false,
@@ -88,6 +90,8 @@ const productController = ()=>{
 
 
     async function getAll(){
+      
+        
         let allProduct = await Product.find({}).populate('category').populate('subCategory').populate('pType').populate("supImg")
                 
         if (allProduct.length === 0) {
@@ -103,7 +107,7 @@ const productController = ()=>{
     }
 
     async function getSingle(id:string){
-        let product1 = await Product.findOne().populate('category').populate('subCategory').populate('pType').populate("supImg")
+        let product1 = await Product.findOne({_id:id}).populate('category').populate('subCategory').populate('pType').populate("supImg")
                 
         if (!product1) {
           return {

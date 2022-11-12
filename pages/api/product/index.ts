@@ -3,11 +3,13 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { connectDB } from "../../../lib";
 
 async function Product(req: NextApiRequest, res: NextApiResponse) {
-
-
+  
+  
+  
   await connectDB();
   if (req.method === "GET") {
     const products = await productC().getAll();
+
     if (products.error) {
       return res.status(products.code).send(products.errorMsg);
     }
