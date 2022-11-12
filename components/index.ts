@@ -12,6 +12,7 @@ export {default as AddProductType} from './admin/product/AddProductType'
 export {default as AddNewImage} from './admin/product/AddNewImage'
 export {default as Addproduct} from './admin/product/Addproduct'
 export {default as UpdateProductIntData} from './admin/product/AddColorSizeFeature'
+export {default as UpdateProduct} from './admin/product/UpdateProduct'
 
 
 

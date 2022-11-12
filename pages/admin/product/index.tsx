@@ -1,6 +1,6 @@
 import { Flex, Box, Input, FormLabel, Button,Select, Text } from "@chakra-ui/react";
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { Addproduct, AdminHeader, AdminNav, AddProductType, AddNewImage, UpdateProductIntData} from '../../../components'
+import { Addproduct, AdminHeader, AdminNav, AddProductType, AddNewImage, UpdateProductIntData, UpdateProduct} from '../../../components'
 import { useAppDispatch, useAppSelector } from "../../../store/hook";
 //icons
 import {BsFillTrashFill, BsPencilSquare} from "react-icons/bs"
@@ -15,8 +15,11 @@ import {
 } from "../../../store/product/productSlice";
 import Head from "next/head";
 import { addProdType, getAllProdType } from "../../../store/productType/productTypeSclie";
+import { IaddProduct } from "../../../interface/client/product.interface";
 
-
+const initialState:IaddProduct = {
+  category:"",subCategory:"", pType:"", name:"",price:"", mainImg:"", discription:""
+}
 
 
 export default function ProductP() {
@@ -27,9 +30,15 @@ export default function ProductP() {
   const prodcoll = useAppSelector((store) => store.product)
   const [catIndex, setCatIndex] =  useState<number>(-1)
   // state to maintaine producttype data
+  const [status, setStatus]  = useState(false);
+  const [product, setProduct] = useState(initialState);
 
   const handleProductyDelete = (id:string)=>{
       dispatch(deleteProduct(id))
+  }
+
+  const handleProductyupdate = (id:string)=>{
+    setStatus(true)
   }
   return (
     <Box>
@@ -46,7 +55,7 @@ export default function ProductP() {
         <Flex  w={["100%", "100%","80%","80%"]} direction={["column", "column","row","row"]} gap={"20px"}>
 
         <Box  w={["100%", "100%", "50%","40%"]} border={"1px solid #c95"} px="10px" py="10px" my="20px">
-            <Addproduct categories={category.categories} catIndex={catIndex} setCatIndex={setCatIndex} productTypes={ptypes.productTypes}/>
+          <Addproduct categories={category.categories} catIndex={catIndex} setCatIndex={setCatIndex} productTypes={ptypes.productTypes}/>
         </Box>
 
           <Box w={["100%", "100%","60%","60%"]}>
@@ -55,7 +64,7 @@ export default function ProductP() {
             </Box>
 
             <Box border={"1px solid #ccc"} px="20px" py="10px" mt="10px">
-              <AddNewImage categories={category.categories} products={prodcoll.products}/>
+            <AddNewImage categories={category.categories} products={prodcoll.products}/>
             </Box>
            
         </Box>
@@ -95,10 +104,9 @@ export default function ProductP() {
                     <Button colorScheme={"orange"} onClick={()=>handleProductyDelete(product._id)}>
                       <BsFillTrashFill/>
                     </Button>
-
-                    
-
-                    
+                    <Button colorScheme={"green"} onClick={()=>handleProductyupdate(product._id)}>
+                      <BsPencilSquare/>
+                    </Button>
 
               </Flex>
             )
