@@ -1,25 +1,20 @@
 import { Box } from '@chakra-ui/react'
+import axios from 'axios';
+import { GetServerSideProps } from 'next';
 import React, { useEffect, useState } from 'react'
 import { ClientNavbar, Footer, UiImage } from '../../../components';
 import { FilterBar, ProductComponent, Slider } from '../../../components/client';
-import TempNav from '../../../components/client/nav/TempNav';
 
-
-
+import { IsubCategory } from '../../../interface/client/category.interface';
+import { CIproduct } from '../../../interface/client/product.interface';
 import { useAppDispatch, useAppSelector } from "../../../store/hook";
-import { getAllProduct } from '../../../store/product/productSlice';
-const KidGirl = () => {
 
-    const dispatch = useAppDispatch();
-    const gproduct = useAppSelector((store) => store.product);
+const KidGirl = ({subcat}:{subcat:IsubCategory}) => {
+
+
+ 
     const [displaySize, setDisplaySize] =  useState<string>("0")
-
-useEffect(()=>{
-    if(gproduct.products.length===0){
-        dispatch(getAllProduct("takeitnow"))   
-    }
-},[])
-
+    const products = subcat?.products as Array<CIproduct>
     return (
       <Box border={"1px solid red"} w="100%">
         <ClientNavbar />
@@ -32,7 +27,7 @@ useEffect(()=>{
             <FilterBar/>
         </Box>
         <Box  w={"100%"} display="flex"   flexWrap={"wrap"} >
-          <ProductComponent screenSize={displaySize} products={gproduct.products} path={"/product/"}/>
+          <ProductComponent screenSize={displaySize} products={products} path={"/product/"}/>
         </Box>
         <Footer />
       </Box>
@@ -40,3 +35,16 @@ useEffect(()=>{
 }
 
 export default KidGirl
+
+
+export const getServerSideProps:GetServerSideProps = async (context) => {
+  const url = process.env.BASEURL
+ 
+  const res = await axios.get(`${url}/subcategory/636c8022411489f3872f362e`)
+  const subcat = await res.data
+    return {
+      props: {
+        subcat
+      }
+    }
+  }
