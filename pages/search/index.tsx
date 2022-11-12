@@ -3,15 +3,17 @@ import {Box, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, Drawe
   AccordionItem,
   AccordionButton,
   AccordionPanel,
-  AccordionIcon,} from "@chakra-ui/react"
+  AccordionIcon,
+  CloseButton,} from "@chakra-ui/react"
 import style from "../search/index.module.css"
 import { useAppDispatch, useAppSelector } from '../../store/hook'
 // import { getAllProduct } from '../../store/product/productSlice'
-import { ClientNavbar } from '../../components'
+import { ClientNavbar, Footer } from '../../components'
 import { CIproduct } from '../../interface/client/product.interface'
 import { GetServerSideProps } from 'next'
 import axios from 'axios'
 import Link from 'next/link'
+import Loginfooter from '../../components/footer/Loginfooter'
 
 
 const trendData=[
@@ -32,23 +34,23 @@ const trendData=[
 },
 {
   id:4,
-  tValue:"DRESS",
-  type:"KIDS"
+  tValue:"SHIRT",
+  type:"WOMAN"
 },
 {
   id:5,
-  tValue:"HEADBAND",
+  tValue:"Hoodie",
   type:"MAN"
 },
 {
   id:6,
-  tValue:"DRESS",
-  type:"WOMAN"
+  tValue:"shirt",
+  type:"MAN"
 },
 {
   id:7,
-  tValue:"BLAZER",
-  type:"WOMAN"
+  tValue:"sweatshirt",
+  type:"MAN"
 },
 {
   id:8,
@@ -58,7 +60,7 @@ const trendData=[
 {
   id:9,
   tValue:"DRESS",
-  type:"WOMAN"
+  type:"KIDS"
 },
 ]
 
@@ -103,18 +105,15 @@ useEffect(()=>{
   return (
     <Box>
       <ClientNavbar/>
-      <Box w={"100%"} position={"fixed"} top={"120px"}>
+      <Box w={"100%"} position={"relative"} top={"120px"}>
     <Flex style={{fontFamily:'Neue-Helvetica'}} m={{lg:"auto"}} ml={{sm:"4"}} w={{lg:"12%",sm:"5%"}} gap={{sm:"10px"}} justifyContent={{sm:"flex-start"}} >
       {types?.map((el)=><Box><Text style={el===currCat?{fontWeight:"bold"}:{fontWeight:"normal"}} cursor={"pointer"}  onClick={(e)=>{
         setCurrCat(e.currentTarget.innerText)
         }} fontSize={"13px"}>{el}</Text></Box>)}
-        {/* <Spacer/>
-        <Box><Text cursor={"pointer"} onClick={(e)=>setCurrCat(e.currentTarget.innerText)} fontSize={"13px"}>MAN</Text></Box>
-        <Spacer/>
-        <Box><Text cursor={"pointer"} onClick={(e)=>setCurrCat(e.currentTarget.innerText)} fontSize={"13px"}>KIDS</Text></Box> */}
     </Flex>
     <Flex my={{lg:"16",sm:"10"}} mt={{sm:"3"}} mb={{sm:"16"}} ml={{lg:"56",sm:"4"}} w={{lg:"82%"}}>
         <Input value={value} onChange={handleChange} onInput={()=>setIsShowTrends(false)} onFocus={()=>setIsShowTrends(true)} focusBorderColor='black' className={style.searchInput} placeholder='ENTER SEARCH TERMS' _placeholder={{color:"black"}} borderColor="black" variant="flushed"/>
+        {value!==""?<CloseButton onClick={()=>setValue("")}/>:<></>}
     </Flex>
     {isShowTrends && value=="" && <Stack w={{lg:"40%"}} ml={{lg:"56",sm:"4"}}>
         <Box><Text fontSize={"13px"} as={"b"}>TRENDS</Text></Box>
@@ -123,7 +122,7 @@ useEffect(()=>{
             return(
               <Box key={el.id}><Text onClick={(e)=>{
               setValue(el.tValue)
-              }} cursor={"pointer"} fontSize={"13px"}>{el.tValue}</Text></Box>
+              }} cursor={"pointer"} fontSize={"13px"}>{el.tValue.toUpperCase()}</Text></Box>
               )
           }
           })
@@ -144,7 +143,7 @@ useEffect(()=>{
       }
     </Box>
     </Box>
-    <Drawer
+    {/* <Drawer
         isOpen={isOpen}
         placement='right'
         onClose={onClose}
@@ -195,7 +194,9 @@ useEffect(()=>{
             <Button colorScheme='blue'>APPLY</Button>
           </DrawerFooter>
         </DrawerContent>
-      </Drawer>
+      </Drawer> */}
+      <Footer/>
+      <Loginfooter/>
     </Box>
   )
 }

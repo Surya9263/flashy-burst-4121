@@ -16,11 +16,12 @@ import {Box,Drawer,
   DrawerCloseButton, Button, Divider, Flex, HStack, Image, Link, Radio, RadioGroup, Spacer, Stack, Text, VStack, useDisclosure, Input, Show} from "@chakra-ui/react"
 import { GetServerSideProps } from 'next';
 import { CIproduct } from '../../interface/client/product.interface';
-import { ClientNavbar } from '../../components';
+import { ClientNavbar, Footer } from '../../components';
 import DrawerExample from '../../components/cart/drawer';
 import { useAppDispatch, useAppSelector } from '../../store/hook';
 import { addToCart } from '../../store/cart/cartSlice';
 import  Router  from 'next/router';
+import Loginfooter from '../../components/footer/Loginfooter';
 
 export interface addCartIterface{
   prodId: string; 
@@ -79,17 +80,17 @@ const SingleProduct = ({product}:{product:CIproduct}) => {
       <Box height={"100px"}>
         <ClientNavbar/>
       </Box>
-    <Flex align={"center"} fontFamily={"Neue-Helvetica"} justify={"center"} gap="20px" direction={["column", "column","row","row"]}>
-        <Box w={["100%","100%","30%","30%"]} order={["3","3","0","0"]}>
+    <Flex align={"center"} fontFamily={"Neue-Helvetica"} justify={"center"} gap="25px" direction={["column", "column","row","row"]}>
+        <Box w={["100%","100%","15%","15%"]} order={["3","3","0","0"]}>
             <Stack>
-                <Box w={"40%"}><Text lineHeight={"18px"} fontSize={"13px"} as={"b"}>MATERIALS, CARE AND ORIGIN</Text></Box>
+                <Box><Text lineHeight={"18px"} fontSize={"13px"} as={"b"}>MATERIALS, CARE AND ORIGIN</Text></Box>
                 <Box my={'52'}><Text lineHeight={"16px"} fontSize={"11px"} as={"b"}>MATERIALS</Text></Box>
-                <Box w={"50%"}><Text lineHeight={"16px"} fontSize={"13px"}>We work with monitoring programmes to ensure compliance with safety, health and quality standards for our products. </Text></Box>
-                <Box w={"50%"}><Text lineHeight={"16px"} fontSize={"13px"}>The Green to Wear 2.0 standard aims to minimise the environmental impact of textile manufacturing. To that end, we have developed Inditex’s The List programme, which helps guarantee both that production processes are clean and that our </Text></Box>
+                <Box><Text lineHeight={"16px"} fontSize={"13px"}>We work with monitoring programmes to ensure compliance with safety, health and quality standards for our products. </Text></Box>
+                <Box><Text lineHeight={"16px"} fontSize={"13px"}>The Green to Wear 2.0 standard aims to minimise the environmental impact of textile manufacturing. To that end, we have developed Inditex’s The List programme, which helps guarantee both that production processes are clean and that our </Text></Box>
                 <Box><Link><Text textDecoration={"underline"} lineHeight={"16px"} fontSize={"12px"}>View more</Text></Link></Box>
             </Stack>
         </Box>
-        <Box w={["100%","100%","30%","30%"]} h={['auto','auto', '470px','470px']} overflow={"hidden"} boxSizing='border-box'>
+        <Box w={["100%","100%","30%","30%"]} h={['auto','auto', '550px','550px']} overflow={"hidden"} boxSizing='border-box'>
           <Flex justify={["center","center","initial","initial"]} onMouseOver={()=>{setIsShowSupImg(true)}} onMouseLeave={()=>setIsShowSupImg(false)} gap={4}>
           <Link><Image transition={'ease-in-out'} height={{sm:"3xl",lg:"xl"}} src={mainImg}/></Link>
           <Show breakpoint='(min-width: 768px)'>
@@ -111,9 +112,9 @@ const SingleProduct = ({product}:{product:CIproduct}) => {
               <Stack spacing={5} direction='row'>
                 <Radio onChange={(e)=>setProdColor(e.target.value)} colorScheme={"purple"} backgroundColor='purple' value='RED'>
                 </Radio>
-                <Radio onChange={(e)=>setProdColor(e.target.value)} colorScheme={"grey"} backgroundColor='grey' value='GREEN'>
+                <Radio onChange={(e)=>setProdColor(e.target.value)} colorScheme={"grey"} backgroundColor='grey' value='GREY'>
                 </Radio>
-                <Radio onChange={(e)=>setProdColor(e.target.value)} colorScheme={"pink"} backgroundColor='pink' value='GREEN'>
+                <Radio onChange={(e)=>setProdColor(e.target.value)} colorScheme={"pink"} backgroundColor='pink' value='PINK'>
                 </Radio>
               </Stack>
           </RadioGroup>
@@ -153,6 +154,8 @@ const SingleProduct = ({product}:{product:CIproduct}) => {
       </Modal>
       <DrawerExample isOpen={isOpen} onClose={onClose} onOpen={onOpen}/>
     </Flex>
+    <Footer/>
+    <Loginfooter/>
     </>
   )
 }
