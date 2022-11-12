@@ -21,8 +21,8 @@ import  Link  from "next/link"
 export default function Payment() {
   return (
     <>
-      <ClientNavbar/>
-      <Flex w="75%" m="auto"  mt="200px" columnGap="50">
+      <ClientNavbar />
+      <Flex w="75%" m="auto" mt="200px" columnGap="50">
         <Box w="60%" mt="5">
           <Breadcrumb>
             <BreadcrumbItem>
@@ -44,10 +44,31 @@ export default function Payment() {
               Express checkout
             </Text>
             <Flex columnGap="3">
-              <Image ml="5" w="200" h="50" src="" alt="..." />
-              <Image w="200" h="50" src="" alt="..." />
-              <Image w="200" h="50" src="" alt="..." />
-              <Image w="200" h="50" src="" alt="..." />
+              <Image
+                ml="5"
+                w="200"
+                h="50"
+                src="https://github.com/Surya9263/flashy-burst-4121/blob/main/public/logo/t.png?raw=true"
+                alt="..."
+              />
+              <Image
+                w="200"
+                h="50"
+                src="https://github.com/Surya9263/flashy-burst-4121/blob/main/public/logo/u.png?raw=true"
+                alt="..."
+              />
+              <Image
+                w="200"
+                h="50"
+                src="https://github.com/Surya9263/flashy-burst-4121/blob/main/public/logo/v.png?raw=true"
+                alt="..."
+              />
+              <Image
+                w="200"
+                h="50"
+                src="https://github.com/Surya9263/flashy-burst-4121/blob/main/public/logo/w.png?raw=true"
+                alt="..."
+              />
             </Flex>
           </Box>
           <Box w="48%" mt="10">
@@ -123,11 +144,10 @@ export default function Payment() {
           </Flex>
         </Box>
         <Box w="40%" borderLeft="1px solid lightgrey">
-          <Cartitems/>
-         
+          <Cartitems />
         </Box>
       </Flex>
-      <Footer/>
+      <Footer />
     </>
   );
 }
