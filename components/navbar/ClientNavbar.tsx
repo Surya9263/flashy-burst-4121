@@ -8,12 +8,14 @@ import { colorContext } from '../../context/ColorContext'
 import {BsBag} from 'react-icons/bs'
 import { useAppSelector } from '../../store/hook'
 import ProductNav from '../client/nav/ProductNav'
+import { GetServerSideProps } from 'next'
+import axios from 'axios'
+import { CIcategory } from '../../interface/client/category.interface'
 
 
 
 export default function ClientNavbar() {
    const {color} = useContext(colorContext)
-
    const auth = useAppSelector(store=>store.auth) 
    const cart = useAppSelector(store=>store.cart)
 
@@ -60,7 +62,7 @@ export default function ClientNavbar() {
                     <Box  fontSize="20px" textTransform={"uppercase"}>
                         
                       
-                    {!auth.isAuth && <Link href="/signIn">
+                    {!auth.isAuth && <Link href="/signin">
                             Log in
                         </Link>}
                        
@@ -88,3 +90,6 @@ export default function ClientNavbar() {
     </Box>
   )
 }
+
+
+

@@ -79,6 +79,37 @@ export default function ProductP() {
       </Flex>
 
       <Flex gap={"10px"} direction="column" mt="30px">
+
+      <Flex  border="1px solid #ccc" px="20px">
+                   <Box w="20%">
+                    Product ID
+                    </Box>
+                    <Box w="20%">
+                    Product Name
+                    </Box>
+
+                    <Box w="20%">
+                    Category Name
+                    </Box>
+
+                    <Box w="20%">
+                     Subcategory Name
+                    </Box>
+
+                    <Box w="20%">
+                    Product Type
+                    </Box>
+
+                    <Box>
+                      Delete
+                    </Box>
+                    <Box>
+                      Edit
+                    </Box>
+
+
+              </Flex>
+
           {prodcoll?.products.map((product)=>{
             return (
               <Flex key={product._id} border="1px solid #ccc" px="20px">
@@ -98,7 +129,7 @@ export default function ProductP() {
                     </Box>
 
                     <Box w="20%">
-                      {product.subCategory?._id}
+                      {product?.pType?.name}
                     </Box>
 
                     <Button colorScheme={"orange"} onClick={()=>handleProductyDelete(product._id)}>
