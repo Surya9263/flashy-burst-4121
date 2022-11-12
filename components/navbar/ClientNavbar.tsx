@@ -8,12 +8,12 @@ import { colorContext } from '../../context/ColorContext'
 import {BsBag} from 'react-icons/bs'
 import { useAppSelector } from '../../store/hook'
 import ProductNav from '../client/nav/ProductNav'
-import { Iauthclient } from '../../interface/client/user.interface'
+
 
 
 export default function ClientNavbar() {
    const {color} = useContext(colorContext)
-   const auth = useAppSelector(store=>store.auth) as Iauthclient
+   const auth = useAppSelector(store=>store.auth) 
    const { isOpen, onOpen, onClose } = useDisclosure()
    const btnRef = React.useRef<any|null>(null)
   return (
