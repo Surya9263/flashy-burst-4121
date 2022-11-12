@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import {Box, Button, Divider, Flex, HStack, Image, Link, Radio, RadioGroup, Spacer, Stack, Text, VStack} from "@chakra-ui/react"
-const SingleProduct = () => {
-  // console.log(product);
+import { GetServerSideProps } from 'next';
+import { CIproduct } from '../../interface/client/product.interface';
+const SingleProduct = ({product}:{product:CIproduct}) => {
+  console.log(product);
   const [isShowSupImg,setIsShowSupImg]=useState(false)
   const [prodColor,setProdColor]=useState("")
-  const [mainImg,setMainImg]=useState("https://static.zara.net/photos///2022/I/0/1/p/8263/646/611/2/w/750/8263646611_1_1_1.jpg?ts=1663157747603")
+  const [mainImg,setMainImg]=useState(product.mainImg)
   return (
-    <HStack justifyContent={"center"} fontFamily={"Neue-Helvetica"}>
-        <Box mr={52} w={"15%"}>
+    <Flex gap="20px" direction={["column", "column","row","row"]}>
+        <Box w={["100%","100%","30%","30%"]} order={["3","3","0","0"]}>
             <Stack>
                 <Box w={"70%"}><Text lineHeight={"18px"} fontSize={"13px"} as={"b"}>MATERIALS, CARE AND ORIGIN</Text></Box>
                 <Box my={'52'}><Text lineHeight={"16px"} fontSize={"11px"} as={"b"}>MATERIALS</Text></Box>
@@ -17,19 +19,20 @@ const SingleProduct = () => {
                 <Box><Link><Text textDecoration={"underline"} lineHeight={"16px"} fontSize={"12px"}>View more</Text></Link></Box>
             </Stack>
         </Box>
-        <Box mt={'40'} w={"30%"}>
+        <Box w={["100%","100%","30%","30%"]} h={['auto','auto', '470px','470px']} overflow={"hidden"} boxSizing='border-box'>
           <Flex onMouseOver={()=>{setIsShowSupImg(true)}} onMouseLeave={()=>setIsShowSupImg(false)} gap={4}>
           <Link><Image transition={'ease-in-out'} height={"xl"} src={mainImg}/></Link>
           <Stack hidden={!isShowSupImg} spacing={'6'}>
+            {product.supImg?.map((e)=><Box w='40px' h='40px'><Image cursor={"pointer"} onClick={()=>setMainImg(e.target.src)} src={e}/></Box>)}
           <Box w='40px' h='40px'><Image cursor={"pointer"} onClick={(e)=>setMainImg(e.target.src)} src='https://static.zara.net/photos///2022/I/0/1/p/8263/646/611/2/w/750/8263646611_1_1_1.jpg?ts=1663157747603'/></Box>
-          <Box w='40px' h='40px'><Image cursor={"pointer"} onClick={(e)=>setMainImg(e.target.src)} src='https://static.zara.net/photos///2022/I/0/1/p/8263/646/611/2/w/750/8263646611_2_1_1.jpg?ts=1663157750866'/></Box>
+          {/* <Box w='40px' h='40px'><Image cursor={"pointer"} onClick={(e)=>setMainImg(e.target.src)} src='https://static.zara.net/photos///2022/I/0/1/p/8263/646/611/2/w/750/8263646611_2_1_1.jpg?ts=1663157750866'/></Box>
           <Box w='40px' h='40px'><Image cursor={"pointer"} onClick={(e)=>setMainImg(e.target.src)} src='https://static.zara.net/photos///2022/I/0/1/p/8263/646/611/2/w/750/8263646611_2_2_1.jpg?ts=1663157763818'/></Box>
           <Box w='40px' h='40px'><Image cursor={"pointer"} onClick={(e)=>setMainImg(e.target.src)} src='https://static.zara.net/photos///2022/I/0/1/p/8263/646/611/2/w/750/8263646611_1_1_1.jpg?ts=1663157747603'/></Box>
-          <Box w='40px' h='40px'><Image cursor={"pointer"} onClick={(e)=>setMainImg(e.target.src)} src='https://static.zara.net/photos///2022/I/0/1/p/8263/646/611/2/w/750/8263646611_1_1_1.jpg?ts=1663157747603'/></Box>
+          <Box w='40px' h='40px'><Image cursor={"pointer"} onClick={(e)=>setMainImg(e.target.src)} src='https://static.zara.net/photos///2022/I/0/1/p/8263/646/611/2/w/750/8263646611_1_1_1.jpg?ts=1663157747603'/></Box> */}
         </Stack>
         </Flex>
         </Box>
-        <Box w={"15%"}>
+        <Flex direction={"column"} w={["100%","100%","30%","30%"]} >
           <Box>
             <Text as={'b'} fontSize={"18px"}>TAILORED DOUBLE-BREASTED BLAZER</Text>
           </Box>
@@ -57,8 +60,8 @@ const SingleProduct = () => {
             <Text fontSize={"11px"}>SIZE GUIDE</Text>
           </Flex>
           <Button fontSize={"12px"} color={"white"} backgroundColor={"black"} colorScheme={"black"} variant={"outline"} borderRadius={"none"} w={"100%"}>ADD TO BAG</Button>
-        </Box>
-    </HStack>
+        </Flex>
+    </Flex>
   )
 }
 
@@ -88,3 +91,14 @@ const SingleProduct = () => {
 // }
 
 export default SingleProduct
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const url = process.env.BASEURL
+  const res = await axios.get(`http://localhost:3000/api/product/${context?.params?.id}`)
+  const product = await res.data
+    return {
+      props: {
+        product
+      }
+    }
+  }
