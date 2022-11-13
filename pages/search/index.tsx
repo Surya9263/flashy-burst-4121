@@ -54,12 +54,22 @@ const trendData=[
 },
 {
   id:8,
-  tValue:"HEADBAND",
-  type:"WOMAN"
+  tValue:"blazer",
+  type:"MAN"
 },
 {
   id:9,
+  tValue:"jacket",
+  type:"KIDS"
+},
+{
+  id:10,
   tValue:"DRESS",
+  type:"KIDS"
+},
+{
+  id:11,
+  tValue:"jumpsuit",
   type:"KIDS"
 },
 ]
@@ -121,6 +131,7 @@ useEffect(()=>{
           if(el.type===currCat){
             return(
               <Box key={el.id}><Text onClick={(e)=>{
+                
               setValue(el.tValue)
               }} cursor={"pointer"} fontSize={"13px"}>{el.tValue.toUpperCase()}</Text></Box>
               )
