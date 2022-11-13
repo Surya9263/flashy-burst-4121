@@ -35,12 +35,13 @@ export default async function usersOperation(req:NextApiRequest, res:NextApiResp
             if(req.method==="PATCH")
             
             {
+                console.log(req.body)
                 const data = req.body
                 if(!data){
                     return res.status(400).send("Provide valid data to update")
                 }
                 
-                let updatedData =  await userController().update(id, data)
+                let updatedData =  await userController().update(id, data.password)
 
                 if(updatedData.error){
                     return res.status(updatedData.code).send(updatedData.errorMsg)

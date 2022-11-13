@@ -57,11 +57,14 @@ const userController = ()=>{
           };
     }
 
-    async function update(id:string, data:any){
-        if(!id||!data){
+    async function update(id:string, password:string){
+     console.log(id, password);
+     
+      
+        if(!id||!password){
             return {
                 error:true,
-                errorMsg:"incorrect id or data",
+                errorMsg:" id or password missing",
                 data:"",
                 code:400,
                 };  
@@ -77,8 +80,9 @@ const userController = ()=>{
                     code: 400,
                     };  
                 }
-            
-             await User.updateOne({_id:id}, {$set:{...data}})
+
+             const hashdedPwd =  await hashPwd().hash(password)
+             await User.updateOne({_id:id}, {$set:{password:hashdedPwd}})
              let updatedUser =  await User.findOne({_id:id})
             
              return {
@@ -91,7 +95,7 @@ const userController = ()=>{
 
     async function getAll(){
         let allUser = await User.find({})
-                
+              
               if (allUser.length === 0) {
                 return {
                   error:false,

@@ -35,8 +35,7 @@ export default function Home({cat}:{cat:Array<CIcategory>}) {
           <Box w="100%">
               <Flex wrap={"wrap"} gap="20px">
                 <Flex py="25px" direction={"column"} justify={"center"} align={"center"} gap={"20px"} w={["80%", "40%", "30%","30%"]} borderRadius={"20px"} border={"1px solid #768"}>
-                     <Text fontSize={"28px"} fontWeight={"700"} >Total Category</Text> 
-                      <Text fontSize={"24px"} fontWeight={"700"}> {cat?.length} </Text>
+                    
                 </Flex>
                 <Flex py="25px" direction={"column"} justify={"center"} align={"center"} gap={"20px"} w={["80%", "40%", "30%","30%"]} borderRadius={"20px"} border={"1px solid #768"}>
                      <Text fontSize={"28px"} fontWeight={"700"} >Total Category</Text> 

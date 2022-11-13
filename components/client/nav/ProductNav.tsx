@@ -94,8 +94,9 @@ useEffect(()=>{
             </Button>
             }
             {auth.isAuth &&<Button border={"none"} _hover={{bg:"none", color:"#333"}} variant={"outline"} colorScheme="cyan">
-                My Account
+               <Link href="/profile"> My Account  </Link>
             </Button>
+          
              }
             </Flex>
         </Box>
