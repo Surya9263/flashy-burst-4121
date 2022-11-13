@@ -16,7 +16,7 @@ import { getAuthSUer } from '../../store/user/user.slice'
 import { cartContxt } from '../../context/CartCItemContext'
 import cartController from '../../controller/cart.controller'
 import { getUserCartItems } from '../../store/cart/cartSlice'
-
+import style from './ClientNavbar.module.css'
 
 
 export default function ClientNavbar() {
@@ -74,7 +74,7 @@ export default function ClientNavbar() {
                 </Button>
                 {/* <Image src={'/logo/brandLogo1.png'} alt="brand Logo"/> */}
                <Link href="/">
-                <Text  fontFamily={'Dancing Script'} fontSize={['2.5em', '2.5em',"4em","4em"]}>
+                <Text className={style.gFont} fontFamily={'Dancing Script'} fontSize={['2.5em', '2.5em',"4em","4em"]}>
                         TAKEITNOW
                     </Text>
                </Link>

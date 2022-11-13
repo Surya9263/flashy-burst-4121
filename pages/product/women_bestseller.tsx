@@ -49,7 +49,7 @@ export default WemoneBestSeller
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const url = process.env.BASEURL
  
-  const res = await axios.get(`http://localhost:3000/api/subcategory/636c7f65411489f3872f35fa`)
+  const res = await axios.get(`${url}/subcategory/636c7f65411489f3872f35fa`)
   const subcat = await res.data
     return {
       props: {

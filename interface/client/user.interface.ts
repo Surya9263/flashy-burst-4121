@@ -8,7 +8,7 @@ export interface Iuserclient {
     phone?:string;
     address?:string;
     cart?:Array<string>;
-    orderPlaced:boolean;
+ 
 }
 
 export interface Iuserstate{

@@ -95,6 +95,7 @@ export const getAuthSUer = createAsyncThunk(
             role:"",
             name:"",
             email:""
+            
         }        
     }
 

@@ -46,7 +46,7 @@ async function Category(req:NextApiRequest, res:NextApiResponse){
             return res.status(400).send("Invalid User Id")
         }
         let newCartItem =  await cartC().orderPlaced(userid)
-        return res.status(200).send("Updated SuccessFully")
+        return res.status(200).send(newCartItem.data)
     }
     
     return res.status(404).send("Only Get Method is Allowed to this route")

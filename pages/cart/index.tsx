@@ -15,8 +15,13 @@ const cartPage = () => {
   const [totalAmount,setTotalAmount]=useState(0)
   useEffect(()=>{
     let total=0;
-    for(let i=0;i<cartItems.length;i++){
-      let temp=cartItems[i].price*cartItems[i].prodCount
+    
+    let unorder = cartItems.filter((item)=>{
+      return !item.orderplaced
+    })
+    
+    for(let i=0;i<unorder.length;i++){
+      let temp=unorder[i].price*unorder[i].prodCount
       total=total+temp;
     }
     setTotalAmount(total)

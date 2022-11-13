@@ -77,7 +77,7 @@ export const updateOrderStatus = createAsyncThunk(
     'category/orderPlaced',
         async(userId:string, thunkapi)=>{
             try{
-                const res:AxiosResponse<string> = await axios.patch(`/api/cart/`, {
+                const res:AxiosResponse<Array<CIcart>> = await axios.patch(`/api/cart/`, {
                     order:true,
                     userId:userId
                 })    
@@ -150,7 +150,7 @@ const cartSlice = createSlice({
             state.loading = false;
             state.errorMsg = action.payload;
         })
-        .addCase(updateOrderStatus.fulfilled, (state, action:PayloadAction<string>)=>{
+        .addCase(updateOrderStatus.fulfilled, (state, action:PayloadAction<any>)=>{
             state.error = false;
             state.loading = false;
             state.errorMsg = "";
