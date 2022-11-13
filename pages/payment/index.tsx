@@ -154,7 +154,7 @@ export default function Payment() {
           <Button onClick={()=>{
             setSuccessAlert(false)
             Router.push("/cart")
-            }} fontSize={"12px"} color={"white"} backgroundColor={"black"} colorScheme={"black"} variant={"outline"} borderRadius={"none"} w={"100%"}>GO TO HOME</Button>
+            }} fontSize={"12px"} color={"white"} backgroundColor={"black"} colorScheme={"black"} variant={"outline"} borderRadius={"none"} w={"100%"}>BACK TO CART</Button>
             {/* <Button>Cancel</Button> */}
           </ModalFooter>
         </ModalContent>
