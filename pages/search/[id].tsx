@@ -60,10 +60,10 @@ const SingleProduct = ({product}:{product:CIproduct}) => {
 
   const handleAddToCart=()=>{
     if(!auth.isAuth){
-      Router.push("/signIn")
+      Router.push("/signin")
     }else{
       dispatch(addToCart({userId:auth?.userId,prodCount:1,prodId:product._id,color:"red",price:Number(product.price),size:"sm"}))
-      setReqStatus(1)      
+      setReqStatus(1)   
     }
   }
 
