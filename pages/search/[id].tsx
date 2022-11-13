@@ -117,10 +117,10 @@ const SingleProduct = ({product}:{product:CIproduct}) => {
             </Stack>
         </Box>
         <Box w={["100%","100%","30%","30%"]} h={['auto','auto', '550px','550px']} overflow={"hidden"} boxSizing='border-box'>
-          <Flex justify={["center","center","initial","initial"]} onMouseOver={()=>{setIsShowSupImg(true)}} onMouseLeave={()=>setIsShowSupImg(false)} gap={4}>
+          <Flex position={"relative"} justify={["center","center","initial","initial"]} onMouseOver={()=>{setIsShowSupImg(true)}} onMouseLeave={()=>setIsShowSupImg(false)} gap={4}>
           <Link><Image id='mainImg' transition={'ease-in-out'} height={{sm:"3xl",lg:"xl"}} src={mainImg}/></Link>
-          <Button onClick={handleClickLeft} _hover={{backgroundColor:"rgba(77,77,77,0.2)"}} backgroundColor={"rgba(77,77,77,0.2)"} color={"white"} borderRadius={"none"} top={{lg:"350px",sm:"440px"}} left={{sm:"60px",lg:"509px"}} position={"absolute"}> <AiOutlineLeft/> </Button>
-          <Button onClick={handleClickRight} _hover={{backgroundColor:"rgba(77,77,77,0.2)"}} backgroundColor={"rgba(77,77,77,0.2)"} color={"white"} borderRadius={"none"} top={{lg:"350px",sm:"440px"}} left={{lg:"845px",sm:"520px"}} position={"absolute"}> <AiOutlineRight/> </Button>
+          <Button onClick={handleClickLeft} _hover={{backgroundColor:"rgba(77,77,77,0.2)"}} backgroundColor={"rgba(77,77,77,0.2)"} color={"white"} borderRadius={"none"} position={"absolute"} left={"0px"} top={"45%"}> <AiOutlineLeft/> </Button>
+          <Button onClick={handleClickRight} _hover={{backgroundColor:"rgba(77,77,77,0.2)"}} backgroundColor={"rgba(77,77,77,0.2)"} color={"white"} borderRadius={"none"} position={"absolute"} right={["0px","0px","73px","73px"]} top={"45%"}> <AiOutlineRight/> </Button>
           <Show breakpoint='(min-width: 768px)'>
           <Stack hidden={!isShowSupImg} spacing={'4'}>
           <Box w='40px' h='50px'><Image cursor={"pointer"} onClick={(e)=>setMainImg(e.currentTarget.src)} src={product.mainImg}/></Box>
