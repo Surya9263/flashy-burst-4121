@@ -2,16 +2,20 @@ import { Box, Flex,Image,Text,Button, Show,useDisclosure,
  } from '@chakra-ui/react'
 import Head from 'next/head'
 import Link from 'next/link'
-import React,{useContext, useEffect} from 'react'
+import React,{useContext, useEffect, useState} from 'react'
 import {FaBars} from 'react-icons/fa'
 import { colorContext } from '../../context/ColorContext'
 import {BsBag} from 'react-icons/bs'
-import { useAppSelector } from '../../store/hook'
+import { useAppDispatch, useAppSelector } from '../../store/hook'
 import ProductNav from '../client/nav/ProductNav'
 import { GetServerSideProps } from 'next'
 import axios from 'axios'
 import { CIcategory } from '../../interface/client/category.interface'
 import  Router from 'next/router'
+import { getAuthSUer } from '../../store/user/user.slice'
+import { cartContxt } from '../../context/CartCItemContext'
+import cartController from '../../controller/cart.controller'
+import { getUserCartItems } from '../../store/cart/cartSlice'
 
 
 
@@ -19,20 +23,38 @@ export default function ClientNavbar() {
    const {color} = useContext(colorContext)
    const auth = useAppSelector(store=>store.auth) 
    const cart = useAppSelector(store=>store.cart)
-
+    const user =   useAppSelector(store=>store.user)
    const { isOpen, onOpen, onClose } = useDisclosure()
    const btnRef = React.useRef<any|null>(null)
+    const {setCartItem} = useContext(cartContxt)
 
-
-
-   useEffect(()=>{
+    const dispatch = useAppDispatch()
+    const {cartItem} = useContext(cartContxt)
+   
+    useEffect(()=>{
        if(Router.pathname.startsWith("/cart")){
         if(!auth.isAuth || auth.role!=="user"){
             Router.push('/signin')
           }
        }
+       if(auth.isAuth){
+        dispatch(getAuthSUer(auth.userId))
+        dispatch(getUserCartItems(auth.userId))
+        
+        let remaininfItem = cart.cartItems.filter((item)=>{
+            return !item.orderplaced
+            })
+        setCartItem(remaininfItem.length)
+        
+       }
+       
+     
    },[auth])
  
+  
+
+
+  
   return (
     <Box  w={"100%"}>
        
@@ -70,7 +92,12 @@ export default function ClientNavbar() {
                 
                     <Box  fontSize="20px" textTransform={"uppercase"}>
                         
-                      
+                     {auth.isAuth && <Link href="/profile">
+                            {user?.authUser?.name}
+                        </Link>}
+                       
+                   
+
                     {!auth.isAuth && <Link href="/signin">
                             Log in
                         </Link>}
@@ -87,7 +114,7 @@ export default function ClientNavbar() {
                 <Box fontSize="30px" position={"relative"} >
                     <Link href="/cart">
                         <BsBag />
-                        <Text fontSize={["14px"]} position="absolute" top="8px" w="30px" textAlign="center">{cart?.cartItems?.length}</Text>
+                        <Text fontSize={["14px"]} position="absolute" top="8px" w="30px" textAlign="center">{cartItem}</Text>
                     </Link>
                 </Box>
             </Flex>

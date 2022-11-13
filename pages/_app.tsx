@@ -5,6 +5,7 @@ import {useEffect} from 'react'
 import {Provider} from 'react-redux'
 import store from '../store/store'
 import ColorContextProvider from '../context/ColorContext'
+import CartContxtProvider from '../context/CartCItemContext'
 import Router from 'next/router'
 import { useAppSelector } from '../store/hook'
 
@@ -18,7 +19,9 @@ export default function App({ Component, pageProps }: AppProps) {
       
             <ColorContextProvider> 
           
-                <Component {...pageProps} />  
+               <CartContxtProvider>
+                  <Component {...pageProps} />  
+               </CartContxtProvider>
              
             </ColorContextProvider>
       
