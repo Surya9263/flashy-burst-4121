@@ -117,7 +117,7 @@ const userController = ()=>{
             };
           }
 
-          let existUser = await User.findOne({ _id:id })
+          let existUser = await User.findOne({ _id:id }).populate("cart")
           if (!existUser) {
             return {
               error: true,

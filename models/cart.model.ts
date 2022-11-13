@@ -7,7 +7,8 @@ const cartSchema=new mongoose.Schema<Icart>({
    color:String,
    size:String,
    price:Number,
-   userId:{type:mongoose.Schema.Types.ObjectId,ref:"user"}
+   userId:{type:mongoose.Schema.Types.ObjectId,ref:"user"},
+   orderplaced:Boolean,
 })
 
 const Cart=mongoose.models.cart || mongoose.model("cart",cartSchema);
