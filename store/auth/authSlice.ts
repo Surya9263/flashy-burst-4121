@@ -36,16 +36,24 @@ const authSlice = createSlice({
     name:"authSlice",
     initialState,
     reducers:{
-        
+        logout:(state)=>{
+            state.isLoading=false,
+            state.isError=false,
+            state.isAuth=false,
+            state.userId="",
+            state.iat=0,
+            state.ext=0,
+            state.role=""
+    }
     },
     extraReducers(builder) {
         builder.addCase(login.pending,(state,action)=>{
             state.isLoading=true;
             state.isError = false;
+            state.isAuth = false
         })
         .addCase(login.fulfilled,(state, action:PayloadAction<AxiosResData>)=>{
-            console.log(action.payload);
-            
+
              state.isLoading=false,
              state.isAuth = true,
              state.isError = false;
@@ -67,5 +75,5 @@ const authSlice = createSlice({
         
     }
 })
-
+export const { logout} = authSlice.actions
 export default authSlice.reducer

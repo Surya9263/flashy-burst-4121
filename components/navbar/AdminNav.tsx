@@ -1,6 +1,8 @@
-import React from 'react'
+import React,{useEffect} from 'react'
+import Router from 'next/router'
 import Link from 'next/link'
 import {Flex, Text} from "@chakra-ui/react"
+import { useAppSelector } from '../../store/hook'
 
 export const adminmenus = [
   {
@@ -30,6 +32,14 @@ export const adminmenus = [
   }
 ]
 export default function AdminNav() {
+  const auth = useAppSelector(store=>store.auth)
+
+  useEffect(()=>{
+      if(!auth.isAuth || auth.role!=="admin"){
+        Router.push('/')
+      }
+  },[])
+
   return (
     <div>
         <Flex gap="20px" direction={"column"} px="20px">

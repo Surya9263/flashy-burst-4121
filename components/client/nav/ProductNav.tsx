@@ -3,7 +3,17 @@ import {
     Box,
     Input,
     Button,
-    Flex
+    Flex,
+
+    //modal
+    Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure
   } from '@chakra-ui/react'
   import {AiOutlineClose} from "react-icons/ai"
 import {useInView} from "framer-motion"
@@ -14,20 +24,35 @@ import { getallCategory } from '../../../store/category/categorySlice'
 import { GetServerSideProps } from 'next'
 import axios from 'axios'
 import { CIcategory } from '../../../interface/client/category.interface'
+import { logout } from '../../../store/auth/authSlice'
+import { clearCart } from '../../../store/cart/cartSlice'
 
 export default function ProductNav({onClose, isOpen,onOpen}:{onClose:VoidFunction, isOpen:boolean,onOpen:VoidFunction}) {
     const ref = useRef(null)
     const refview = useInView(ref)
     const category = useAppSelector(store=>store.category)
+    const auth = useAppSelector(store=>store.auth)
     const [catIndex, setCatIndex] = useState<number>(0)
     const distapch = useAppDispatch()
 
+    const [logAuth, setIlogAuth] = useState(false)
+    
     useEffect(()=>{
         if(category.categories.length===0){
             distapch(getallCategory("takeitnow"))
         }
     },[])
     
+
+    const handleLogout=()=>{
+        distapch(logout())
+        distapch(clearCart())
+        onClose()
+    }
+
+useEffect(()=>{
+    
+},[auth])
   return (
     <Box style={refview?navView:navOut}  ref={ref} position={"fixed"} top="15%" h={"85%"} w={["78%","78%","40%","30%"]}  zIndex={"100"} >
         <Button onClick={onClose} position="absolute" right={"5px"} top="5px" colorScheme={"orange"} variant="outline" p="0">
@@ -60,6 +85,46 @@ export default function ProductNav({onClose, isOpen,onOpen}:{onClose:VoidFunctio
                 )
             })}
         </Flex>
+
+        <Box position={"absolute"} bottom="30px"  w="100%    ">
+            <Flex align={"center"} justify="space-between" px="20px">
+           
+            {auth.isAuth &&<Button border={"none"} _hover={{bg:"none", color:"#333"}} onClick={()=> setIlogAuth(true)} variant={"outline"} colorScheme="cyan">
+                Logout
+            </Button>
+            }
+            {auth.isAuth &&<Button border={"none"} _hover={{bg:"none", color:"#333"}} variant={"outline"} colorScheme="cyan">
+                My Account
+            </Button>
+             }
+            </Flex>
+        </Box>
+
+
+   
+
+     
+
+      <Modal isOpen={logAuth} onClose={onClose} >
+        <ModalOverlay />
+        <ModalContent  borderRadius="none">
+          <ModalHeader>Confirm Logout</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody >
+             do you really want to logout?
+          </ModalBody>  
+
+          <ModalFooter>
+            <Button colorScheme='blue' mr={3} onClick={onClose}>
+              Cancel
+            </Button>
+            <Button colorScheme='orange' onClick={handleLogout}>
+                Logout
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+  
 
     </Box>
   )

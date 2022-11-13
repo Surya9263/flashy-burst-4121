@@ -17,7 +17,7 @@ const MenAtheletics = ({subcat}:{subcat:IsubCategory}) => {
     const products = subcat?.products as Array<CIproduct>
 
     return (
-      <Box border={"1px solid red"} w="100%">
+      <Box  w="100%">
         <ClientNavbar />
         
         <Box w={"97%"} display="flex" margin={"auto"} mt="100px" flexDirection="row-reverse">

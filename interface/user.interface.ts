@@ -11,3 +11,14 @@ export interface Iuser {
     rToken?:string;
     cart?:Array<Types.ObjectId>
 }
+
+
+export interface Iauthclient {
+    isLoading:boolean,
+    isError:boolean,
+    isAuth:boolean,
+    userId:string,
+    iat:number,
+    ext:number,
+    role:string,
+}

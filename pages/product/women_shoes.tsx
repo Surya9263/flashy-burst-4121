@@ -9,18 +9,14 @@ import { IsubCategory } from '../../interface/client/category.interface';
 import { CIproduct } from '../../interface/client/product.interface';
 
 
-import { useAppDispatch, useAppSelector } from "../../store/hook";
-import { getAllProduct } from '../../store/product/productSlice';
 const WomenShoes = ({subcat}:{subcat:IsubCategory}) => {
 
-    const dispatch = useAppDispatch();
-    const gproduct = useAppSelector((store) => store.product);
     const [displaySize, setDisplaySize] =  useState<string>("0")
 
     const products = subcat?.products as Array<CIproduct>
 
     return (
-      <Box border={"1px solid red"} w="100%">
+      <Box w="100%">
         <ClientNavbar />
         
         <Box w={"97%"} display="flex" margin={"auto"} mt="100px" flexDirection="row-reverse">
@@ -31,7 +27,7 @@ const WomenShoes = ({subcat}:{subcat:IsubCategory}) => {
             <FilterBar/>
         </Box>
         <Box  w={"100%"} display="flex"   flexWrap={"wrap"} >
-          <ProductComponent screenSize={displaySize} products={gproduct.products} path={"/product/"}/>
+          <ProductComponent screenSize={displaySize} products={products} path={"/product/"}/>
         </Box>
         <Footer />
       </Box>
