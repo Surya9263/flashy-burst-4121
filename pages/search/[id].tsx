@@ -22,7 +22,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hook';
 import { addToCart } from '../../store/cart/cartSlice';
 import  Router  from 'next/router';
 import Loginfooter from '../../components/footer/Loginfooter';
-
+import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 export interface addCartIterface{
   prodId: string; 
   prodCount: number; 
@@ -48,6 +48,7 @@ const SingleProduct = ({product}:{product:CIproduct}) => {
   const [mainImg,setMainImg]=useState(product.mainImg)
   const [size,setSize]=useState("")
   const [sizeModal,setSizeModal]=useState(false);
+  const [supImgNum,setSupImgNum]=useState(0)
 
   const [reqStatus,setReqStatus]=useState(0)
 
@@ -75,6 +76,31 @@ const SingleProduct = ({product}:{product:CIproduct}) => {
       },5000)    
     }
   },[cart])
+
+  // let supImages=product?.supImg || []
+  const handleClickLeft=()=>{
+    if(product.supImg){
+      if(supImgNum===0){
+        setSupImgNum(product.supImg?.length-1)
+      }else{
+        setSupImgNum(num=>num-1)
+      }
+      setMainImg(product?.supImg[supImgNum].imglink)
+    }
+  }
+// console.log(mainImg);
+
+  const handleClickRight=()=>{
+    if(product.supImg){
+      if(supImgNum===product.supImg.length-1){
+        setSupImgNum(0)
+      }else{
+        setSupImgNum(num=>num+1)
+      }
+      setMainImg(product?.supImg[supImgNum].imglink)
+    }
+  }
+
   return (
     <>
       <Box height={"100px"}>
@@ -92,7 +118,9 @@ const SingleProduct = ({product}:{product:CIproduct}) => {
         </Box>
         <Box w={["100%","100%","30%","30%"]} h={['auto','auto', '550px','550px']} overflow={"hidden"} boxSizing='border-box'>
           <Flex justify={["center","center","initial","initial"]} onMouseOver={()=>{setIsShowSupImg(true)}} onMouseLeave={()=>setIsShowSupImg(false)} gap={4}>
-          <Link><Image transition={'ease-in-out'} height={{sm:"3xl",lg:"xl"}} src={mainImg}/></Link>
+          <Link><Image id='mainImg' transition={'ease-in-out'} height={{sm:"3xl",lg:"xl"}} src={mainImg}/></Link>
+          <Button onClick={handleClickLeft} _hover={{backgroundColor:"rgba(77,77,77,0.2)"}} backgroundColor={"rgba(77,77,77,0.2)"} color={"white"} borderRadius={"none"} top={{lg:"350px",sm:"440px"}} left={{sm:"60px",lg:"509px"}} position={"absolute"}> <AiOutlineLeft/> </Button>
+          <Button onClick={handleClickRight} _hover={{backgroundColor:"rgba(77,77,77,0.2)"}} backgroundColor={"rgba(77,77,77,0.2)"} color={"white"} borderRadius={"none"} top={{lg:"350px",sm:"440px"}} left={{lg:"845px",sm:"520px"}} position={"absolute"}> <AiOutlineRight/> </Button>
           <Show breakpoint='(min-width: 768px)'>
           <Stack hidden={!isShowSupImg} spacing={'4'}>
           <Box w='40px' h='50px'><Image cursor={"pointer"} onClick={(e)=>setMainImg(e.currentTarget.src)} src={product.mainImg}/></Box>
