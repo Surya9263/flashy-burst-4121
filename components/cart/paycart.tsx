@@ -21,7 +21,10 @@ const Cartitems = () => {
   }, [cartItems]);
   
   function calculateTotal() {
-    return cartItems.cartItems?.reduce((sum, elem) => sum + elem.price, 0);
+    return cartItems.cartItems?.reduce(
+      (sum, elem) => sum + elem.price * elem.prodCount,
+      0
+    );
   }
   return (
     <Box>
