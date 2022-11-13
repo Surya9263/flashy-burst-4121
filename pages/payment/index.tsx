@@ -11,18 +11,45 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
+  Alert,
+  AlertIcon,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
 } from "@chakra-ui/react";
 import Cartitems from "../../components/cart/paycart"
 import { ClientNavbar, Footer, UiImage } from "../../components";
 
 import  Link  from "next/link"
+import { useState } from "react";
+import  Router  from "next/router";
 
 
 export default function Payment() {
+
+  const [successAlert,setSuccessAlert]=useState(false)
+  const { onClose } = useDisclosure()
+  const handleClick=()=>{
+    setSuccessAlert(true)
+    // setTimeout(()=>{
+    //   Router.push("/")
+    // },2000)
+  }
   return (
     <>
       <ClientNavbar />
       <Box w="75%" m="auto" borderTop={"1px solid grey"} mt="150px" mb="20px"></Box>
+      <Box w={"75%"}>
+      {successAlert && <Alert status='success'>
+    <AlertIcon />
+    ORDER PLACED SUCCESSFULLY
+  </Alert>}
+  </Box>
       <Flex w="75%" margin={"auto"} columnGap="50px" flexWrap={"wrap"}>
         <Box w={["80%", "55%"]} mt="5px">
           <Breadcrumb>
@@ -40,51 +67,6 @@ export default function Payment() {
               <BreadcrumbLink>Payment</BreadcrumbLink>
             </BreadcrumbItem>
           </Breadcrumb>
-          {/* <Box mt="5px" border="1px solid lightgrey">
-            <Text fontWeight="semibold" ml="40%">
-              Express checkout
-            </Text>
-            <Flex columnGap="3">
-              <Image
-                ml="5px"
-                w={["100px", "100px", "100px", "150px", "140px"]}
-                h={"50px"}
-                src="https://tse4.mm.bing.net/th?id=OIP.yNPGB2x2imgUBR0tFfKfrgHaDf&pid=Api&P=0"
-                alt="..."
-                borderRadius={"8px"}
-              />
-              <Image
-                w={["100px", "100px", "100px", "150px", "150px"]}
-                h={"50px"}
-                src="https://tse2.mm.bing.net/th?id=OIP.r-s5nlVROPkkrvffGbwVEQHaDt&pid=Api&P=0"
-                alt="..."
-                borderRadius={"8px"}
-              />
-              <Image
-                w={["100px", "100px", "100px", "150px", "150px"]}
-                h={"50px"}
-                src="https://tse3.mm.bing.net/th?id=OIP.A-Vh9Dd2avtFsjUtpEspcAHaDi&pid=Api&P=0"
-                alt="..."
-                borderRadius={"8px"}
-              />
-              <Image
-                w={["100px", "100px", "100px", "150px", "140px"]}
-                h={"50px"}
-                src="https://a57.foxnews.com/a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2018/09/640/320/1862/1048/paypal-logo-big.jpg?ve=1&tl=1?ve=1&tl=1"
-                alt="..."
-                borderRadius={"8px"}
-              />
-            </Flex>
-          </Box> */}
-          {/* <Box w="48%" mt="10">
-            <hr />
-          </Box>
-          <Text ml="49%" mt="-3">
-            OR
-          </Text>
-          <Box w="47%" ml="53%" mt="-2">
-            <hr />
-          </Box> */}
           <Flex>
             <Box mt="10px" mb="10px">
               <Text fontWeight="semibold" fontSize="20">
@@ -132,7 +114,7 @@ export default function Payment() {
             </Box>
             <Spacer />
             <Box p="4">
-              <Link href="/">
+              
                 <Button
                   pt="7"
                   pb="7"
@@ -140,11 +122,11 @@ export default function Payment() {
                   pl="5"
                   bgColor="black"
                   color="white"
-                  onClick={() => alert("order successfully placed")}
+                  onClick={handleClick}
                 >
-                  Continue to shipping
+                  PLACE ORDER
                 </Button>
-              </Link>
+              
             </Box>
           </Flex>
         </Box>
@@ -152,6 +134,25 @@ export default function Payment() {
           <Cartitems />
         </Box>
       </Flex>
+      <Modal size={"xs"} isOpen={successAlert} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent m={"auto"}>
+          <ModalHeader fontFamily={"Neue-Helvetica"}>SUCCESS!</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody
+           fontFamily={"Neue-Helvetica"}>
+            <Text fontSize={"13px"}>ORDER PLACED SUCCESSFULLY</Text>
+          </ModalBody>
+
+          <ModalFooter>
+          <Button onClick={()=>{
+            setSuccessAlert(false)
+            Router.push("/")
+            }} fontSize={"12px"} color={"white"} backgroundColor={"black"} colorScheme={"black"} variant={"outline"} borderRadius={"none"} w={"100%"}>GO TO HOME</Button>
+            {/* <Button>Cancel</Button> */}
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
       <Footer />
     </>
   );
