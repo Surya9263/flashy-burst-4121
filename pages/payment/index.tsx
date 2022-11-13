@@ -40,7 +40,7 @@ export default function Payment() {
               <BreadcrumbLink>Payment</BreadcrumbLink>
             </BreadcrumbItem>
           </Breadcrumb>
-          <Box mt="5px" border="1px solid lightgrey">
+          {/* <Box mt="5px" border="1px solid lightgrey">
             <Text fontWeight="semibold" ml="40%">
               Express checkout
             </Text>
@@ -75,8 +75,8 @@ export default function Payment() {
                 borderRadius={"8px"}
               />
             </Flex>
-          </Box>
-          <Box w="48%" mt="10">
+          </Box> */}
+          {/* <Box w="48%" mt="10">
             <hr />
           </Box>
           <Text ml="49%" mt="-3">
@@ -84,9 +84,9 @@ export default function Payment() {
           </Text>
           <Box w="47%" ml="53%" mt="-2">
             <hr />
-          </Box>
+          </Box> */}
           <Flex>
-            <Box p="4">
+            <Box mt="10px" mb="10px">
               <Text fontWeight="semibold" fontSize="20">
                 Contact information
               </Text>
