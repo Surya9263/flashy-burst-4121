@@ -22,8 +22,9 @@ export default function Payment() {
   return (
     <>
       <ClientNavbar />
-      <Flex w="75%" m="auto" mt="200px" columnGap="50">
-        <Box w="60%" mt="5">
+      <Box w="75%" m="auto" borderTop={"1px solid grey"} mt="150px"></Box>
+      <Flex w="75%" margin={"auto"} columnGap="50px" flexWrap={"wrap"}>
+        <Box w={["80%","55%"]} mt="5px">
           <Breadcrumb>
             <BreadcrumbItem>
               <BreadcrumbLink as={Link} href="/">
@@ -39,34 +40,35 @@ export default function Payment() {
               <BreadcrumbLink>Payment</BreadcrumbLink>
             </BreadcrumbItem>
           </Breadcrumb>
-          <Box mt="5" border="1px solid lightgrey">
+          <Box mt="5px" border="1px solid lightgrey">
             <Text fontWeight="semibold" ml="40%">
               Express checkout
             </Text>
             <Flex columnGap="3">
               <Image
-                ml="5"
-                w="200"
-                h="50"
-                src="https://github.com/Surya9263/flashy-burst-4121/blob/main/public/logo/t.png?raw=true"
+                ml="5px"
+                w={["100px", "100px", "100px", "150px", "140px"]}
+                h={"50px"}
+                src="https://tse4.mm.bing.net/th?id=OIP.yNPGB2x2imgUBR0tFfKfrgHaDf&pid=Api&P=0"
+                alt="..."
+                border={"1px solid black"}
+              />
+              <Image
+                 w={["100px", "100px", "100px", "150px", "150px"]}
+                h={"50px"}
+                src="https://tse2.mm.bing.net/th?id=OIP.r-s5nlVROPkkrvffGbwVEQHaDt&pid=Api&P=0"
                 alt="..."
               />
               <Image
-                w="200"
-                h="50"
-                src="https://github.com/Surya9263/flashy-burst-4121/blob/main/public/logo/u.png?raw=true"
+                 w={["100px", "100px", "100px", "150px", "150px"]}
+                h={"50px"}
+                src="https://tse3.mm.bing.net/th?id=OIP.A-Vh9Dd2avtFsjUtpEspcAHaDi&pid=Api&P=0"
                 alt="..."
               />
               <Image
-                w="200"
-                h="50"
-                src="https://github.com/Surya9263/flashy-burst-4121/blob/main/public/logo/v.png?raw=true"
-                alt="..."
-              />
-              <Image
-                w="200"
-                h="50"
-                src="https://github.com/Surya9263/flashy-burst-4121/blob/main/public/logo/w.png?raw=true"
+                 w={["100px", "100px", "100px", "150px", "140px"]}
+                h={"50px"}
+                src="https://a57.foxnews.com/a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2018/09/640/320/1862/1048/paypal-logo-big.jpg?ve=1&tl=1?ve=1&tl=1"
                 alt="..."
               />
             </Flex>
