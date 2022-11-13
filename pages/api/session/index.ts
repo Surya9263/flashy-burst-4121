@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { sessionC } from "../../../controller";
-import { connectDB } from "../../../lib";
-import { getCookies, setCookie, removeCookies } from 'cookies-next';
+import { connectDB, jwt } from "../../../lib";
+import { getCookies, setCookie, removeCookies, getCookie } from 'cookies-next';
 export default async function loginApi (req:NextApiRequest,res:NextApiResponse) {
     
     
@@ -19,15 +19,19 @@ export default async function loginApi (req:NextApiRequest,res:NextApiResponse) 
         }
         let token =  data?.data?.AToken
 
-        setCookie('acessToken', {
-            token,
-            maxAge:'1h',
-            httpOnly:true
-        })
+        
         return res.status(200).send({error:data.error, data:data.data?.decoded})
     }catch(e:any){
         res.status(500).send("Server Error "+e.message)
     }
+
+   
+    }
+
+    if(req.method==="GET"){
+            let token  = getCookie("acessToken")
+            console.log(token);
+          return res.send(token)  
     }
 
     else{

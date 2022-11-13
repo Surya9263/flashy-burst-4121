@@ -40,7 +40,9 @@ function session (){
                       if(!decoded){
                             let user = await User.findOne({_id:userId})
                         if(jwt().jwtVerify(user.rToken, "refresh")){
-                            const AToken = jwt().signJwt({userId:user._id, role:user.role}, '30d', 'refresh')
+                            const AToken = jwt().signJwt({userId:user._id, role:user.role}, '30d', 'access')
+                            decoded =  jwt().jwtVerify(AToken, "access")
+                            return {error:false,code:200, errorMsg:"", data:{AToken:AToken, decoded:decoded}}
                         }
                        }else{
                         return {error:false,code:200, errorMsg:"", data:{AToken:acessToken, decoded:decoded}}

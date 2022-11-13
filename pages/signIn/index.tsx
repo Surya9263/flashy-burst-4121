@@ -1,4 +1,10 @@
-import {Box, Input, Button, Flex, Text, LinkBox} from '@chakra-ui/react'
+import {Box, Input, Button, Flex, Text, LinkBox,
+  // ALert Components
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from '@chakra-ui/react'
 import Link from 'next/link';
 import Router  from 'next/router';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
@@ -18,6 +24,10 @@ export default function Login() {
     const dispatch = useAppDispatch()
     const auth = useAppSelector(store=>store.auth)
 
+    const [netReqStatus,setNetReqStatus] = useState<number>(0)
+    const [sucessAlrt, setAucessAlrt] = useState<boolean>(false)
+    const [errorMsg, setErrorMsg] =  useState<string>("")
+
     const [userCredentials, setUserCredentials] = useState<User>({
 		email: '',
 		password: '',
@@ -31,16 +41,54 @@ export default function Login() {
 
     function handleLogin(e:FormEvent<HTMLFormElement>){
         e.preventDefault()
-        dispatch(login(userCredentials))
-    }
-
-    useEffect(()=>{
-        
-        if(auth.isAuth){
-            auth.role==="admin"?Router.push('/admin'):Router.push('/')
+       
+        if(!userCredentials){
+            setErrorMsg("Please Provide Creadintials for login")
         }
 
-    },[auth])
+        if(userCredentials.password.length<7){
+            setErrorMsg("Password must be 8 character long")
+            return 
+        }
+        dispatch(login(userCredentials))
+        setNetReqStatus(1)
+        setTimeout(()=>{
+            setNetReqStatus(0)
+          },5000)
+    }
+
+
+    
+useEffect(()=>{
+    if(netReqStatus===1){
+       
+      if(auth.isError){
+        setAucessAlrt(false)
+        setErrorMsg("Failed to login")
+        setTimeout(()=>{
+          setErrorMsg("")
+        },5000)
+      }
+
+      if(auth.isAuth){
+             setErrorMsg("")
+            setAucessAlrt(true)
+            setUserCredentials({email:"", password:""})
+            auth.role==="admin"?Router.push('/admin'):Router.push('/')
+            setTimeout(()=>{
+              setAucessAlrt(false)
+            },5000)
+      }
+    }
+    
+},[auth,netReqStatus])
+
+useEffect(()=>{
+    if(auth.isAuth){
+       
+    }
+},[auth])
+
 
   
     
@@ -50,8 +98,7 @@ export default function Login() {
     return (
         <>
            
-
-            <ClientNavbar />
+           <ClientNavbar />
             
             <Flex gap={200} mt={200} ml={[50,200]} direction={['column', 'row']}>
                 <Box  h={"auto"} w={250} >
@@ -111,6 +158,22 @@ export default function Login() {
                             />
                             
                     </form>
+
+                    {sucessAlrt
+                            &&
+                            <Alert status='success'>
+                                <AlertIcon />
+                                <AlertTitle>{"Logged in  Successfully" }</AlertTitle>
+                                {/* <AlertDescription> </AlertDescription> */}
+                                </Alert>}
+
+                                {errorMsg
+                                &&
+                                <Alert status='error'>
+                                    <AlertIcon />
+                                    <AlertTitle>{errorMsg}</AlertTitle>
+                                    {/* <AlertDescription> </AlertDescription> */}
+                                </Alert>}
                 </Box>
 
                 <Box h={400} w={400}>

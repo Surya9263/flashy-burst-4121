@@ -86,7 +86,9 @@ export const getAlluser = createAsyncThunk(
 const userSlice = createSlice({
     name:'subcategoryScice',
     initialState,
-    reducers:{},
+    reducers:{
+        
+    },
     extraReducers(builder) {
         builder.addCase(adduser.pending, (state, action)=>{
             state.isError =false;
