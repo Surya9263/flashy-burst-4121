@@ -144,7 +144,7 @@ const ProfileDetails = () => {
 
 
                     <Box maxW="400px">
-                    <Text fontSize={22} textAlign={"center"} pb="20px"><b>Cahneg Your Account Password</b></Text>
+                    <Text fontSize={22} textAlign={"center"} pb="20px"><b>Change Your Account Password</b></Text>
                         <FormControl>
                         <Input 
                             id='password'
