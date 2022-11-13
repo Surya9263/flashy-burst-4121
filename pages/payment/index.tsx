@@ -22,9 +22,9 @@ export default function Payment() {
   return (
     <>
       <ClientNavbar />
-      <Box w="75%" m="auto" borderTop={"1px solid grey"} mt="150px"></Box>
+      <Box w="75%" m="auto" borderTop={"1px solid grey"} mt="150px" mb="20px"></Box>
       <Flex w="75%" margin={"auto"} columnGap="50px" flexWrap={"wrap"}>
-        <Box w={["80%","55%"]} mt="5px">
+        <Box w={["80%", "55%"]} mt="5px">
           <Breadcrumb>
             <BreadcrumbItem>
               <BreadcrumbLink as={Link} href="/">
@@ -51,25 +51,28 @@ export default function Payment() {
                 h={"50px"}
                 src="https://tse4.mm.bing.net/th?id=OIP.yNPGB2x2imgUBR0tFfKfrgHaDf&pid=Api&P=0"
                 alt="..."
-                border={"1px solid black"}
+                borderRadius={"8px"}
               />
               <Image
-                 w={["100px", "100px", "100px", "150px", "150px"]}
+                w={["100px", "100px", "100px", "150px", "150px"]}
                 h={"50px"}
                 src="https://tse2.mm.bing.net/th?id=OIP.r-s5nlVROPkkrvffGbwVEQHaDt&pid=Api&P=0"
                 alt="..."
+                borderRadius={"8px"}
               />
               <Image
-                 w={["100px", "100px", "100px", "150px", "150px"]}
+                w={["100px", "100px", "100px", "150px", "150px"]}
                 h={"50px"}
                 src="https://tse3.mm.bing.net/th?id=OIP.A-Vh9Dd2avtFsjUtpEspcAHaDi&pid=Api&P=0"
                 alt="..."
+                borderRadius={"8px"}
               />
               <Image
-                 w={["100px", "100px", "100px", "150px", "140px"]}
+                w={["100px", "100px", "100px", "150px", "140px"]}
                 h={"50px"}
                 src="https://a57.foxnews.com/a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2018/09/640/320/1862/1048/paypal-logo-big.jpg?ve=1&tl=1?ve=1&tl=1"
                 alt="..."
+                borderRadius={"8px"}
               />
             </Flex>
           </Box>
@@ -91,7 +94,7 @@ export default function Payment() {
             <Spacer />
             <Box p="4">
               <Text mt="2" fontSize="14">
-                Already have an account? <Link href="/signIn"> Log in</Link>{" "}
+                {/* Already have an account? <Link href="/signIn"> Log in</Link>{" "} */}
               </Text>
             </Box>
           </Flex>
