@@ -7,7 +7,8 @@ export interface Iuserclient {
     role:"admin"|"user"|"";
     phone?:string;
     address?:string;
-    cart?:Array<string>
+    cart?:Array<string>;
+    orderPlaced:boolean;
 }
 
 export interface Iuserstate{

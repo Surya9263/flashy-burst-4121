@@ -92,6 +92,8 @@ const cartController=()=>{
                 code: 400,
               };
         }
+
+        
         let userCartItems=await Cart.find({userId:userId}).populate("prodId");
         return{
             error: false,
@@ -101,8 +103,27 @@ const cartController=()=>{
         }
     }
 
+    async function orderPlaced(userId:string){
+        if(!userId){
+            return { 
+                error: true,
+                errorMsg: "required fields are missing",
+                data: "",
+                code: 400,
+              };
+        }
+        let updated = await Cart.updateMany({userId:userId}, {$set:{orderPlaced:true}})      
+        return{
+            error: false,
+            errorMsg: "",
+            data:"Order placed Successfully",
+            code: 200,
+        }
+    }
+
+
     return {
-        add, remove, updateProdCount ,getAll, getSingle
+        add, remove, updateProdCount ,getAll, getSingle, orderPlaced
     }
 }
 

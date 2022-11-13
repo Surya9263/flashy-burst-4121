@@ -7,6 +7,7 @@ export interface CIcart {
     size:string;
     price:number;
     userId:string;
+    orderplaced:boolean;
 }
 
 export interface initialState{
@@ -14,4 +15,5 @@ export interface initialState{
     error:boolean;
     errorMsg:string;
     cartItems:Array<CIcart>;
+    usersCart:Array<CIcart>
 }

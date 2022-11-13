@@ -6,5 +6,6 @@ export interface Icart {
     color:string;
     size:string;
     price:number;
-    userId:Types.ObjectId
+    userId:Types.ObjectId;
+    orderplaced:boolean;
 }

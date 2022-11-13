@@ -10,13 +10,13 @@ async function Category(req:NextApiRequest, res:NextApiResponse){
     if(req.method==="GET")
     {
         let cartItems;
-        const {userId}=req.body;
-        console.log(userId);
-        
+        const userId = req.headers.id as string
         if(userId){           
             cartItems = await cartC().getSingle(userId);
         }else{
             cartItems = await cartC().getAll();
+            console.log("insideAll",userId);
+          
         }
         if(cartItems.error){
             return res.status(cartItems.code).send(cartItems.errorMsg)
@@ -38,6 +38,15 @@ async function Category(req:NextApiRequest, res:NextApiResponse){
             return res.status(newCartItem?.code||200).send(newCartItem?.data)
         }
        
+    }
+
+    if(req.method==="PATCH"){
+        const userid = req.body.userId;
+        if(!userid){
+            return res.status(400).send("Invalid User Id")
+        }
+        let newCartItem =  await cartC().orderPlaced(userid)
+        return res.status(200).send("Updated SuccessFully")
     }
     
     return res.status(404).send("Only Get Method is Allowed to this route")
