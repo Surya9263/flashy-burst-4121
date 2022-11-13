@@ -23,8 +23,9 @@ export const getUserCartItems = createAsyncThunk(
     'cart/getUserCartItems',
         async(userId:string, thunkapi)=>{
             try{
-                const res:AxiosResponse<Array<CIcart>> = await axios.get('/api/cart',{
-                    data:{userId}
+                const res:AxiosResponse<Array<CIcart>> = await axios('/api/cart',{
+                    method:"GET",
+                    headers:{id:userId}
                 })    
                 return res.data
             }catch(e:any){  
@@ -72,12 +73,27 @@ export const updateCartItemCount = createAsyncThunk(
         }
 )
 
+export const updateOrderStatus = createAsyncThunk(
+    'category/orderPlaced',
+        async(userId:string, thunkapi)=>{
+            try{
+                const res:AxiosResponse<string> = await axios.patch(`/api/cart/`, {
+                    order:true,
+                    userId:userId
+                })    
+                return userId
+            }catch(e:any){  
+                return thunkapi.rejectWithValue(e.message)
+            }
+        }
+)
 
 const initialState:initialState  = {
     error:false,
     loading:false,
     errorMsg:"",
-    cartItems:[]
+    cartItems:[],
+    usersCart:[]
 }
 
 const cartSlice = createSlice({
@@ -124,6 +140,26 @@ const cartSlice = createSlice({
             state.errorMsg = "";
             state.cartItems = action.payload;
         })
+        .addCase(updateOrderStatus.pending, (state, action)=>{
+            state.error = false;
+            state.loading = true;
+            state.errorMsg = "";
+        })
+        .addCase(updateOrderStatus.rejected, (state, action:PayloadAction<any>)=>{
+            state.error = true;
+            state.loading = false;
+            state.errorMsg = action.payload;
+        })
+        .addCase(updateOrderStatus.fulfilled, (state, action:PayloadAction<string>)=>{
+            state.error = false;
+            state.loading = false;
+            state.errorMsg = "";
+            state.cartItems = state.cartItems.map((item)=>{
+                item.orderplaced = true;
+                return item;
+            })
+        })
+
         .addCase(deleteCartItem.pending, (state, action)=>{
             state.error = false;
             state.loading = true;
@@ -141,7 +177,6 @@ const cartSlice = createSlice({
             state.cartItems = state.cartItems.filter((cartItem)=>{
                     return cartItem._id!==action.payload.id
             })
-
         })
         .addCase(updateCartItemCount.pending, (state, action)=>{
             state.error = false;
@@ -158,7 +193,6 @@ const cartSlice = createSlice({
             state.loading = false;
             state.errorMsg = "";
             state.cartItems = state.cartItems.map((cartItem)=>{
-                    
                 if(cartItem._id===action.payload._id){
                     return action.payload;
                 }else{
@@ -166,6 +200,8 @@ const cartSlice = createSlice({
                 }
         })
         })
+       
+      
     },
 })
 

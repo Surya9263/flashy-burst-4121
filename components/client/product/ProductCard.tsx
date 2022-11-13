@@ -8,7 +8,7 @@ export default function ProductCard({product, text, path}:{product:CIproduct, te
   const scrollRef = useRef(null)
   const inviewImage  = useInView(scrollRef)
   return (
-    <Link href={`/product/${product._id}`} >
+    <Link href={`/search/${product._id}`} >
         <Flex direction={"column"} ref={scrollRef} style={inviewImage?insideview:outside}>
             <Image src={product.mainImg}  w={["80vw","500px","100%","100%"]}/>
             {text

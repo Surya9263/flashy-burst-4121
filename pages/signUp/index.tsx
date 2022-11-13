@@ -48,7 +48,17 @@ export default function SignUp() {
 
     function handleRegister(e:FormEvent<HTMLFormElement>) {
         e.preventDefault();
+       
         dispatch(adduser(userCredentials))
+        if(userCredentials.password.length<8){
+            setErrorMsg("Password Length must be 8  characters long")
+            setTimeout(()=>{
+                setErrorMsg("")
+            },3000)
+            return
+        }
+
+               
         setNetReqStatus(1)
         setTimeout(()=>{
             setNetReqStatus(0)
@@ -163,13 +173,11 @@ export default function SignUp() {
                         
                     
                 
-                </Box>
-
-                {sucessAlrt
+                        {sucessAlrt
                             &&
                             <Alert status='success'>
                                 <AlertIcon />
-                                <AlertTitle>{"Logged in  Successfully" }</AlertTitle>
+                                <AlertTitle>{"Registration   Successfull" }</AlertTitle>
                                 {/* <AlertDescription> </AlertDescription> */}
                                 </Alert>}
 
@@ -180,6 +188,9 @@ export default function SignUp() {
                                     <AlertTitle>{errorMsg}</AlertTitle>
                                     {/* <AlertDescription> </AlertDescription> */}
                                 </Alert>}
+                </Box>
+
+              
                 
             </Flex> 
             </form>

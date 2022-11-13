@@ -71,22 +71,21 @@ useEffect(()=>{
       }
 
       if(auth.isAuth){
-             setErrorMsg("")
-            setAucessAlrt(true)
-            setUserCredentials({email:"", password:""})
-            auth.role==="admin"?Router.push('/admin'):Router.push('/')
-            setTimeout(()=>{
-              setAucessAlrt(false)
-            },5000)
+        setErrorMsg("")
+        setAucessAlrt(true)
+        setUserCredentials({email:"", password:""})
+        auth.role==="admin"?Router.push('/admin'):Router.push('/')
+
+        setTimeout(()=>{
+            setAucessAlrt(false)
+        },3000)
       }
     }
     
 },[auth,netReqStatus])
 
 useEffect(()=>{
-    if(auth.isAuth){
-       
-    }
+  
 },[auth])
 
 
