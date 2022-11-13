@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import axios from 'axios';
 import {Box,Drawer,
   DrawerBody,
@@ -23,6 +23,7 @@ import { addToCart } from '../../store/cart/cartSlice';
 import  Router  from 'next/router';
 import Loginfooter from '../../components/footer/Loginfooter';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
+import { cartContxt } from '../../context/CartCItemContext';
 export interface addCartIterface{
   prodId: string; 
   prodCount: number; 
@@ -49,7 +50,7 @@ const SingleProduct = ({product}:{product:CIproduct}) => {
   const [size,setSize]=useState("")
   const [sizeModal,setSizeModal]=useState(false);
   const [supImgNum,setSupImgNum]=useState(0)
-
+  const {setCartItem} = useContext(cartContxt)
   const [reqStatus,setReqStatus]=useState(0)
 
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -60,7 +61,7 @@ const SingleProduct = ({product}:{product:CIproduct}) => {
   const cart=useAppSelector((store)=>store.cart)
 
   const handleAddToCart=()=>{
-    if(!auth.isAuth){
+    if(!auth?.isAuth){
       Router.push("/signin")
     }else{
       dispatch(addToCart({userId:auth?.userId,prodCount:1,prodId:product._id,color:"red",price:Number(product.price),size:"sm"}))
@@ -75,6 +76,11 @@ const SingleProduct = ({product}:{product:CIproduct}) => {
         setReqStatus(0)
       },5000)    
     }
+  let remaininfItem = cart.cartItems.filter((item)=>{
+    return !item.orderplaced
+  })
+  setCartItem(remaininfItem.length)
+  
   },[cart])
 
   // let supImages=product?.supImg || []

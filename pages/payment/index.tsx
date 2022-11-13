@@ -28,18 +28,24 @@ import { ClientNavbar, Footer, UiImage } from "../../components";
 import  Link  from "next/link"
 import { useState } from "react";
 import  Router  from "next/router";
+import { useAppDispatch, useAppSelector } from "../../store/hook";
+import { getUserCartItems, updateOrderStatus } from "../../store/cart/cartSlice";
 
 
 export default function Payment() {
 
   const [successAlert,setSuccessAlert]=useState(false)
+  const auth = useAppSelector(store=>store.auth)
+  const dispatch= useAppDispatch()
   const { onClose } = useDisclosure()
-  const handleClick=()=>{
+
+
+  const handleClick = ()=>{
     setSuccessAlert(true)
-    // setTimeout(()=>{
-    //   Router.push("/")
-    // },2000)
+    dispatch(updateOrderStatus(auth.userId))
+    dispatch(getUserCartItems(auth.userId))
   }
+
   return (
     <>
       <ClientNavbar />
@@ -147,7 +153,7 @@ export default function Payment() {
           <ModalFooter>
           <Button onClick={()=>{
             setSuccessAlert(false)
-            Router.push("/")
+            Router.push("/cart")
             }} fontSize={"12px"} color={"white"} backgroundColor={"black"} colorScheme={"black"} variant={"outline"} borderRadius={"none"} w={"100%"}>GO TO HOME</Button>
             {/* <Button>Cancel</Button> */}
           </ModalFooter>

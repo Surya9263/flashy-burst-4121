@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { ClientNavbar, Footer, UiImage } from "../../components";
 import Cart from "../../components/cart/cart";
 import Cartitems from "../../components/cart/Cartitems";
@@ -7,10 +7,11 @@ import DrawerExample from "../../components/cart/drawer";
 import Link from "next/link";
 
 import { useAppDispatch, useAppSelector } from "../../store/hook";
+import { cartContxt } from "../../context/CartCItemContext";
 const cartPage = () => {
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector((store) => store.cart.cartItems);
-
+  const {cartItem} = useContext(cartContxt)
   const [totalAmount,setTotalAmount]=useState(0)
   useEffect(()=>{
     let total=0;
@@ -20,12 +21,16 @@ const cartPage = () => {
     }
     setTotalAmount(total)
   },[totalAmount,cartItems])
+
+  const orderPendingItems = cartItems?.filter((item)=>{
+    return item.orderplaced===false
+   })
   return (
     <Box>
       <ClientNavbar />
       <Box w={"85%"} display="flex" margin={"auto"} mt="200px" gap="20px">
         <Box fontWeight={"semibold"} fontSize={"20px"}>
-          CART({cartItems.length})
+          CART({cartItem})
         </Box>
         <Box fontSize={"20px"} color="grey">
           FAVOURITES ⍌

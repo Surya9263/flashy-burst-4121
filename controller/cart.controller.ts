@@ -112,7 +112,7 @@ const cartController=()=>{
                 code: 400,
               };
         }
-        let updated = await Cart.updateMany({userId:userId}, {$set:{orderPlaced:true}})      
+        let updated = await Cart.updateMany({userId:userId}, {$set:{orderplaced:true}})      
         return{
             error: false,
             errorMsg: "",

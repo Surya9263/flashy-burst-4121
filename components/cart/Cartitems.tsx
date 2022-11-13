@@ -45,6 +45,7 @@ const handleDelete=(id:string)=>{
                  <Button onClick={()=>handleProdCount(e._id,e.prodCount+1)} backgroundColor={"white"}>+</Button>
                  </Flex>
                  <Text>₹ {e.price}.00</Text>
+                 
                  <Text mt={"2"}>TOTAL : ₹ {e.price*e.prodCount}.00</Text>
                  <Button onClick={()=>handleDelete(e._id)} mt={"24"} variant={"link"}><Text fontSize={"11px"} color={"gray"}>DELETE</Text></Button>
                </Box>
