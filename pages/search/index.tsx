@@ -117,7 +117,7 @@ useEffect(()=>{
       <ClientNavbar/>
       <Box w={"100%"} position={"relative"} top={"120px"}>
     <Flex style={{fontFamily:'Neue-Helvetica'}} m={{lg:"auto"}} ml={{sm:"4"}} w={{lg:"12%",sm:"5%"}} gap={{sm:"10px"}} justifyContent={{sm:"flex-start"}} >
-      {types?.map((el)=><Box><Text style={el===currCat?{fontWeight:"bold"}:{fontWeight:"normal"}} cursor={"pointer"}  onClick={(e)=>{
+      {types?.map((el)=><Box key={el}><Text style={el===currCat?{fontWeight:"bold"}:{fontWeight:"normal"}} cursor={"pointer"}  onClick={(e)=>{
         setCurrCat(e.currentTarget.innerText)
         }} fontSize={"13px"}>{el}</Text></Box>)}
     </Flex>
@@ -217,7 +217,7 @@ export default SearchPage
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const url = process.env.BASEURL
  
-  const res = await axios.get(`http://localhost:3000/api/product`)
+  const res = await axios.get(`${url}/product`)
   const allProducts = await res.data
     return {
       props: {

@@ -10,7 +10,7 @@ const cartController=()=>{
                 code: 400,
               }; 
         }
-        let newCartItem=await Cart.findOne({prodId});
+        let newCartItem=await Cart.findOne({prodId:prodId, orderplaced:false});
         if(newCartItem){
             return {
                 error: true,
@@ -112,11 +112,12 @@ const cartController=()=>{
                 code: 400,
               };
         }
-        let updated = await Cart.updateMany({userId:userId}, {$set:{orderplaced:true}})      
+        let updated = await Cart.updateMany({userId:userId}, {$set:{orderplaced:true}})    
+        let cartItems = await Cart.find({userId:userId}).populate("prodId"); 
         return{
             error: false,
             errorMsg: "",
-            data:"Order placed Successfully",
+            data:cartItems,
             code: 200,
         }
     }

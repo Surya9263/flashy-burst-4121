@@ -8,16 +8,16 @@ const Cartitems = () => {
     const cartItems=useAppSelector((store)=>store.cart)
     const auth=useAppSelector((store)=>store.auth)
     const dispatch=useAppDispatch()
-  useEffect(()=>{
-    if(auth.isAuth){
+
+
+    useEffect(()=>{
+    if(auth.isAuth && cartItems.cartItems.length===0){
       dispatch(getUserCartItems(auth.userId))
     }
   },[auth])
-useEffect(()=>{
 
-},[cartItems])
 
-    const handleProdCount=(id:string,count:number)=>{
+  const handleProdCount=(id:string,count:number)=>{
       dispatch(updateCartItemCount({id:id,count:count}))
     }
 
@@ -27,7 +27,7 @@ const handleDelete=(id:string)=>{
 
   return (
     <Box>
-        {cartItems.cartItems?.map((e)=><Box my={"10"} fontSize={"11px"}>
+        {cartItems.cartItems?.map((e)=><Box key={e._id} my={"10"} fontSize={"11px"}>
              {!e.orderplaced 
              &&
              <>
