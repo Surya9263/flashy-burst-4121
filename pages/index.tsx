@@ -1,4 +1,4 @@
-
+import Router from 'next/router'
 import Head from 'next/head'
 import {useState, useRef} from 'react'
 import {Box, Input, Button, Image, Flex} from '@chakra-ui/react'
@@ -44,6 +44,7 @@ const forward = ()=>{
     releventDiv?.scrollIntoView({behavior: "smooth"});
   }
 
+  
   
   return (  
    <Box position={"relative"}>

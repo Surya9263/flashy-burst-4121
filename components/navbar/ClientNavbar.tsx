@@ -2,7 +2,7 @@ import { Box, Flex,Image,Text,Button, Show,useDisclosure,
  } from '@chakra-ui/react'
 import Head from 'next/head'
 import Link from 'next/link'
-import React,{useContext} from 'react'
+import React,{useContext, useEffect} from 'react'
 import {FaBars} from 'react-icons/fa'
 import { colorContext } from '../../context/ColorContext'
 import {BsBag} from 'react-icons/bs'
@@ -11,6 +11,7 @@ import ProductNav from '../client/nav/ProductNav'
 import { GetServerSideProps } from 'next'
 import axios from 'axios'
 import { CIcategory } from '../../interface/client/category.interface'
+import  Router from 'next/router'
 
 
 
@@ -21,12 +22,20 @@ export default function ClientNavbar() {
 
    const { isOpen, onOpen, onClose } = useDisclosure()
    const btnRef = React.useRef<any|null>(null)
+
+
+
+   useEffect(()=>{
+       if(Router.pathname.startsWith("/cart")){
+        if(!auth.isAuth || auth.role!=="user"){
+            Router.push('/signin')
+          }
+       }
+   },[auth])
+ 
   return (
     <Box  w={"100%"}>
-        <Head>
-        <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Dancing+Script" />
-    </Head>
+       
     <Box position={"fixed"} top="0px" zIndex={"10"}  w={"100%"} _hover={{bg:"rgba(255,255,255,.8)"}} transition=".3s all ease-in">
 
         <Flex align={"center"}  px={["10px","10px","20px","20px"]} color={color} justify="space-between" >

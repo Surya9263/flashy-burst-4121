@@ -1,74 +1,87 @@
-import {Box, Input, Button, Flex, Text, Select, RadioGroup, Stack, Radio, InputGroup, InputLeftAddon, Checkbox} from '@chakra-ui/react'
+import {Box, Input, Button, Flex, 
+     // ALert Components
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+  Text, Select, RadioGroup, Stack, Radio, InputGroup, InputLeftAddon, Checkbox} from '@chakra-ui/react'
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { ClientNavbar } from '../../components'
 import Loginfooter from '../../components/footer/Loginfooter';
-import { useAppDispatch } from '../../store/hook';
+import { useAppDispatch, useAppSelector } from '../../store/hook';
 import { adduser } from '../../store/user/user.slice';
 
 export interface User {
 	email: string;
 	password: string;
     name: string;
-    address: string;
-    locality: string;
-    phone: string;
-    repeat_password: string;
-    pincode: string;
-    more: string;
-    city: string;
-    select: string;
-    radio: string;
 }
-
+import {useEffect}from 'react'
+import  Router  from 'next/router';
 
 export default function SignUp() {
 
     const dispatch = useAppDispatch();
+    const user = useAppSelector(store=>store.user)
+    const [netReqStatus,setNetReqStatus] = useState<number>(0)
+    const [sucessAlrt, setAucessAlrt] = useState<boolean>(false)
+    const [errorMsg, setErrorMsg] =  useState<string>("")
 
     const [userCredentials, setUserCredentials] = useState<User>({
 		email: '',
 		password: '',
-        name:"",
-        address:"",
-        locality: "",
-        phone: "",
-        repeat_password: "",
-        pincode: "",
-        more: "",
-        city: "",
-        select: "",
-        radio: "",
+        name:""
 	});
 
-    const handleSubmit = async (event: React.SyntheticEvent) => {
-        event.preventDefault();
-		// if (password !== repeat_password) {
-		// 	alert("passwords don't match");
-		// 	return;
-        // }
-            
-    }
 
 
     function handleChange(e:ChangeEvent<HTMLInputElement>) {
     const {name,value} = e.target
     setUserCredentials({...userCredentials,[name]:value});
-    // console.log(userCredentials);
+
     }
     function handleSelect(e:ChangeEvent<HTMLSelectElement>) {
         const {name,value} = e.target
         setUserCredentials({...userCredentials,[name]:value});
-        
+       
     }
 
     function handleRegister(e:FormEvent<HTMLFormElement>) {
         e.preventDefault();
         dispatch(adduser(userCredentials))
-        
+        setNetReqStatus(1)
+        setTimeout(()=>{
+            setNetReqStatus(0)
+        },5000)
         
     }
     
-    console.log(userCredentials);
+   useEffect(() => {
+     
+    if(netReqStatus===1){
+        if(user.isError){
+            setErrorMsg(user.errormsg)
+            setTimeout(()=>{
+                setErrorMsg("")
+            },5000)
+        }
+        else{
+            setAucessAlrt(true)
+            setUserCredentials({email:'',password: '',name:""})
+            
+            setTimeout(()=>{
+                setAucessAlrt(false)
+                Router.push("/signin")
+            },3000)
+        }
+
+    }
+    
+     return () => {
+       
+     }
+   }, [user])
+   
   
     return (
         <Box w={"90vw"}>
@@ -133,6 +146,7 @@ export default function SignUp() {
                     
                     
                     <Input
+                        _hover={{cursor:"pointer"}}
                         type={"submit"}
                         value="CREATE ACCOUNT"
                         fontSize={18} 
@@ -151,7 +165,21 @@ export default function SignUp() {
                 
                 </Box>
 
-                
+                {sucessAlrt
+                            &&
+                            <Alert status='success'>
+                                <AlertIcon />
+                                <AlertTitle>{"Logged in  Successfully" }</AlertTitle>
+                                {/* <AlertDescription> </AlertDescription> */}
+                                </Alert>}
+
+                                {errorMsg
+                                &&
+                                <Alert status='error'>
+                                    <AlertIcon />
+                                    <AlertTitle>{errorMsg}</AlertTitle>
+                                    {/* <AlertDescription> </AlertDescription> */}
+                                </Alert>}
                 
             </Flex> 
             </form>

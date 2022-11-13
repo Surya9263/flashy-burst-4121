@@ -17,3 +17,13 @@ export interface Iuserstate{
     users:Array<Iuserclient>
 
 }
+
+export interface Iauthclient {
+    isLoading:boolean,
+    isError:boolean,
+    isAuth:boolean,
+    userId:string,
+    iat:number,
+    ext:number,
+    role:string,
+}

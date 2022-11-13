@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import {categorySlice, slideSlice, subCategory,productSlice, productType, supImage, authSlice, cartSlice} from './'
+import {categorySlice, slideSlice, subCategory,productSlice, productType, supImage, authSlice, cartSlice, userSlice} from './'
 
 const store = configureStore({
     reducer:{
@@ -10,7 +10,8 @@ const store = configureStore({
         productType:productType,
         supImage:supImage,
         auth:authSlice,
-        cart:cartSlice
+        cart:cartSlice,
+        user:userSlice
     }
 })
 
