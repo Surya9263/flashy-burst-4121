@@ -4,7 +4,7 @@ export interface Iuserclient {
     _id:string;
     name:string;
     email:string;
-    role:"admin"|"user";
+    role:"admin"|"user"|"";
     phone?:string;
     address?:string;
     cart?:Array<string>
@@ -15,6 +15,7 @@ export interface Iuserstate{
     isError:boolean;
     errormsg:string;
     users:Array<Iuserclient>
+    authUser:Iuserclient
 
 }
 

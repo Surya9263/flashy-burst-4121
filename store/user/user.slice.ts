@@ -31,6 +31,19 @@ export const getAlluser = createAsyncThunk(
         }
 )
 
+export const getAuthSUer = createAsyncThunk(
+    'usre/getAuthUser',
+        async(id:string, thunkapi)=>{
+            try{
+                const res:AxiosResponse<Iuserclient> = await axios.get(`/api/user/${id}`) 
+                                  
+                return res.data
+            }catch(e:any){  
+                return thunkapi.rejectWithValue(e.message)
+            }
+        }
+)
+
 
     export const deletuser = createAsyncThunk(
         'user/delete',
@@ -59,10 +72,10 @@ export const getAlluser = createAsyncThunk(
 
     export const updateuser = createAsyncThunk(
         'user/update',
-            async({id, data}:{id:string, data:any}, thunkapi)=>{
+            async({id, password}:{id:string, password:any}, thunkapi)=>{
                 try{
                     const res:AxiosResponse<Iuserclient> = await axios.patch(`/api/user/${id}`, {
-                        data:data
+                        id:id,password:password
                     })    
                     return res.data
                 }catch(e:any){  
@@ -77,7 +90,12 @@ export const getAlluser = createAsyncThunk(
         isError:false,
         errormsg:"",
         users:[],
-        
+        authUser:{
+            _id:"",
+            role:"",
+            name:"",
+            email:""
+        }        
     }
 
 
@@ -105,6 +123,22 @@ const userSlice = createSlice({
             state.isLoading = false;
             state.errormsg = "";
             state.users = [...state.users, action.payload]
+        })
+        .addCase(getAuthSUer.pending, (state, action)=>{
+            state.isError =false;
+            state.isLoading = true;
+            state.errormsg = "";
+        })
+        .addCase(getAuthSUer.rejected, (state, action:PayloadAction<any>)=>{
+            state.isError = true;
+            state.isLoading = false;
+            state.errormsg = action.payload
+        })
+        .addCase(getAuthSUer.fulfilled, (state, action:PayloadAction<Iuserclient>)=>{
+            state.isError = false;
+            state.isLoading = false;
+            state.errormsg = "";
+            state.authUser = action.payload
         })
         .addCase(getAlluser.pending, (state, action)=>{
             state.isError =false;
