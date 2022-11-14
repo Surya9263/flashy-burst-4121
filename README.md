@@ -84,7 +84,7 @@
 ### 1. Pages Directory
     -  All Client Routing files are directoly inside Pages directory 
     -  All Admin Routing files are inside Pages>admin directory .
-    - api is inside Paged>api directory
+    -  api is inside Pages>api directory
 
 ### 2. Controller Directory
     - Controller directory contains all the api logics, controller files are directly used api, inside pages>api.
