@@ -18,7 +18,7 @@ export default async function loginApi (req:NextApiRequest,res:NextApiResponse) 
             return res.status(data.code).send(data.errorMsg)
         }
         let token =  data?.data?.AToken
-
+        
         
         return res.status(200).send({error:data.error, data:data.data?.decoded})
     }catch(e:any){
@@ -30,7 +30,7 @@ export default async function loginApi (req:NextApiRequest,res:NextApiResponse) 
 
     if(req.method==="GET"){
             let token  = getCookie("acessToken")
-            console.log(token);
+           
           return res.send(token)  
     }
 

@@ -24,6 +24,7 @@ export default function ClientNavbar() {
    const auth = useAppSelector(store=>store.auth) 
    const cart = useAppSelector(store=>store.cart)
     const user =   useAppSelector(store=>store.user)
+    
    const { isOpen, onOpen, onClose } = useDisclosure()
    const btnRef = React.useRef<any|null>(null)
     const {setCartItem} = useContext(cartContxt)

@@ -6,7 +6,7 @@ import { ISlideInitState } from "../../interface/client/slides";
 
 export const addSlide = createAsyncThunk(
     'slides/add',
-        async(data:{catid:string, subcatid:string,urltype:string, imgurl:string, navurl:string}, thunkapi)=>{
+        async(data:{category:string, subcategory:string,urlType:string, imgurl:string, navigateUrl:string}, thunkapi)=>{
             try{
                 const res:AxiosResponse<Islide> = await axios.post('/api/slide', data)
                 return res.data
@@ -58,9 +58,11 @@ export const getAllSlides = createAsyncThunk(
         'slide/update',
             async({id, data}:{id:string, data:any}, thunkapi)=>{
                 try{
+                   
                     const res:AxiosResponse<Islide> = await axios.patch(`/api/slide/${id}`, {
                         data:data
                     })    
+                    console.log("fromslide", res.data)
                     return res.data
                 }catch(e:any){  
                     return thunkapi.rejectWithValue(e.message)

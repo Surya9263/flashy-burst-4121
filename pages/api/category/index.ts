@@ -18,7 +18,7 @@ async function Category(req:NextApiRequest, res:NextApiResponse){
     }
 
     if(req.method==="POST"){
-        console.log(req.body, req.method);
+     
         if(!name){
             return res.status(400).send("Provide a name for Project")
         }

@@ -2,8 +2,8 @@
 
 ### Project Name : - 
 ### Contributors - 
-- [Surya Srivastava](https://github.com/Surya9263)
-- [Akshaya Annadurai](https://github.com/AkshayaAnnadurai)
+- [Surya Srivastava](https://github.com/Surya9263)  [Search products, Cart Section]
+- [Akshaya Annadurai](https://github.com/AkshayaAnnadurai) [Product Navigation Bar, Users Page]
 - [Prashant kumar](https://github.com/PRASHANT7277)
 - [Vishwajeet Haldar](https://github.com/vishwajeethaldar)
 - [Vaibhav Kaware](https://github.com/vkaware)

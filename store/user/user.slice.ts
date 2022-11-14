@@ -72,10 +72,10 @@ export const getAuthSUer = createAsyncThunk(
 
     export const updateuser = createAsyncThunk(
         'user/update',
-            async({id, password}:{id:string, password:any}, thunkapi)=>{
+            async({id, password, role}:{id:string, password?:any, role?:string}, thunkapi)=>{
                 try{
                     const res:AxiosResponse<Iuserclient> = await axios.patch(`/api/user/${id}`, {
-                        id:id,password:password
+                        id:id,password:password, role:role
                     })    
                     return res.data
                 }catch(e:any){  

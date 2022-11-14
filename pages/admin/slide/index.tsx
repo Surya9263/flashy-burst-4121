@@ -10,7 +10,15 @@ import {FiSave} from 'react-icons/fi'
 import {MdOutlineCancel} from 'react-icons/md'
 import {GrDocumentUpdate} from 'react-icons/gr'
 import {GrView} from 'react-icons/gr'
+import AddSlide from "../../../components/admin/slide/AddSlide";
 
+export interface addslideinterface {
+    category:string, subcategory:string,urlType:string, imgurl:string, navigateUrl:string
+} 
+
+export const addSlideinitState:addslideinterface = {
+    category:"", subcategory:"",urlType:"", imgurl:"", navigateUrl:""
+}
 const SlideHome = ()=>{
     const dispatch =  useAppDispatch()
     
@@ -19,7 +27,7 @@ const SlideHome = ()=>{
     const subcategory = useAppSelector(store=>store.subcategory)
     
 
-    const [slidedata, setSlideData] = useState({catid:"", subcatid:"",urltype:"", imgurl:"", navurl:""}) 
+    const [slidedata, setSlideData] = useState<addslideinterface>(addSlideinitState) 
     const [catIndex, setCatIndex] =  useState<number>(-1)
    
     const [slideId, setSlideId] = useState<string>("")
@@ -38,7 +46,7 @@ const SlideHome = ()=>{
     const handleSaveSlide = async(e:FormEvent<HTMLFormElement>)=>{
         e.preventDefault()       
         await dispatch(addSlide(slidedata))  
-        console.log(slide);
+        setSlideData(addSlideinitState)
         
     }
 
@@ -47,9 +55,10 @@ const SlideHome = ()=>{
     }
 
     const handleUpdate = async()=>{
-        await dispatch(updateSlide({id:slideId, data:slidedata}))
+        console.log(slidedata,slideId)
+        await dispatch(updateSlide({id:slideId, data:slidedata}))       
         setStatus("add")
-        setSlideData({...slidedata, catid:"", subcatid:"",urltype:"", imgurl:"", navurl:""})
+        setSlideData({...slidedata, category:"", subcategory:"",urlType:"", imgurl:"", navigateUrl:""})
         setSlideId("")
     }
 
@@ -64,69 +73,7 @@ const SlideHome = ()=>{
 
                 <Flex  w={["100%", "100%","80%","80%"]} direction={["column", "column","row","row"]} gap={"20px"}>
 
-                    <Box  w={["100%", "100%", "50%","40%"]} border={"1px solid #c95"} px="10px" py="10px" my="20px">
-                        
-                        <Box py="20px" fontWeight="700" textAlign={"center"}> Add New Slide </Box>
-                        
-                        <form onSubmit={handleSaveSlide}>
-                            <Flex direction={"column"} gap="20px">
-                                <Select name="catid" placeholder="Select Category" onChange={(e)=>{
-                                                setCatIndex(e.target.selectedIndex-1)
-                                                handleChnage(e)
-                                            }}>
-                                    {category.categories.map((cat)=>{
-                                    
-                                        return (
-                                            <option value={cat._id} key={cat._id} > 
-                                                {cat.name}
-                                            </option>
-                                        )
-                                    })}
-                                </Select>
-
-                                <Select name="subcatid" placeholder="Select Sub Category" onChange={handleChnage} >
-                                    {category.categories[catIndex]?.subCategory?.map((subCat)=>{       
-                                            return (
-                                                <option value={subCat._id} key={subCat._id} > 
-                                                    {subCat.name}
-                                                </option>
-                                            )
-                                        })}
-                                </Select>
-                                <Select name="urltype" placeholder="Select Url Type" onChange={handleChnage}>
-                                    <option value="video"> Video </option>
-                                    <option value="image"> Image </option>
-                                </Select>
-                                <Input name="imgurl" type={"text"} placeholder="Type URL of Image" onChange={handleChnage} value={slidedata.imgurl}/>
-                                <Input name="navurl" type={"text"} placeholder="Type Navigation URL" onChange={handleChnage} value={slidedata.navurl}/>
-                                {/* <Button colorScheme={"twitter"} type="submit"> Save Slide </Button> */}
-
-                                {status==="add"?
-                                <Button colorScheme={"twitter"} w="50px" type="submit"> 
-                                    <FiSave/> 
-                                </Button>
-                                :
-                                <Flex gap="10px">
-                                    <Button colorScheme={"facebook"} w="50px" onClick={()=>{
-                                     handleUpdate()
-                                    }}> 
-                                        <GrDocumentUpdate/>
-                                    </Button>
-                                    <Button colorScheme={"orange"} onClick={()=>{
-                                        setStatus("add")
-                                        setSlideData({...slidedata, catid:"", subcatid:"",urltype:"", imgurl:"", navurl:""})
-                                        setSlideId("")
-                                    }}>
-                                        <MdOutlineCancel/>
-                                    </Button>
-                                </Flex>
-                                }
-
-                            </Flex>
-
-                        </form>
-                    </Box>
-
+                    <AddSlide status={status} handleSaveSlide={handleSaveSlide} handleChnage={handleChnage} categories={category.categories} handleUpdate={handleUpdate} setStatus={setStatus}setSlideId={setSlideId}setSlideData={setSlideData} slidedata={slidedata}/>
                     <Box w={["100%", "100%","60%","60%"]}>
 
                         <Flex direction="column"  maxH={"90vh"} overflow="scroll" minW="320px">
@@ -150,7 +97,7 @@ const SlideHome = ()=>{
 
                                         <Button colorScheme={"green"} p={"0"} onClick={()=>{
                                             setStatus("update")
-                                            setSlideData({...slidedata, catid:slide.category._id, subcatid:slide.subcategory._id,urltype:slide.urlType, imgurl:slide.imgurl, navurl:slide.navigateUrl})
+                                            setSlideData({...slidedata, category:slide.category._id, subcategory:slide.subcategory._id,urlType:slide.urlType, imgurl:slide.imgurl, navigateUrl:slide.navigateUrl})
                                             setSlideId(slide._id)
                                         }}>
                                             <BsPencilSquare/>

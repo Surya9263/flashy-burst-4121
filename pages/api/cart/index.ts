@@ -15,7 +15,7 @@ async function Category(req:NextApiRequest, res:NextApiResponse){
             cartItems = await cartC().getSingle(userId);
         }else{
             cartItems = await cartC().getAll();
-            console.log("insideAll",userId);
+            
           
         }
         if(cartItems.error){

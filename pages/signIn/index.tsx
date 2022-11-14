@@ -99,8 +99,8 @@ useEffect(()=>{
            
            <ClientNavbar />
             
-            <Flex gap={200} mt={200} ml={[50,200]} direction={['column', 'row']}>
-                <Box  h={"auto"} w={250} >
+            <Flex gap={100} align={"center"} justify={["center"]} mt={200}  direction={['column','column', 'row', 'row']}>
+                <Box  h={"auto"}  w={["80%","80%", "30%","30%"]} >
                     <Text fontSize={22}><b>LOG IN</b></Text>
                     <form onSubmit={handleLogin}>
                         <Input 
@@ -175,7 +175,7 @@ useEffect(()=>{
                                 </Alert>}
                 </Box>
 
-                <Box h={400} w={400}>
+                <Box h={400} w={["80%","80%", "40%","40%"]}>
                     <Text fontSize={22}><b>REGISTER</b></Text>
                     <Text 
                         fontSize={14} 

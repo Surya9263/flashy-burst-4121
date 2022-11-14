@@ -2,9 +2,10 @@ import { Box, Flex, Text } from "@chakra-ui/react"
 
 export default function Loginfooter(){
     return(
-        <Box w={"100%"}>
-            <Flex w={"100%"} flexWrap={"wrap"} justify={"center"} align={"center"} gap={50} mt={200} px="35px" direction={['column', 'column','row','row']} >
-                <Box w={["40%","40%","20%","20%"]}>
+        <Box w={"100%"} bg="#eee" py="10px" pb="50px">
+            <Flex  w={"100%"} flexWrap={"wrap"} justify={"center"} align={"center"}  mt={50} px="30px" direction={"row"} >
+                
+                <Flex direction={"column"} gap="10px" w={["40%","40%","20%","20%"]} minH="400px">
                     <Text><b>HELP</b></Text>
                     <Text>SHOP AT ZARA.COM</Text>
                     <Text>PRODUCT</Text>
@@ -15,8 +16,8 @@ export default function Loginfooter(){
                     <Text>SHOPS AND COMPANY</Text>
                     <Text>CLOTHES COLLECTION </Text>
                     <Text>MY ACCOUNT</Text>
-                </Box>
-                <Box w={["40%","40%","20%","20%"]}>
+                </Flex>
+                <Flex direction={"column"} gap="10px" w={["40%","40%","20%","20%"]}  minH="400px">
                 <Text><b>FOLLOW US</b></Text>
                     <Text>NEWSLETTER</Text>
                     <Text>INSTAGRAM</Text>
@@ -25,8 +26,8 @@ export default function Loginfooter(){
                     <Text>PINTEREST</Text>
                     <Text>YOUTUBE</Text>
                     
-                </Box>
-                <Box w={["40%","40%","20%","20%"]}>
+                </Flex>
+                <Flex direction={"column"} gap="10px" w={["40%","40%","20%","20%"]} minH="400px">
                 <Text><b>COMPANY</b></Text>
                     <Text>ABOUT US</Text>
                     <Text>JOIN LIFE</Text>
@@ -34,16 +35,17 @@ export default function Loginfooter(){
                     <Text>STORES</Text>
                     <Text>WORK WITH US</Text>
                     
-                </Box>
-                <Box w={["40%","40%","20%","20%"]}>
+                </Flex>
+                <Flex direction={"column"} gap="10px" w={["40%","40%","20%","15%"]} minH="400px">
                 <Text><b>POLICIES</b></Text>
                     <Text>PRIVACY POLICY</Text>
                     <Text>PURCHASE CONDITIONS</Text>
                     <Text>GIFT CARD CONDITIONS</Text>
                     <Text>COOKIES SETTINGS</Text>
                     
-                </Box>
+                </Flex>
             </Flex>
+            <Text pt="20px" borderTop={"1px solid #ccc"} fontWeight={"bold"} mt="0px" textAlign={"center"}>  Copyright &copy; All Rights Reserved by Takeitnow </Text>
         </Box>
     )
 }

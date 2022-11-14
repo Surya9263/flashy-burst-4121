@@ -13,7 +13,7 @@ const slide = async(req:NextApiRequest, res:NextApiResponse)=>{
     if(req.method==="GET")
     {
         const slides = await slideController().getAll();
-        console.log(slides);
+      
         
         if(slides.error){
             return res.status(slides.code).send(slides.errorMsg)

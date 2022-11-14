@@ -1,4 +1,4 @@
-import { Box, Flex,  Text, Button, Show } from '@chakra-ui/react'
+import { Box, Flex,  Text, Button, Show, useDisclosure } from '@chakra-ui/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
@@ -6,19 +6,14 @@ import { logout } from '../../store/auth/authSlice'
 import { clearCart } from '../../store/cart/cartSlice'
 import { useAppDispatch, useAppSelector } from '../../store/hook'
 import {BiLogOutCircle} from "react-icons/bi"
+import Logout from '../client/nav/Logout'
 
 
 export default function AdminHeader() {
   const dispatch = useAppDispatch()
   const user = useAppSelector(store=>store.user) 
-
-  const handleLogout = ()=>{
-    dispatch(logout())
-    dispatch(clearCart())
-
-  }
-
-
+  const {onClose, isOpen,onOpen} = useDisclosure()
+ 
   return (
     <Flex align={"center"} justify={"space-between"} minH="50px" px={"20px"} py="5px" borderBottom={"1px solid #019"} mb="20px" position={"sticky"} top="0px" w={"100%"}>
         <Flex h="100%" align="center" gap="20px"> 
@@ -42,16 +37,16 @@ export default function AdminHeader() {
 
             
             <Show breakpoint='(min-width: 768px)'>
-              <Button onClick={handleLogout} colorScheme={"blue"}> LOG OUT </Button>
+              <Button onClick={onOpen} colorScheme={"blue"}> LOG OUT </Button>
             </Show> 
             <Show breakpoint='(max-width: 767px)' > 
-              <Button onClick={handleLogout} colorScheme={"blue"}><BiLogOutCircle/></Button>
+              <Button onClick={onOpen} colorScheme={"blue"}><BiLogOutCircle/></Button>
             </Show>
             
 
            
         </Flex>
-        
+        <Logout onClose={onClose} isOpen={isOpen} onOpen={onOpen} />
     </Flex>
   )
 }

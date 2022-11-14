@@ -26,6 +26,7 @@ import axios from 'axios'
 import { CIcategory } from '../../../interface/client/category.interface'
 import { logout } from '../../../store/auth/authSlice'
 import { clearCart } from '../../../store/cart/cartSlice'
+import Logout from './Logout'
 
 export default function ProductNav({onClose, isOpen,onOpen}:{onClose:VoidFunction, isOpen:boolean,onOpen:VoidFunction}) {
     const ref = useRef(null)
@@ -44,11 +45,7 @@ export default function ProductNav({onClose, isOpen,onOpen}:{onClose:VoidFunctio
     },[])
     
 
-    const handleLogout=()=>{
-        distapch(logout())
-        distapch(clearCart())
-        onClose()
-    }
+  
 
 useEffect(()=>{
     
@@ -104,27 +101,9 @@ useEffect(()=>{
 
    
 
+            <Logout onClose={onClose} isOpen={logAuth} onOpen={onOpen}/>
+
      
-
-      <Modal isOpen={logAuth} onClose={onClose} >
-        <ModalOverlay />
-        <ModalContent  borderRadius="none">
-          <ModalHeader>Confirm Logout</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody >
-             do you really want to logout?
-          </ModalBody>  
-
-          <ModalFooter>
-            <Button colorScheme='blue' mr={3} onClick={onClose}>
-              Cancel
-            </Button>
-            <Button colorScheme='orange' onClick={handleLogout}>
-                Logout
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
   
 
     </Box>

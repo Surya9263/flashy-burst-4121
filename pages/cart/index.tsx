@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box ,Button,Flex} from "@chakra-ui/react";
 import React, { useEffect, useState,useContext } from "react";
 import { ClientNavbar, Footer, UiImage } from "../../components";
 import Cart from "../../components/cart/cart";
@@ -8,9 +8,13 @@ import Link from "next/link";
 
 import { useAppDispatch, useAppSelector } from "../../store/hook";
 import { cartContxt } from "../../context/CartCItemContext";
+import { GetServerSideProps } from "next";
+import axios from "axios";
 const cartPage = () => {
+
   const dispatch = useAppDispatch();
-  const cartItems = useAppSelector((store) => store.cart.cartItems);
+  const cartItems = useAppSelector(store=>store.cart.cartItems);
+
   const {cartItem} = useContext(cartContxt)
   const [totalAmount,setTotalAmount]=useState(0)
   useEffect(()=>{
@@ -32,7 +36,9 @@ const cartPage = () => {
    })
   return (
     <Box>
+
       <ClientNavbar />
+
       <Box w={"85%"} display="flex" margin={"auto"} mt="200px" gap="20px">
         <Box fontWeight={"semibold"} fontSize={"20px"}>
           CART({cartItem})
@@ -43,35 +49,25 @@ const cartPage = () => {
         <Box>
         </Box>
       </Box>
-      <Box
-        w={"85%"}
-        display="flex"
-        margin={"auto"}
-        mt="20px"
-        flexWrap={"wrap"}
-        gap={"32px"}
-      >
+
+      <Flex w={"85%"} display="flex" margin={"auto"} mt="20px" flexWrap={"wrap"} gap={"32px"}  >
+        <Box w="45%">
         <Cartitems/>
-      </Box>
-      <Box
-        display="flex"
-        margin="auto"
-        w="99%"
-        flexDirection={"row-reverse"}
-        position="fixed"
-        bottom="0"
-      >
-        <Box
-          w="20%"
-          h="45px"
-          pt="7px"
-          textAlign={"center"}
-          color="white"
-          backgroundColor={"black"}
-          fontWeight="semibold"
-        >
-          <Link href="/payment"> CONTINUE</Link>
         </Box>
+        
+        <Box w={"45%"}>
+            <Link href={"/cart/orderhistory"}>
+              <Button colorScheme={"blackAlpha"} bg={"#000"} borderRadius={"0"} px="30px">
+                  Order History
+              </Button>
+            </Link>
+        </Box>
+      </Flex>
+      <Box display="flex" margin="auto" w="99%" flexDirection={"row-reverse"} position="fixed" bottom="0">
+
+      <Box w="20%" h="45px" pt="7px" textAlign={"center"} color="white" backgroundColor={"black"} fontWeight="semibold" >
+          <Link href="/payment"> CONTINUE</Link>
+      </Box>
 
         <Box w="15%" textAlign={"center"}>
           <Box textAlign={"center"} fontSize="12px" fontWeight={"semibold"}>
@@ -91,3 +87,5 @@ const cartPage = () => {
 };
 
 export default cartPage;
+
+
