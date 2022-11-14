@@ -71,7 +71,7 @@
     [replce http://localhost:3000/ with your new domain, that you will get after completion of . vercel --prod command]
     [for me url for setting env variable on vercel is - https://vercel.com/myusername/myprojectname/settings/environment-variables]
 ### Step 10 : 
-    To access the admin page create one user in your mopngodb database with role = "admin", based on given schema(model).
+    To access the admin page create one user in your mongodb database with role = "admin", based on given schema(model).
 
     [for schema open -  models/user.model.ts]   
 
