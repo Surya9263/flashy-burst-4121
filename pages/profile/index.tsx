@@ -7,7 +7,7 @@ import {Box,  Text, Flex,FormControl, Input, Button, Textarea,
     AlertDescription,
 } from '@chakra-ui/react'
 import Link from "next/link"
-import { ClientNavbar } from '../../components'
+import { AdminHeader, ClientNavbar } from '../../components'
 import { useAppDispatch, useAppSelector } from '../../store/hook'
 import Router from 'next/router'
 import { getAuthSUer, updateuser } from '../../store/user/user.slice'
@@ -23,13 +23,10 @@ const ProfileDetails = () => {
     const dispatch = useAppDispatch()
     const auth = useAppSelector(store=>store.auth)
     const user = useAppSelector(store=>store.user)
-
     const [netReqStatus,setNetReqStatus] = useState<number>(0)
     const [sucessAlrt, setAucessAlrt] = useState<boolean>(false)
     const [errorMsg, setErrorMsg] =  useState<string>("")
 
-  
-    
     const [password, setPassword] = React.useState('1')
     
         const [userCredentials, setUserCredentials] = useState<User>({
@@ -108,14 +105,14 @@ const ProfileDetails = () => {
 
 
   return (
-    <Box  h={"auto"}  my={"auto"}  mx="50px">
+    <Box  h={"auto"}  my={"auto"} >
 
         <Box minH={"130px"}>
-            <ClientNavbar />
+            {auth.role==="admin"?<AdminHeader/>:<ClientNavbar />}
         </Box>
         
     
-        <Flex   direction={['column', "column", "row", "row"]} py="20px" gap="30px">
+        <Flex direction={['column', "column", "row", "row"]} py="20px" gap="30px"  mx="50px">
         
         <Flex  direction={"column"} gap={"20px"} >
             <Text fontSize={22}><b>Account Information</b></Text>

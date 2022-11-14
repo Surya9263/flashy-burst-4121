@@ -57,14 +57,14 @@ const userController = ()=>{
           };
     }
 
-    async function update(id:string, password:string){
+    async function update(id:string, password?:string, role?:string){
      console.log(id, password);
      
       
-        if(!id||!password){
+        if(!id){
             return {
                 error:true,
-                errorMsg:" id or password missing",
+                errorMsg:" id  missing",
                 data:"",
                 code:400,
                 };  
@@ -81,8 +81,16 @@ const userController = ()=>{
                     };  
                 }
 
-             const hashdedPwd =  await hashPwd().hash(password)
-             await User.updateOne({_id:id}, {$set:{password:hashdedPwd}})
+            
+             if(role && password){
+              const hashdedPwd =  await hashPwd().hash(password)
+              await User.updateOne({_id:id}, {$set:{password:hashdedPwd, role:role==="admin"?"user":"admin"}})
+             }else if(password){
+              const hashdedPwd =  await hashPwd().hash(password)
+              await User.updateOne({_id:id}, {$set:{password:hashdedPwd}})
+             }else if(role){
+              await User.updateOne({_id:id}, {$set:{role:role==="admin"?"user":"admin"}})
+             }
              let updatedUser =  await User.findOne({_id:id})
             
              return {

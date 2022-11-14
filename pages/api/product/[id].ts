@@ -39,7 +39,7 @@ export default async function productOptr(
     if (req.method === "PATCH") {
 
       const data = req.body
-      console.log(data);
+    
       
      
       if (!data) {

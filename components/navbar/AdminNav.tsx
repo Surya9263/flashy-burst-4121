@@ -29,16 +29,23 @@ export const adminmenus = [
     id:5,
     name:"Home Slide",
     link:"/admin/slide"
+  },
+  {
+    id:6,
+    name:"Users",
+    link:"/admin/users"
   }
 ]
 export default function AdminNav() {
   const auth = useAppSelector(store=>store.auth)
 
   useEffect(()=>{
-      if(!auth.isAuth || auth.role!=="admin"){
-        Router.push('/')
-      }
-  },[])
+   if(Router.pathname.startsWith("/admin")){
+    if(!auth.isAuth || auth.role!=="admin"){
+      Router.push('/')
+    }
+   }
+  },[auth])
 
   return (
     <div>

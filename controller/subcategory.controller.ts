@@ -57,7 +57,7 @@ const subcategoryController=()=>{
     }
 
     // Function to update the subcategory
-    async function update(id:string, data:any){
+    async function update(id:string, data:{name:string, path:string}){
 
         if(!id||!data){
             return {error:true, errorMsg:"id and data to be updated is required to update a SubCategory", data:'', code:400}
@@ -70,6 +70,7 @@ const subcategoryController=()=>{
         if(!existCat){
             return {error:true, errorMsg:" No SubCategory exist with the id provide an Valid ID", data:'', code:404}
         }
+      
         // if subcategory not matches with given id return back with error
             if(data.name&&data.path){
                 await SubCategory.updateOne({_id:id}, {$set:{name:data.name, path:data.path}})

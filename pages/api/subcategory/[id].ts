@@ -3,10 +3,11 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { connectDB } from "../../../lib";
 
 
-export default async function categoryOpr(req:NextApiRequest, res:NextApiResponse){
+export default async function subcategoryOprs(req:NextApiRequest, res:NextApiResponse){
          const id = req.query.id as string
          const data = req.body.data
-
+        
+         console.log(req.body);
          await connectDB()
         
          if(!id){
@@ -36,8 +37,8 @@ export default async function categoryOpr(req:NextApiRequest, res:NextApiRespons
            
             if(req.method==="PATCH")
             {
-                console.log(req.body.data);
-                
+               
+                                
                 if(!data){
                     return res.status(400).send("Provide valid data to update")
                 }

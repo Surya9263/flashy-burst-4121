@@ -38,6 +38,7 @@ const slideController = ()=>{
     }
 
     async function update(id:string, data:any){
+        console.log(data);
         
         if(!id||!data){
             return {error:true, errorMsg:"id and data to be updated is required to update a categoty", data:'', code:400}

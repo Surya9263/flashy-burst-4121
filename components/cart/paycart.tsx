@@ -21,7 +21,10 @@ const Cartitems = () => {
   }, [cartItems]);
   
   function calculateTotal() {
-    return cartItems.cartItems?.reduce(
+    const pendings = cartItems.cartItems.filter((item)=>{
+      return !item.orderplaced;
+    })
+    return pendings.reduce(
       (sum, elem) => sum + elem.price * elem.prodCount,
       0
     );
@@ -31,7 +34,9 @@ const Cartitems = () => {
       <Box ml="5">
         <Box mt="7px"></Box>
         {cartItems.cartItems?.map((e) => (
-          <Box display="flex" justifyContent="space-between" mt="20px">
+          <>{
+            !e.orderplaced && 
+            <Box display="flex" justifyContent="space-between" mt="20px">
             <Box display="flex">
               <Box color="mineralgreen">
                 <Image h="50px" w="50px" src={e.prodId?.mainImg} alt="..." />
@@ -46,6 +51,8 @@ const Cartitems = () => {
             <Box>{e.prodCount}</Box>
             <Box color="mineralgreen">₹{e.price}</Box>
           </Box>
+          }
+          </>
         ))}
         <Box mt="10px">
           <Box mt="5"></Box>

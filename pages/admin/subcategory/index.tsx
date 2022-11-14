@@ -56,6 +56,7 @@ const subcategory = ()=>{
 
     const handleUpdate = async()=>{       
         await dispatch(updatesubcategory({id:subcatid, data:subcatInfo}))
+       
         setStatus("add")
         setSubcatInfo({...subcatInfo, name:"", cat:"",path:""})
         setSubcatid("")
