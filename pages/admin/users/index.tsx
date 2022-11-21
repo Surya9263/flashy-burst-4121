@@ -6,6 +6,7 @@ import { AdminHeader, AdminNav } from '../../../components'
 import { Iuserclient } from '../../../interface/client/user.interface'
 import { useAppDispatch, useAppSelector } from '../../../store/hook'
 import { deletuser, getAlluser, updateuser } from '../../../store/user/user.slice'
+import { useToast } from '@chakra-ui/react'
 // {users}:{users:Array<Iuserclient>}
 
 // alerf
@@ -26,6 +27,7 @@ import ConfirmationModel from '../../../components/client/nav/ConfirmationModel'
 import { StringMappingType } from 'typescript'
 
 export default function UserHOme() {
+    const toast = useToast()
 
     const [userslist, setUsersList] = useState<Array<Iuserclient>>([])
     const [filter, setFilter] = useState<"admin"|"user"|"all">("all")
@@ -33,7 +35,7 @@ export default function UserHOme() {
     const users= useAppSelector(store=>store.user)
     const {isOpen, onOpen, onClose} = useDisclosure()
     const [userId, setUserId] = useState<string>("")
-    const [netreq, setnetReq] =  useState<boolean>(false)
+    const [netreq, setnetReq] =  useState<number>(0)
     const [alert, setAlert] =  useState<"success"|"error"|"">("")
 
     useEffect(()=>{
@@ -50,8 +52,6 @@ export default function UserHOme() {
             let data  = users.users.filter((item)=>{
                 return item.role==="admin"
             })
-            console.log(data);
-            
             setUsersList(data)
         }
         if(filter==="user"){
@@ -61,34 +61,43 @@ export default function UserHOme() {
             console.log(data);
             setUsersList(data)
         }
-        
     },[filter, users])
 
-    const handleDelete =async()=>{
-        await dispatch(deletuser(userId))
+    const handleDelete =()=>{
+        dispatch(deletuser(userId))
         onClose()
-        setUserId("")
-        setnetReq(true)
-        setTimeout(()=>{
-            setnetReq(false)
-        },5000)
+    
+        setnetReq(1)
+        console.log(netreq);
+        
     }
 
   
     useEffect(()=>{
-        if(netreq===true){
-            if(users.isError){
-                setAlert("error")
-            }else{
-                if(users.isError){
-                    setAlert("success")
-                }
-                setTimeout(()=>{
-                    setAlert("")  
-                },3000)
-            }  
+        if(netreq===1){
+            if(users.isError && !users.isLoading){
+                toast({
+                    title: 'failed.',
+                    description: "Failed to delete.",
+                    status: 'error',
+                    duration: 5000,
+                    isClosable: true,
+                  })
+                  setnetReq(0)
+            }
+            if(!users.isError && !users.isLoading){
+                toast({
+                    title: 'success.',
+                    description: "Account deleted successfully.",
+                    status: 'success',
+                    duration: 5000,
+                    isClosable: true,
+                  })
+                  setnetReq(0)
+                  setUserId("")
+            }
         }
-    },[users])
+    },[netreq, users])
 
 
     const updateRole =(id:string, role:string)=>{

@@ -74,11 +74,16 @@ useEffect(()=>{
         setErrorMsg("")
         setAucessAlrt(true)
         setUserCredentials({email:"", password:""})
-        if(Router.query.prevPath){
+        if(Router.query.prevPath &&  auth.role==="user"){
             auth.role==="user" && Router.push(Router.query.prevPath.toString()) 
-        }else{
-            auth.role==="admin"?Router.push('/admin'):Router.push('/')
+        } if(Router.query.prevPath &&  auth.role==="admin"){
+            Router.push(Router.query?.prevPath.toString())
         }
+        
+        if(!Router.query.prevPath){
+        auth.role==="admin"?Router.push('/admin'):Router.push('/')
+        }
+        
         
 
         setTimeout(()=>{

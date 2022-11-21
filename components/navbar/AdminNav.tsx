@@ -42,7 +42,7 @@ export default function AdminNav() {
   useEffect(()=>{
    if(Router.pathname.startsWith("/admin")){
     if(!auth.isAuth || auth.role!=="admin"){
-      Router.push('/')
+      Router.push({pathname:'/signin',query:{prevPath:Router.pathname}})
     }
    }
   },[auth])
