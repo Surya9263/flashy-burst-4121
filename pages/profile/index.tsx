@@ -23,6 +23,7 @@ const ProfileDetails = () => {
     const dispatch = useAppDispatch()
     const auth = useAppSelector(store=>store.auth)
     const user = useAppSelector(store=>store.user)
+    const cartItems = useAppSelector(store=>store.cart.cartItems)
     const [netReqStatus,setNetReqStatus] = useState<number>(0)
     const [sucessAlrt, setAucessAlrt] = useState<boolean>(false)
     const [errorMsg, setErrorMsg] =  useState<string>("")
@@ -36,11 +37,14 @@ const ProfileDetails = () => {
            confirmpassword:'',
         });
     
+        let unorder = cartItems.filter((item)=>{
+            return !item.orderplaced
+          })
+
     
         function handleChange(e:ChangeEvent<HTMLInputElement>) {
         const {name,value} = e.target
         setUserCredentials({...userCredentials,[name]:value});
-            
         }
 
     const handleUpdatePwd = ()=>{
@@ -130,7 +134,7 @@ const ProfileDetails = () => {
 
             <Flex direction={"row"} align={"center"} w={"100%"}>
                 <Box fontSize={16} > Added Cart Items : </Box>
-                <Box fontSize={16} > {` `} {user?.authUser.cart?.length}</Box>
+                <Box fontSize={16} > {` `} {unorder.length}</Box>
             </Flex>
 
             

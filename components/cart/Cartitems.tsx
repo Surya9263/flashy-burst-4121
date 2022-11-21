@@ -26,7 +26,7 @@ const handleDelete=(id:string)=>{
 }
 
   return (
-    <Box>
+    <Box minW={["350px","350px", "400px","400px"]}>
         {cartItems.cartItems?.map((e)=><Box key={e._id} my={"10"} fontSize={"11px"}>
              {!e.orderplaced 
              &&
