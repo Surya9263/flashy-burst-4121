@@ -55,13 +55,17 @@ const SingleProduct = ({product}:{product:CIproduct}) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()
 
-  const dispatch=useAppDispatch()
-  const auth=useAppSelector((store)=>store.auth)
-  const cart=useAppSelector((store)=>store.cart)
+  const dispatch = useAppDispatch()
+  const auth = useAppSelector((store)=>store.auth)
+  const cart = useAppSelector((store)=>store.cart)
 
   const handleAddToCart=()=>{
+   let path = Router.pathname;
     if(!auth.isAuth){
-      Router.push("/signin")
+      Router.push({
+        pathname:"/signin",
+        query:{prevPath:`/product/${Router.query.id}`}
+      })
     }else{
       dispatch(addToCart({userId:auth?.userId,prodCount:1,prodId:product._id,color:"red",price:Number(product.price),size:"sm"}))
       setReqStatus(1)   
