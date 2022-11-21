@@ -61,8 +61,12 @@ const SingleProduct = ({product}:{product:CIproduct}) => {
   const cart=useAppSelector((store)=>store.cart)
 
   const handleAddToCart=()=>{
+    
     if(!auth?.isAuth){
-      Router.push("/signin")
+      Router.push({
+        pathname:"/signin",
+        query:{prevPath:`/search/${Router.query.id}`}
+      })
     }else{
       dispatch(addToCart({userId:auth?.userId,prodCount:1,prodId:product._id,color:"red",price:Number(product.price),size:"sm"}))
       setReqStatus(1)   
